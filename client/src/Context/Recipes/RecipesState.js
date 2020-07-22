@@ -39,7 +39,7 @@ const RecipesState = (props) => {
       payload: data,
     });
 
-    const fetchData = await axios.get("http://localhost:4000/mealplan");
+    const fetchData = await axios.get("/mealplan");
     let { mealplan } = fetchData.data;
 
     dispatch({
@@ -65,7 +65,7 @@ const RecipesState = (props) => {
 
   const deleteRecipeByID = async (id) => {
     console.log("CALLING DELETE RECIPE");
-    await axios.delete(`http://localhost:4000/recipe/${id}`);
+    await axios.delete(`/recipe/${id}`);
     dispatch({
       type: DELETE_RECIPE,
       payload: id,
@@ -77,7 +77,7 @@ const RecipesState = (props) => {
 
     await axios({
       method: "patch",
-      url: "http://localhost:4000/mealplan",
+      url: "/mealplan",
       headers: {
         "Content-Type": "application/json",
       },
