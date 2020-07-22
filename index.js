@@ -85,7 +85,7 @@ app.get("/thepioneerwoman", async (req, res) => {
   res.json(recipe);
 });
 
-app.get("/", async (req, res) => {
+app.get("/recipes", async (req, res) => {
   console.log("Receiving a get request!");
   try {
     const recipes = await Recipe.find();
