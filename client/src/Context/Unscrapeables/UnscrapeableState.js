@@ -6,23 +6,23 @@ import axios from "axios";
 import {
   SET_UNSCRAPEABLES,
   ADD_UNSCRAPEABLE,
-  DELETE_UNSCRAPEABLE
+  DELETE_UNSCRAPEABLE,
 } from "../types";
 
-const UnscrapeableState = props => {
+const UnscrapeableState = (props) => {
   const initialState = {
-    sites: []
+    sites: [],
   };
 
   const [state, dispatch] = useReducer(UnscrapeableReducer, initialState);
 
   //SET INITIAL STATE
   const setIntialState = async () => {
-    const { data } = await axios.get(`http://localhost:4000/unscrapeables`);
+    const { data } = await axios.get(`/unscrapeables`);
 
     dispatch({
       type: SET_UNSCRAPEABLES,
-      payload: data.sites
+      payload: data.sites,
     });
   };
 
@@ -31,19 +31,19 @@ const UnscrapeableState = props => {
   }, []);
 
   //   UNSCRAPEABLE WEBSITE BASED FUNCTIONS
-  const addUnscrapeable = async site => {
+  const addUnscrapeable = async (site) => {
     console.log("UNSCRAPEABLE WEBSITE TO ADD", site);
     dispatch({
       type: ADD_UNSCRAPEABLE,
-      payload: site
+      payload: site,
     });
   };
 
-  const deleteUnscrapeableByID = async id => {
+  const deleteUnscrapeableByID = async (id) => {
     await axios.delete(`/unscrapeables/${id}`);
     dispatch({
       type: DELETE_UNSCRAPEABLE,
-      payload: id
+      payload: id,
     });
   };
 
@@ -61,7 +61,7 @@ const UnscrapeableState = props => {
         sites: state.sites,
         addUnscrapeable,
         setIntialState,
-        deleteUnscrapeableByID
+        deleteUnscrapeableByID,
       }}
     >
       {props.children}

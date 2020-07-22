@@ -13,16 +13,16 @@ export const AddRecipe = () => {
 
   const { addRecipe } = useContext(RecipeContext);
 
-  const sumbitCompleteRecipe = async recipe => {
+  const sumbitCompleteRecipe = async (recipe) => {
     const res = await Axios({
       method: "post",
-      url: "http://localhost:4000/create",
+      url: "/create",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       data: {
-        recipe
-      }
+        recipe,
+      },
     });
 
     const rpy = res.data.recipe;
@@ -30,7 +30,7 @@ export const AddRecipe = () => {
     setRedirect(true);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
   };
   useEffect(() => {
@@ -43,19 +43,19 @@ export const AddRecipe = () => {
     setFetching(true);
     const { data } = await Axios({
       method: "post",
-      url: "http://localhost:4000/scrape",
+      url: "/scrape",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       data: {
-        url: fetch_url
-      }
+        url: fetch_url,
+      },
     });
 
     if (data && data.status === 200) {
       const recipe = {
         ...data.recipe,
-        recipeString: data.recipe.recipeInstructions.map(i => i.text)
+        recipeString: data.recipe.recipeInstructions.map((i) => i.text),
       };
       console.log("RECIPE", recipe);
 
@@ -111,7 +111,7 @@ export const AddRecipe = () => {
     author: "NAME",
     datePublished: "07-22-2019",
     image: [
-      "https://www.simplyrecipes.com/wp-content/uploads/2017/06/2017-07-19-ChickenNoodleBowls-7-600x840.jpg"
+      "https://www.simplyrecipes.com/wp-content/uploads/2017/06/2017-07-19-ChickenNoodleBowls-7-600x840.jpg",
     ],
     recipeYield: "4 Servings",
     prepTime: "35M",
@@ -122,10 +122,10 @@ export const AddRecipe = () => {
     recipeString: [],
     recipeCategory: ["Vietnamese"],
     recipeCuisine: ["Vietnamese"],
-    url: ""
+    url: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const updatedRecipe = { ...recipe };
     switch (e.target.name) {
       case "image":
@@ -137,9 +137,11 @@ export const AddRecipe = () => {
       case "recipeString":
         updatedRecipe["recipeString"] = e.target.value.split(`\n`);
         const instructions = e.target.value.split(`\n`);
-        updatedRecipe["recipeInstructions"] = instructions.map(instruction => {
-          return { "@type": "HowToStep", text: instruction };
-        });
+        updatedRecipe["recipeInstructions"] = instructions.map(
+          (instruction) => {
+            return { "@type": "HowToStep", text: instruction };
+          }
+        );
 
         break;
       case "recipeCategory":
@@ -186,7 +188,7 @@ export const AddRecipe = () => {
           aria-label="Recipient's username"
           aria-describedby="button-addon2"
           value={fetch_url}
-          onChange={e => setFetchUrl(e.target.value)}
+          onChange={(e) => setFetchUrl(e.target.value)}
         />
         <div class="input-group-append">
           <button
@@ -205,7 +207,7 @@ export const AddRecipe = () => {
         )}
       </div>
       <div className="grid-container">
-        <form onSubmit={e => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <h3>Recipe Form</h3>
           <hr />
           <div class="form-group">
@@ -216,7 +218,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="Name"
               value={recipe.name}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -227,7 +229,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="Author"
               value={recipe.author}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -238,7 +240,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="Date Published"
               value={recipe.datePublished}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -249,7 +251,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="Image URL"
               value={recipe.image[0]}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -260,7 +262,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="Yield"
               value={recipe.recipeYield}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           {/* name: String,
@@ -284,7 +286,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="1H5M"
               value={recipe.prepTime}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -295,7 +297,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="55M"
               value={recipe.cookTime}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -306,7 +308,7 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="2H0M"
               value={recipe.totalTime}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -319,7 +321,7 @@ export const AddRecipe = () => {
                 "1 ingredient, per line \n1 enter, to get to new line"
               }
               value={recipe.recipeIngredient.join("\n")}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -332,7 +334,7 @@ export const AddRecipe = () => {
                 "1 instruction, per line \n1 enter, to get to new line"
               }
               value={recipe.recipeString.join("\n")}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div class="form-group">
@@ -345,7 +347,7 @@ export const AddRecipe = () => {
                 "1 instruction, per line \n1 enter, to get to new line"
               }
               value={recipe.recipeString.join("\n")}
-              onChange={e => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <button
