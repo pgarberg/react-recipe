@@ -33,15 +33,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(
-  "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
-  {
-    useNewUrlParser: true,
-  },
-  (error) => {
-    console.log("MONGODB CONNECTION ERROR : ", error);
-  }
-);
+try {
+  await mongoose.connect(
+    "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
+    {
+      useNewUrlParser: true,
+    }
+  );
+} catch (error) {
+  console.log("MONGODB CONNECTION ERROR : ", error);
+}
 
 mongoose.connection.on("error", (err) => {
   console.log("ON MONGO ERROR : ", err);
