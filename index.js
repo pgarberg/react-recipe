@@ -32,20 +32,46 @@ dotenv.config();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+console.log(
+  "OUR URI MONGOOOOOOOSE : ",
+  "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes"
+);
 const connectDB = async () => {
-  try {
-    await mongoose.connect(
+  // try {
+  //   await mongoose.connect(
+  //     "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
+  //     {
+  //       useNewUrlParser: true,
+  //       useCreateIndex: true,
+  //       useFindAndModify: false,
+  //     }
+  //   );
+
+  //   console.log("MongoDB Connected...");
+  // } catch (err) {
+  //   console.error(err.message);
+  //   process.exit(1);
+  // }
+  mongoose
+    .connect(
       "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
       {
         useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
       }
-    );
-  } catch (error) {
-    console.log("MONGODB CONNECTION ERROR : ", error);
-  }
+    )
+    .then(() => console.log("DB Connection Successfull"))
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 connectDB();
+
+const PORT = process.env.PORT || 4000;
 
 mongoose.connection.on("error", (err) => {
   console.log("ON MONGO ERROR : ", err);
@@ -298,14 +324,12 @@ app.post("/mealplan", async (req, res) => {
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-  app.disable("x-powered-by");
-  app.use(compression());
-  app.use(morgan("common"));
+
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
-app.listen("4000", () => {
-  console.log("App is up and running on 4000");
+app.listen(PORT, () => {
+  console.log("SERVER RUNNING ON 4000");
 });
