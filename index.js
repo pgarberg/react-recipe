@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(
-  "mongodb://pgarberg:Lamelama2018!@reactrecipe-shard-00-00.vsrtw.mongodb.net:27017,reactrecipe-shard-00-01.vsrtw.mongodb.net:27017,reactrecipe-shard-00-02.vsrtw.mongodb.net:27017/RecipeReact?ssl=true&replicaSet=atlas-x7vfg6-shard-0&authSource=admin&retryWrites=true&w=majority",
+  "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
   {
     useNewUrlParser: true,
   }
