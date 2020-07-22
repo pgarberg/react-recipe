@@ -24,8 +24,8 @@ const saveur = require("./saveur");
 const pinchofyum = require("./pinchofyum");
 const thepioneerwoman = require("./thepioneerwoman");
 
-const compression = require('compression')
-const morgan = require('morgan')
+const compression = require("compression");
+const morgan = require("morgan");
 
 dotenv.config();
 
@@ -283,12 +283,12 @@ app.post("/mealplan", async (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static('client/build')));
-  app.disable('x-powered-by');
+  app.use(express.static("client/build"));
+  app.disable("x-powered-by");
   app.use(compression());
-  app.use(morgan('common'));
+  app.use(morgan("common"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
