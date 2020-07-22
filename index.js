@@ -37,8 +37,15 @@ mongoose.connect(
   "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
   {
     useNewUrlParser: true,
+  },
+  (error) => {
+    console.log("MONGODB CONNECTION ERROR : ", error);
   }
 );
+
+mongoose.connection.on("error", (err) => {
+  console.log("ON MONGO ERROR : ", err);
+});
 
 app.get("/thepioneerwoman", async (req, res) => {
   const recipe = await thepioneerwoman(
