@@ -33,9 +33,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  "mongodb://pgarberg:Lamelama2018!@reactrecipe-shard-00-00.vsrtw.mongodb.net:27017,reactrecipe-shard-00-01.vsrtw.mongodb.net:27017,reactrecipe-shard-00-02.vsrtw.mongodb.net:27017/RecipeReact?ssl=true&replicaSet=atlas-x7vfg6-shard-0&authSource=admin&retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+  }
+);
 
 app.get("/thepioneerwoman", async (req, res) => {
   const recipe = await thepioneerwoman(
