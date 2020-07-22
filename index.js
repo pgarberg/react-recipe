@@ -32,17 +32,20 @@ dotenv.config();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
+      {
+        useNewUrlParser: true,
+      }
+    );
+  } catch (error) {
+    console.log("MONGODB CONNECTION ERROR : ", error);
+  }
+};
 
-try {
-  await mongoose.connect(
-    "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
-    {
-      useNewUrlParser: true,
-    }
-  );
-} catch (error) {
-  console.log("MONGODB CONNECTION ERROR : ", error);
-}
+connectDB();
 
 mongoose.connection.on("error", (err) => {
   console.log("ON MONGO ERROR : ", err);
