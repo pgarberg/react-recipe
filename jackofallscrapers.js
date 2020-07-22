@@ -5,7 +5,7 @@ const { JSDOM } = jsdom;
 const Recipe = require("./models/Recipe");
 const { URL } = require("jsdom-url");
 
-const jackofallscrapers = async recipe_url => {
+const jackofallscrapers = async (recipe_url) => {
   const fetched_recipe = {};
 
   //  assign: [Function: assign],
@@ -40,8 +40,8 @@ const jackofallscrapers = async recipe_url => {
       const cheerioFilter = [
         ...dom.window.document.querySelectorAll(
           `script[type="application/ld+json"]`
-        )
-      ].filter(c => c.innerHTML.includes("Ingredient"));
+        ),
+      ].filter((c) => c.innerHTML.includes("Ingredient"));
       console.log("Time to make our choice");
 
       if (
@@ -51,7 +51,7 @@ const jackofallscrapers = async recipe_url => {
             .replace(/ /g, "SpAcE")
             .replace(/\s/g, "\\s")
             .replace(/SpAcE/g, " ")
-            .replace(/(\s)/g, function($0) {
+            .replace(/(\s)/g, function ($0) {
               return $0 == " " ? " " : "\\s";
             })
             .replace(/\\/g, "")
@@ -64,11 +64,11 @@ const jackofallscrapers = async recipe_url => {
             .replace(/ /g, "SpAcE")
             .replace(/\s/g, "\\s")
             .replace(/SpAcE/g, " ")
-            .replace(/(\s)/g, function($0) {
+            .replace(/(\s)/g, function ($0) {
               return $0 == " " ? " " : "\\s";
             })
             .replace(/\\/g, "")
-        )["@graph"].filter(c => c["@type"] === "Recipe")[0];
+        )["@graph"].filter((c) => c["@type"] === "Recipe")[0];
       } else if (
         typeof JSON.parse(
           cheerioFilter[0].innerHTML
@@ -76,7 +76,7 @@ const jackofallscrapers = async recipe_url => {
             .replace(/ /g, "SpAcE")
             .replace(/\s/g, "\\s")
             .replace(/SpAcE/g, " ")
-            .replace(/(\s)/g, function($0) {
+            .replace(/(\s)/g, function ($0) {
               return $0 == " " ? " " : "\\s";
             })
             .replace(/\\/g, "")
@@ -89,7 +89,7 @@ const jackofallscrapers = async recipe_url => {
             .replace(/ /g, "SpAcE")
             .replace(/\s/g, "\\s")
             .replace(/SpAcE/g, " ")
-            .replace(/(\s)/g, function($0) {
+            .replace(/(\s)/g, function ($0) {
               return $0 == " " ? " " : "\\s";
             })
             .replace(/\\/g, "")
@@ -102,11 +102,11 @@ const jackofallscrapers = async recipe_url => {
             .replace(/ /g, "SpAcE")
             .replace(/\s/g, "\\s")
             .replace(/SpAcE/g, " ")
-            .replace(/(\s)/g, function($0) {
+            .replace(/(\s)/g, function ($0) {
               return $0 == " " ? " " : "\\s";
             })
             .replace(/\\/g, "")
-        ).filter(c => c["@type"] === "Recipe")[0];
+        ).filter((c) => c["@type"] === "Recipe")[0];
       }
 
       console.log("CHEEEEEEERS : ", cheers);
@@ -170,7 +170,7 @@ const jackofallscrapers = async recipe_url => {
         recipeIngredient,
         recipeInstructions,
         recipeCategory,
-        recipeCuisine
+        recipeCuisine,
       } = cheers;
 
       let images = [];
@@ -178,7 +178,7 @@ const jackofallscrapers = async recipe_url => {
       if (typeof image === "string") {
         images.push(image);
       } else if (Array.isArray(image)) {
-        image.map(i => {
+        image.map((i) => {
           if (typeof i === "string") {
             images.push(i);
           } else if (typeof i === "array") {
@@ -193,21 +193,21 @@ const jackofallscrapers = async recipe_url => {
       if (typeof recipeInstructions === "string") {
         instructions.push({
           "@type": "HowToStep",
-          text: recipeInstructions
+          text: recipeInstructions,
         });
       }
 
       if (Array.isArray(recipeInstructions)) {
         console.log("Highway to the Array Zone");
-        recipeInstructions.map(i => {
+        recipeInstructions.map((i) => {
           if (i.itemListElement) {
-            i.itemListElement.map(x => {
+            i.itemListElement.map((x) => {
               if (typeof x === "object") {
                 instructions.push(x);
               } else if (typeof x === "string") {
                 instructions.push({
                   "@type": "HowToStep",
-                  text: x
+                  text: x,
                 });
               }
             });
@@ -219,7 +219,7 @@ const jackofallscrapers = async recipe_url => {
             console.log("Array Zone String");
             instructions.push({
               "@type": "HowToStep",
-              text: i
+              text: i,
             });
           } else if (Array.isArray(i)) {
             if (typeof i === "object") {
@@ -229,7 +229,7 @@ const jackofallscrapers = async recipe_url => {
               console.log("Array Zone String");
               instructions.push({
                 "@type": "HowToStep",
-                text: i
+                text: i,
               });
             }
           }
@@ -238,13 +238,28 @@ const jackofallscrapers = async recipe_url => {
 
       if (Array.isArray(author)) {
         console.log("AUTHROAY");
-        author = author.filter(c => c["@type"] === "Person")[0].name;
+        author = author.filter((c) => c["@type"] === "Person")[0].name;
         console.log("AUTHROA222Y", author);
       }
 
       if (typeof author === "object") {
         author = author.name;
       }
+
+      console.log("LOOK AT ME RECIPE YIEEEEEEEEEEEEEELD : ", recipeYield);
+
+      console.log("RECIPY YIELDY  : ", recipeYield);
+
+      console.log("IS_ARRAY? : ", Array.isArray(recipeYield));
+
+      if (Array.isArray(recipeYield)) {
+        recipeYield = recipeYield.join(" ");
+      }
+
+      if (typeof recipeYield === "number") {
+        recipeYield = recipeYield.toString();
+      }
+      console.log(typeof recipeYield);
 
       const recipe = {
         name,
@@ -259,27 +274,27 @@ const jackofallscrapers = async recipe_url => {
         recipeInstructions: instructions,
         recipeCategory,
         recipeCuisine,
-        url: recipe_url
+        url: recipe_url,
       };
 
       console.log("made it to end");
       return {
         status: 200,
         msg: "Recipe Successfully Created",
-        recipe
+        recipe,
       };
     } catch (error) {
       return {
         status: 400,
         msg: "Error Encountered",
         recipe: "",
-        url: originURL
+        url: originURL,
       };
     }
   } catch (error) {
     return {
       status: 400,
-      msg: `Error Could Not Retrieve Recipe from ${recipe_url}`
+      msg: `Error Could Not Retrieve Recipe from ${recipe_url}`,
     };
   }
 };
