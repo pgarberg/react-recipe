@@ -32,7 +32,7 @@ const RecipesState = (props) => {
   //SET INITIAL STATE
   const setIntialState = async () => {
     console.log("CALLING SET INTITIAL STATE!!");
-    const { data } = await axios.get(`http://localhost:4000/recipes`);
+    const { data } = await axios.get(`/recipes`);
 
     dispatch({
       type: SET_RECIPES,
