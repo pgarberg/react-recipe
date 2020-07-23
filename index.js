@@ -33,41 +33,28 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-console.log(
-  "OUR URI MONGOOOOOOOSE : ",
-  "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes"
-);
 const connectDB = async () => {
-  // try {
-  //   await mongoose.connect(
-  //     "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
-  //     {
-  //       useNewUrlParser: true,
-  //       useCreateIndex: true,
-  //       useFindAndModify: false,
-  //     }
-  //   );
-
-  //   console.log("MongoDB Connected...");
-  // } catch (err) {
-  //   console.error(err.message);
-  //   process.exit(1);
-  // }
-  mongoose
-    .connect(
-      "mongodb://pgarberg:a2b3c4pg@ds015849.mlab.com:15849/react-recipes",
-      {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-      }
-    )
-    .then(() => console.log("DB Connection Successfull"))
-    .catch((err) => {
-      console.error(err);
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
     });
+
+    console.log("MongoDB Connected...");
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
 };
+
+// console.log("MONGODB_URI : ", process.env.MONGODB_URI);
+
+// const connectDB = () => {
+//   mongoose.connect(process.env.MONGODB_URI, {
+//     useNewUrlParser: true,
+//   });
+// };
 
 connectDB();
 
@@ -86,9 +73,11 @@ app.get("/thepioneerwoman", async (req, res) => {
 });
 
 app.get("/recipes", async (req, res) => {
-  console.log("Receiving a get request!");
+  console.log("Receiving a get request for /RECIPES!");
   try {
     const recipes = await Recipe.find();
+
+    console.log("RECIPES TO BE SENT : ", recipes);
 
     res.json(recipes);
   } catch (error) {

@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import RecipeContext from "../Context/Recipes/recipeContext";
 
-export const Recipes = props => {
+export const Recipes = (props) => {
   const { recipes } = useContext(RecipeContext);
   const [filter, setFilter] = useState("");
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFilter(e.target.value);
   };
   return (
@@ -19,11 +19,11 @@ export const Recipes = props => {
         <input
           type="text"
           class="form-control"
-          placeholder="Username"
-          aria-label="Username"
+          placeholder="Recipe Name"
+          aria-label="Recipe Name"
           aria-describedby="basic-addon1"
           value={filter}
-          onChange={e => handleChange(e)}
+          onChange={(e) => handleChange(e)}
         />
       </div>
 
@@ -31,10 +31,10 @@ export const Recipes = props => {
         {recipes &&
           recipes.length > 0 &&
           recipes
-            .filter(recipe =>
+            .filter((recipe) =>
               recipe.name.toLowerCase().includes(filter.toLowerCase())
             )
-            .map(recipe => (
+            .map((recipe) => (
               <div className="col mb-4">
                 <div class="card" style={{ width: "18rem" }}>
                   <div style={{ overflow: "hidden", maxHeight: "200px" }}>
@@ -49,7 +49,7 @@ export const Recipes = props => {
                           overflow: "hidden",
                           position: "relative",
                           top: "50%",
-                          transform: "translateY(-50%)"
+                          transform: "translateY(-50%)",
                         }}
                       />
                     </Link>
