@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { Recipe } from "./Recipe";
+
 import { RecipePreview } from "./RecipePreview";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
-import RecipeContext from "../Context/Recipes/recipeContext";
 
 // TODO :
 //WE ARE ABLE TO SEND THE UPDATES TO OUR BACKEND, HOWEVER, WE NEED TO MAKE SURE TO UPDATE OUR LOCAL STATE
@@ -36,7 +35,7 @@ export const EditRecipe = () => {
     recipeNotes: [],
   });
 
-  useEffect(() => {
+  useEffect((id) => {
     async function fetchdata() {
       const res = await Axios({
         method: "get",
@@ -58,7 +57,7 @@ export const EditRecipe = () => {
       console.log("Will send ", ress);
       const res = await Axios({
         method: "post",
-        url: `http://localhost:4000/recipe/${id}`,
+        url: `/recipe/${id}`,
         headers: {
           "Content-Type": "application/json",
         },

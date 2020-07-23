@@ -1,8 +1,6 @@
-import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext } from "react";
+
 import RecipeContext from "../Context/Recipes/recipeContext";
-import { Link, Redirect } from "react-router-dom";
-import Axios from "axios";
 
 import styled from "styled-components";
 import MealCard from "./MealCard";

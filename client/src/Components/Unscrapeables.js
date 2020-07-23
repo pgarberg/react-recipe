@@ -4,27 +4,27 @@ import unscrapeableContext from "../Context/Unscrapeables/unscrapeableContext";
 export const Unscrapeables = () => {
   const { sites } = useContext(unscrapeableContext);
 
-  const stillUnscrapeable = site => {
+  const stillUnscrapeable = (site) => {
     switch (site.schemaConstructed) {
       case true:
         return "list-group-item-success";
-        break;
+
       case false:
         return "list-group-item-danger";
-        break;
+
       default:
         return "";
     }
   };
 
-  const stillUnscrapeablePill = site => {
+  const stillUnscrapeablePill = (site) => {
     switch (site.schemaConstructed) {
       case true:
         return "badge-success";
-        break;
+
       case false:
         return "badge-danger";
-        break;
+
       default:
         return "";
     }
@@ -47,7 +47,7 @@ export const Unscrapeables = () => {
       <hr />
       {sites && (
         <ul class="list-group list-group-flush">
-          {sites.map(site => {
+          {sites.map((site) => {
             return (
               <li
                 className={`list-group-item ${stillUnscrapeable(

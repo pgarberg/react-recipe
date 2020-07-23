@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Recipe } from "./Recipe";
 import { RecipePreview } from "./RecipePreview";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";

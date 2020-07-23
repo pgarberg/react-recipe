@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import RecipeReducer from "./recipesReducer";
 import RecipeContext from "./recipeContext";
 import axios from "axios";
@@ -7,7 +7,6 @@ import {
   SET_RECIPES,
   ADD_RECIPE,
   DELETE_RECIPE,
-  ADD_TO_PLANNER,
   ADD_RECIPE_TO_DAY,
   SET_WEEKLY_MEAL_PLAN,
   UPDATE_MEAL_PLAN,

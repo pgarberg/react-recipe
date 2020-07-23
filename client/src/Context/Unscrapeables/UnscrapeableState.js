@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import UnscrapeableReducer from "./unscrapeableReducer";
 import UnscrapeableContext from "./unscrapeableContext";
 import axios from "axios";

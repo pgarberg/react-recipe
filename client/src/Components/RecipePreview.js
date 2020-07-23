@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 
-export const RecipePreview = props => {
+export const RecipePreview = (props) => {
   const { recipe } = props;
 
   return (
@@ -12,6 +11,7 @@ export const RecipePreview = props => {
           <hr />
           <div style={{ maxHeight: "250px", overflow: "hidden" }}>
             <img
+              alt={`Image of the ${recipe.name}.`}
               src={recipe.image[0]}
               style={{ maxWidth: "400px", height: "auto" }}
             />
@@ -31,7 +31,7 @@ export const RecipePreview = props => {
                   Ingredients
                 </h4>
                 <ul>
-                  {recipe.recipeIngredient.map(ing => (
+                  {recipe.recipeIngredient.map((ing) => (
                     <li>{ing}</li>
                   ))}
                 </ul>
@@ -45,7 +45,7 @@ export const RecipePreview = props => {
                 </h4>
                 <ol>
                   {recipe.recipeInstructions.map(
-                    ing => ing.text && <li>{ing.text}</li>
+                    (ing) => ing.text && <li>{ing.text}</li>
                   )}
                 </ol>
               </div>

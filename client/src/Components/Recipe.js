@@ -75,6 +75,7 @@ export const Recipe = (props) => {
               <img
                 src={recipe.image[0]}
                 style={{ maxWidth: "100%", height: "auto" }}
+                alt={`Image of recipe ${recipe.name}`}
               />
             </div>
           </div>
@@ -211,6 +212,7 @@ export const Recipe = (props) => {
               <img
                 src={recipe.image[0]}
                 style={{ maxWidth: "100%", height: "auto" }}
+                alt={`Image of recipe ${recipe.name}`}
               />
             </div>
           </div>

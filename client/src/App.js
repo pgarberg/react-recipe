@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Switch, Link, Route, BrowserRouter as Router } from "react-router-dom";
-import logo from "./logo.svg";
-import axios from "axios";
+import React from "react";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+
 import "./App.css";
 import { Recipes } from "./Components/Recipes";
 import { Recipe } from "./Components/Recipe";
@@ -11,23 +10,10 @@ import { AddRecipe } from "./Components/AddRecipe";
 import { EditRecipe } from "./Components/EditRecipe";
 import RecipesState from "./Context/Recipes/RecipesState";
 import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
-import RecipeContext from "./Context/Recipes/recipeContext";
 import { Unscrapeables } from "./Components/Unscrapeables";
 import WeekPlanner from "./Components/WeekPlanner";
 
 function App() {
-  // const [recipes, setRecipes] = useState({});
-
-  // useEffect(() => {
-  // //   axios.get(`http://localhost:4000/`).then(res => {
-  // //     console.log("RES", res);
-  // //     setRecipes(res.data);
-  // //   });
-  // // }, []);
-  // // useEffect(() => {
-  // //   console.log(recipes);
-  // // }, [recipes]);
-
   return (
     <RecipesState>
       <UnscrapeableState>
