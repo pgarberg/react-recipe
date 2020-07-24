@@ -17,9 +17,13 @@ export const RecipePreview = (props) => {
             />
           </div>
           <hr />
-          <a href={recipe.url}>
+          {recipe.url ? (
+            <a href={recipe.url}>
+              <h3>{recipe.author}</h3>
+            </a>
+          ) : (
             <h3>{recipe.author}</h3>
-          </a>
+          )}
 
           <div class="container mt-5">
             <div class="row">
@@ -53,6 +57,7 @@ export const RecipePreview = (props) => {
             <h4 style={{ borderBottom: "1px solid black" }} className="pb-3">
               Notes
             </h4>
+            <ul>{recipe.recipeNotes.map((ing) => ing && <li>{ing}</li>)}</ul>
           </div>
         </div>
       )}

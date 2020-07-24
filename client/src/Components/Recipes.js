@@ -27,7 +27,7 @@ export const Recipes = (props) => {
         />
       </div>
 
-      <div className="row row-cols-1 row-cols-md-4 ml-1 mt-5">
+      <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5">
         {recipes &&
           recipes.length > 0 &&
           recipes

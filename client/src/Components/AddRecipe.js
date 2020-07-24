@@ -55,6 +55,7 @@ export const AddRecipe = () => {
       const recipe = {
         ...data.recipe,
         recipeString: data.recipe.recipeInstructions.map((i) => i.text),
+        recipeNotes: [],
       };
       console.log("RECIPE", recipe);
 
@@ -122,6 +123,7 @@ export const AddRecipe = () => {
     recipeCategory: ["Vietnamese"],
     recipeCuisine: ["Vietnamese"],
     url: "",
+    recipeNotes: [],
   });
 
   const handleChange = (e) => {
@@ -143,6 +145,8 @@ export const AddRecipe = () => {
         );
 
         break;
+      case "recipeNotes":
+        updatedRecipe["recipeNotes"] = e.target.value.split(`\n`);
       case "recipeCategory":
         updatedRecipe["recipeCategory"] = e.target.value.split(`\n`);
         break;
@@ -188,6 +192,7 @@ export const AddRecipe = () => {
           aria-describedby="button-addon2"
           value={fetch_url}
           onChange={(e) => setFetchUrl(e.target.value)}
+          onKeyDown={(e) => (e.key === "Enter" ? handleFetch() : null)}
         />
         <div class="input-group-append">
           <button
@@ -200,7 +205,7 @@ export const AddRecipe = () => {
           </button>
         </div>
         {fetching && (
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-primary ml-3" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         )}
@@ -217,6 +222,16 @@ export const AddRecipe = () => {
               class="form-control"
               placeholder="Name"
               value={recipe.name}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Recipe URL</label>
+            <input
+              name="url"
+              type="text"
+              class="form-control"
+              value={recipe.url}
               onChange={(e) => handleChange(e)}
             />
           </div>
@@ -339,13 +354,13 @@ export const AddRecipe = () => {
           <div class="form-group">
             <label for="exampleFormControlSelect1">Recipe Notes</label>
             <textarea
-              name="recipeString"
+              name="recipeNotes"
               type="text"
               class="form-control"
               placeholder={
                 "1 instruction, per line \n1 enter, to get to new line"
               }
-              value={recipe.recipeString.join("\n")}
+              value={recipe.recipeNotes.join("\n")}
               onChange={(e) => handleChange(e)}
             />
           </div>
