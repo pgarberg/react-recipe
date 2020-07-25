@@ -15,7 +15,7 @@ export const AddRecipe = () => {
   const sumbitCompleteRecipe = async (recipe) => {
     const res = await Axios({
       method: "post",
-      url: "/create",
+      url: "/recipe/create",
       headers: {
         "Content-Type": "application/json",
       },
