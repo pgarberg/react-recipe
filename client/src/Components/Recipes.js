@@ -56,9 +56,7 @@ export const Recipes = (props) => {
                   </div>
                   <div class="card-body">
                     <h5 class="card-title">{recipe.name}</h5>
-                    <p class="card-text">
-                      <a href={recipe.url}>{recipe.author}</a>
-                    </p>
+                    <p class="card-text">{recipe.author}</p>
                   </div>
                 </div>
               </div>

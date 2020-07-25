@@ -82,9 +82,9 @@ export const Recipe = (props) => {
 
           <hr />
           <div class="container">
-            <div class="row">
+            <div class="row d-flex justify-content-around">
               <Link to={`/recipe/${recipe._id}/edit`}>
-                <div class="btn btn-primary a-btn-slide-text mr-4">
+                <div class="btn btn-primary a-btn-slide-text">
                   <span
                     class="glyphicon glyphicon-edit"
                     aria-hidden="true"

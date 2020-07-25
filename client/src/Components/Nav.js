@@ -25,6 +25,11 @@ export const Nav = () => {
             Weekly Planner
           </Link>
         </li>
+        <li class="nav-item">
+          <Link class="nav-link" to="/collections">
+            Collections
+          </Link>
+        </li>
       </ul>
     </div>
   );

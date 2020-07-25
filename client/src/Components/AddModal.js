@@ -39,7 +39,7 @@ export const AddModal = ({
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" id="exampleModalCenterTitle">
-                Add Meal To Planner
+                Add To Meal Plan
               </h4>
               <button
                 type="button"
