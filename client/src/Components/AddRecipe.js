@@ -180,7 +180,7 @@ export const AddRecipe = () => {
   recipeCategory: [String],
   recipeCuisine: [String],
   url: String */}
-      <h1>Add Recipe</h1>
+      <h1 className="tas">Add Recipe</h1>
       <hr />
 
       <div class="input-group mb-3">
@@ -212,7 +212,7 @@ export const AddRecipe = () => {
       </div>
       <div className="grid-container">
         <form onSubmit={(e) => handleSubmit(e)}>
-          <h3>Recipe Form</h3>
+          <h3 className="tas">Recipe Form</h3>
           <hr />
           <div class="form-group">
             <label for="exampleFormControlInput1">Name</label>
@@ -372,7 +372,7 @@ export const AddRecipe = () => {
           </button>
         </form>
 
-        <div>
+        <div className="tas">
           <h3>Recipe Preview</h3>
           <hr />
           <RecipePreview recipe={recipe} />

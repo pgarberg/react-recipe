@@ -12,6 +12,7 @@ import RecipesState from "./Context/Recipes/RecipesState";
 import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
 import { Unscrapeables } from "./Components/Unscrapeables";
 import WeekPlanner from "./Components/WeekPlanner";
+import { Collections } from "./Components/Collections";
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
               </Route>
               <Route exact path="/weeklyplanner">
                 <WeekPlanner />
+              </Route>
+              <Route exact path="/collections">
+                <Collections />
               </Route>
             </Switch>
           </div>

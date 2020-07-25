@@ -31,8 +31,8 @@ const WeekPlanner = () => {
   console.log("RECIPE : ", recipe);
 
   return (
-    <div className="container">
-      <h1>Weekly Meal Planner</h1>
+    <div className="container tas">
+      <h1 className="">Weekly Meal Planner</h1>
       <hr />
       <Calendar>
         <Day>

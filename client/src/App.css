@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .page_wrapper {
   padding-left: 20%;
   padding-right: 20%;
@@ -41,6 +37,10 @@ li {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.tas {
+  text-align: center;
 }
 
 .App-link {

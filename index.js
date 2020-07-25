@@ -15,16 +15,20 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Call our mongoose instance to connect
 connectDB();
 
 const PORT = process.env.PORT || 4000;
 
+//Log error if mongoose encounters any errors after connecting
 mongoose.connection.on("error", (err) => {
   console.log("ON MONGO ERROR : ", err);
 });
 
+//Handling all of our route requests
 app.use("/", router);
 
+//Required code for Heroku deploy
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
