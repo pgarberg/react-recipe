@@ -36,14 +36,19 @@ router.post("/recipe/:id", recipesController.updateRecipeByID);
 //   res.send("Updated");
 // });
 
+//
 //UNSCRAPABLE SITE RELATED ROUTES
+//
 router.get("/unscrapeables", unscrapeablesController.getUnscrapeables);
 
+//
 //WEBSITE SCRAPING RELATED ROUTES
+//
 router.post("/scrape", scrapeController.scrape);
 
+//
 //MEAL PLAN RELATED ROUTES
-
+//
 router.get("/mealplan", mealplanController.getMealPlan);
 
 router.patch("/mealplan", mealplanController.updateMealPlan);

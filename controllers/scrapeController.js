@@ -1,14 +1,14 @@
 const cheerio = require("cheerio");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const jackofallscrapers = require("../jackofallscrapers");
-const allrecipes = require("../allrecipes");
-const damndelicious = require("../damndelicious");
-const spruceeats = require("../spruceeats");
-const nytimes = require("../nytimes");
-const saveur = require("../saveur");
-const pinchofyum = require("../pinchofyum");
-const thepioneerwoman = require("../thepioneerwoman");
+const jackofallscrapers = require("../scrapeTemplates/jackofallscrapers");
+const allrecipes = require("../scrapeTemplates/allrecipes");
+const damndelicious = require("../scrapeTemplates/damndelicious");
+const spruceeats = require("../scrapeTemplates/spruceeats");
+const nytimes = require("../scrapeTemplates/nytimes");
+const saveur = require("../scrapeTemplates/saveur");
+const pinchofyum = require("../scrapeTemplates/pinchofyum");
+const thepioneerwoman = require("../scrapeTemplates/thepioneerwoman");
 
 const NonScrapeable = require("../models/NonScrapeable");
 

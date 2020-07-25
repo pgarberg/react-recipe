@@ -2,7 +2,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const Recipe = require("./models/Recipe");
+
 const { URL } = require("jsdom-url");
 
 const jackofallscrapers = async (recipe_url) => {
