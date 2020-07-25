@@ -13,7 +13,7 @@ export const EditRecipe = () => {
   const [alert, setAlert] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  const { id } = useParams();
+  console.log(useParams());
 
   const [recipe, setRecipe] = useState({
     name: "TEST",
@@ -34,12 +34,14 @@ export const EditRecipe = () => {
     url: "",
     recipeNotes: [],
   });
+  const { id } = useParams();
 
-  useEffect((id) => {
+  useEffect(() => {
+    console.log("OUR PASSED ID : ", id);
     async function fetchdata() {
       const res = await Axios({
         method: "get",
-        url: `http://localhost:4000/recipe/${id}`,
+        url: `/recipe/${id}`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -51,17 +53,14 @@ export const EditRecipe = () => {
   }, []);
 
   const updateData = async () => {
-    console.log("DEFAULT PRENTED");
-    let ress = recipe;
     async function postData() {
-      console.log("Will send ", ress);
       const res = await Axios({
-        method: "post",
+        method: "patch",
         url: `/recipe/${id}`,
         headers: {
           "Content-Type": "application/json",
         },
-        data: JSON.stringify(ress),
+        data: JSON.stringify(recipe),
       });
     }
 

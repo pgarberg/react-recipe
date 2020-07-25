@@ -17,3 +17,7 @@ export const ADD_RECIPE_TO_DAY = "ADD_RECIPE_TO_DAY";
 export const SET_WEEKLY_MEAL_PLAN = "SET_WEEKLY_MEAL_PLAN";
 
 export const UPDATE_MEAL_PLAN = "UPDATE_MEAL_PLAN";
+
+export const SET_USER = "SET_USER";
+
+export const REMOVE_USER = "REMOVE_USER";

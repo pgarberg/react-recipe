@@ -4,6 +4,7 @@ const recipesController = require("../controllers/recipesController");
 const unscrapeablesController = require("../controllers/unscrapeablesController");
 const scrapeController = require("../controllers/scrapeController");
 const mealplanController = require("../controllers/mealplanController");
+const authController = require("../controllers/authController");
 
 router.get("/thepioneerwoman", async (req, res) => {
   const recipe = await thepioneerwoman(
@@ -12,6 +13,10 @@ router.get("/thepioneerwoman", async (req, res) => {
 
   res.json(recipe);
 });
+
+//AUTH RELATED ROUTES
+router.post("/auth/login", authController.loginUser);
+router.post("/auth/register", authController.registerUser);
 
 //RECIPES RELATED ROUTES
 router.get("/recipes", recipesController.getRecipes);
@@ -22,7 +27,7 @@ router.post("/recipe/create", recipesController.createRecipe);
 
 router.get("/recipe/:id", recipesController.getRecipeByID);
 
-router.post("/recipe/:id", recipesController.updateRecipeByID);
+router.patch("/recipe/:id", recipesController.updateRecipeByID);
 
 //PATCH ROUTE TO FIX RECIPES WHICH DID NOT HAVE RECIPENOTES ORIGINALLY - Potentially outdated. Fix with default value in future?
 //07-24-20

@@ -210,7 +210,7 @@ export const AddRecipe = () => {
           </div>
         )}
       </div>
-      <div className="grid-container">
+      <div className="grid-container my-4">
         <form onSubmit={(e) => handleSubmit(e)}>
           <h3 className="tas">Recipe Form</h3>
           <hr />

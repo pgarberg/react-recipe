@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import RecipeContext from "../Context/Recipes/recipeContext";
+import authContext from "../Context/Auth/authContext";
 
 export const Recipes = (props) => {
+  const { user } = useContext(authContext);
+
   const { recipes } = useContext(RecipeContext);
   const [filter, setFilter] = useState("");
   const handleChange = (e) => {
@@ -10,6 +13,7 @@ export const Recipes = (props) => {
   };
   return (
     <div>
+      {user === null && <Redirect to="/login" />}
       <div class="input-group m-3 mr-5 w-25">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">

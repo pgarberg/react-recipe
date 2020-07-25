@@ -44,7 +44,7 @@ export const Recipe = (props) => {
       {redirect && <Redirect to={`/`} />}
       {recipe && !editing && (
         <div>
-          <h1 class="display-4">{recipe.name}</h1>
+          <h1 class="display-4 tas">{recipe.name}</h1>
           <hr />
           <div
             style={{
@@ -84,7 +84,10 @@ export const Recipe = (props) => {
           <div class="container">
             <div class="row d-flex justify-content-around">
               <Link to={`/recipe/${recipe._id}/edit`}>
-                <div class="btn btn-primary a-btn-slide-text">
+                <div
+                  class="btn btn-primary a-btn-slide-text "
+                  style={{ minWidth: "160px" }}
+                >
                   <span
                     class="glyphicon glyphicon-edit"
                     aria-hidden="true"
@@ -100,6 +103,7 @@ export const Recipe = (props) => {
                 class="btn btn-danger"
                 data-toggle="modal"
                 data-target="#DeleteModal"
+                style={{ minWidth: "160px" }}
               >
                 <strong>Delete Recipe</strong>
               </button>
@@ -109,13 +113,15 @@ export const Recipe = (props) => {
                   class="btn btn-secondary"
                   data-toggle="modal"
                   data-target="#AddModal"
+                  style={{ minWidth: "160px" }}
                 >
-                  <strong>+</strong>
+                  <strong>Add To Meal Plan</strong>
                 </button>
               </div>
             </div>
           </div>
-          <a href={recipe.url}>
+          <div className="my-5"></div>
+          <a href={recipe.url} className="tas">
             <h3>{recipe.author}</h3>
           </a>
 
@@ -139,7 +145,7 @@ export const Recipe = (props) => {
               <div class="col">
                 <h4
                   style={{ borderBottom: "1px solid black" }}
-                  className="pb-3"
+                  className="pb-3 mb-4"
                 >
                   Ingredients
                 </h4>
@@ -152,7 +158,7 @@ export const Recipe = (props) => {
               <div class="col">
                 <h4
                   style={{ borderBottom: "1px solid black" }}
-                  className="pb-3"
+                  className="pb-3 mb-4"
                 >
                   Instructions
                 </h4>
@@ -167,7 +173,7 @@ export const Recipe = (props) => {
         </div>
       )}
       {recipe && (
-        <div class="row" style={{ minHeight: "175px" }}>
+        <div class="row mt-5" style={{ minHeight: "175px" }}>
           <div class="col">
             <h4 style={{ borderBottom: "1px solid black" }} className="pb-3">
               Notes
