@@ -22,7 +22,7 @@ const Login = ({ alert }) => {
     console.log("LOGIN RESPONSE : ", res);
 
     if (res.data.status !== 200) {
-      return alert.show(res.data.error);
+      return alert.error(res.data.error);
     }
     setUser(res.data.user);
   };
@@ -61,7 +61,7 @@ const Login = ({ alert }) => {
               id="exampleInputPassword1"
             />
           </div>
-          <button className="btn btn-danger" style={{ width: "200px" }}>
+          <button className="btn btn-danger" style={{ width: "100%" }}>
             LOGIN
           </button>
         </form>

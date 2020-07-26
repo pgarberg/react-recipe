@@ -24,7 +24,7 @@ const Register = ({ alert }) => {
     console.log("REGISTER RESPONSE : ", res);
 
     if (res.data.status !== 200) {
-      return alert.show(res.data.error);
+      return alert.error(res.data.error);
     }
 
     setUser(res.data.user);
@@ -60,6 +60,16 @@ const Register = ({ alert }) => {
             type="password"
             class="form-control"
             id="exampleInputPassword1"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Password</label>
+          <input
+            name="passwordConfirm"
+            type="password"
+            class="form-control"
+            id="exampleInputPassword2"
             onChange={(e) => handleChange(e)}
           />
         </div>

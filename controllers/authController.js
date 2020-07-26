@@ -1,4 +1,5 @@
 const TestUser = require("../models/TestUser");
+const bcrypt = require("bcrypt");
 
 exports.loginUser = async (req, res) => {
   console.log("Attempting to Login User");
@@ -11,12 +12,14 @@ exports.loginUser = async (req, res) => {
   if (!user) {
     return res.json({
       status: 400,
-      error: "Supplied login information is incorrect.",
+      error: "User does not exist. Register new account.",
       user: null,
     });
   }
 
-  if (user.password !== req.body.userData.password) {
+  const match = await bcrypt.compare(req.body.userData.password, user.password);
+
+  if (!match) {
     return res.json({
       status: 400,
       error: "Supplied login information is incorrect.",
@@ -24,7 +27,7 @@ exports.loginUser = async (req, res) => {
     });
   }
 
-  if (user.password === req.body.userData.password) {
+  if (match) {
     return res.json({
       status: 200,
       message: "Login Successful",
@@ -46,14 +49,29 @@ exports.registerUser = async (req, res) => {
   if (userExists) {
     return res.json({
       status: 400,
-      error: "User already exists",
+      error: "User already exists.",
       user: null,
     });
   }
-  const tested = await TestUser.create(req.body.userData);
+
+  if (req.body.userData.password !== req.body.userData.passwordConfirm) {
+    return res.json({
+      status: 400,
+      error: "Passwords must match.",
+      user: null,
+    });
+  }
+
+  let user = req.body.userData;
+
+  const hashedPassword = bcrypt.hashSync(user.password, 10);
+
+  user.password = hashedPassword;
+
+  const createdUser = await TestUser.create(user);
 
   res.json({
     status: 200,
-    user: tested,
+    user: createdUser,
   });
 };
