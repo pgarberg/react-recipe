@@ -3,7 +3,9 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import authContext from "../Context/Auth/authContext";
 
-export const Login = () => {
+import { withAlert } from "react-alert";
+
+const Login = ({ alert }) => {
   const { user, setUser } = useContext(authContext);
 
   const [formData, setformData] = useState({ username: "", password: "" });
@@ -19,6 +21,9 @@ export const Login = () => {
 
     console.log("LOGIN RESPONSE : ", res);
 
+    if (res.data.status !== 200) {
+      return alert.show(res.data.error);
+    }
     setUser(res.data.user);
   };
   return (
@@ -64,3 +69,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default withAlert()(Login);

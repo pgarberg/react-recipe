@@ -3,7 +3,9 @@ import axios from "axios";
 import authContext from "../Context/Auth/authContext";
 import { Redirect } from "react-router-dom";
 
-export const Register = () => {
+import { withAlert } from "react-alert";
+
+const Register = ({ alert }) => {
   const [formData, setformData] = useState({ username: "", password: "" });
 
   const { user, setUser } = useContext(authContext);
@@ -19,6 +21,10 @@ export const Register = () => {
     const res = await axios.post("/auth/register", { userData: formData });
 
     console.log("REGISTER RESPONSE : ", res);
+
+    if (res.data.status !== 200) {
+      return alert.show(res.data.error);
+    }
 
     setUser(res.data.user);
   };
@@ -67,3 +73,5 @@ export const Register = () => {
     </div>
   );
 };
+
+export default withAlert()(Register);

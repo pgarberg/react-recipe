@@ -19,8 +19,8 @@ import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
 import { Unscrapeables } from "./Components/Unscrapeables";
 import WeekPlanner from "./Components/WeekPlanner";
 import { Collections } from "./Components/Collections";
-import { Login } from "./Components/Login";
-import { Register } from "./Components/Register";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
 
 function App() {
   return (

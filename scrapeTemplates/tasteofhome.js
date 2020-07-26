@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 
-const Recipe = require("./models/Recipe");
+const Recipe = require("../models/Recipe");
 
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -13,7 +13,7 @@ const { JSDOM } = jsdom;
 app.use(cors());
 
 mongoose.connect("mongodb://localhost:27017/react-recipes", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
 });
 
 app.get("/", async (req, res) => {
@@ -24,7 +24,7 @@ app.get("/", async (req, res) => {
   } catch (error) {
     res.json({
       msg: "Error Occurred",
-      error
+      error,
     });
   }
 });
@@ -33,18 +33,18 @@ app.get("/create", async (req, res) => {
   const recipe_url = "https://www.tasteofhome.com/recipes/chicken-quesadillas/";
 
   try {
-    axios.get(recipe_url).then(resp => {
+    axios.get(recipe_url).then((resp) => {
       const dom = new JSDOM(resp.data);
       const ingredients = Array.from(
         dom.window.document.querySelectorAll("[itemprop*='ingredients']"),
-        cn => cn.textContent
+        (cn) => cn.textContent
       );
 
       const allObj = {};
 
       const all = Array.from(
         dom.window.document.querySelectorAll("[itemprop]"),
-        cn => {
+        (cn) => {
           switch (cn.getAttribute("itemprop")) {
             case "name":
               allObj[cn.getAttribute("itemprop")] = cn.textContent.trim();
@@ -79,7 +79,7 @@ app.get("/create", async (req, res) => {
             case "recipeInstructions":
               allObj[cn.getAttribute("itemprop")] = Array.from(
                 cn.children[0].children,
-                ccn => {
+                (ccn) => {
                   return { "@type": "HowToStep", text: ccn.textContent };
                 }
               );
@@ -161,7 +161,7 @@ app.get("/create", async (req, res) => {
       res.json({
         status: 200,
         msg: "Recipe Successfully Created",
-        recipe: allObj
+        recipe: allObj,
       });
     });
   } catch (error) {
