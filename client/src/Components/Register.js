@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { withAlert } from "react-alert";
 
 const Register = ({ alert }) => {
+  //TEST
   const [formData, setformData] = useState({ username: "", password: "" });
 
   const { user, setUser } = useContext(authContext);
