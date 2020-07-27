@@ -17,7 +17,7 @@ const Login = ({ alert }) => {
     e.preventDefault();
 
     console.log("ATTEMPTING TO LOGIN USER");
-    const res = await axios.post("/auth/login", { userData: formData });
+    const res = await axios.post("/auth/local", formData);
 
     console.log("LOGIN RESPONSE : ", res);
 

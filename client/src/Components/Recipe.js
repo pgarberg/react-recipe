@@ -48,18 +48,17 @@ export const Recipe = (props) => {
           <hr />
           <div
             style={{
-              width: "100%",
+              width: "80%",
               paddingTop: "50%",
-
               position: "relative",
-              marginBottom: "2%",
+              margin: "auto",
               backgroundColor: "rgb(242, 242, 242)",
             }}
           >
             <div
               style={{
                 position: "absolute",
-                padding: "10%",
+                padding: "5%",
 
                 top: "0px",
                 right: "0px",

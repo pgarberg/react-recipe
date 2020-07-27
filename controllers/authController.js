@@ -1,44 +1,32 @@
 const TestUser = require("../models/TestUser");
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 
-exports.loginUser = async (req, res) => {
-  console.log("Attempting to Login User");
-  console.log("User Data : ", req.body.userData);
-
-  const user = await TestUser.findOne({ email: req.body.userData.email });
-
-  console.log("TEST USER : ", user);
-
-  if (!user) {
-    return res.json({
-      status: 400,
-      error: "User does not exist. Register new account.",
-      user: null,
+exports.localLogin = (req, res, next) => {
+  console.log("REQ BODY : ", req.body);
+  passport.authenticate("local", function (err, user, info) {
+    console.log(user);
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json({
+        status: 400,
+        error: "Invalid Credentials.",
+        user: null,
+      });
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return res.json({ status: 500, error: err, user: null });
+      }
+      return res.json({
+        status: 200,
+        message: "Login Successful",
+        user: { _id: user._id, email: user.email },
+      });
     });
-  }
-
-  const match = await bcrypt.compare(req.body.userData.password, user.password);
-
-  if (!match) {
-    return res.json({
-      status: 400,
-      error: "Supplied login information is incorrect.",
-      user: null,
-    });
-  }
-
-  if (match) {
-    return res.json({
-      status: 200,
-      message: "Login Successful",
-      user,
-    });
-  }
-
-  res.json({
-    status: 500,
-    error: "Internal server error",
-  });
+  })(req, res, next);
 };
 
 exports.registerUser = async (req, res) => {
@@ -68,7 +56,7 @@ exports.registerUser = async (req, res) => {
 
   user.password = hashedPassword;
 
-  const createdUser = await TestUser.create(user);
+  const createdUser = await TestUser.create(user).select("-password");
 
   res.json({
     status: 200,
