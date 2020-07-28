@@ -17,6 +17,10 @@ router.get("/thepioneerwoman", async (req, res) => {
 //AUTH RELATED ROUTES
 router.post("/auth/local", authController.localLogin);
 
+router.get("/auth/google", authController.googleLogin);
+
+router.get("/auth/google/callback", authController.googleCallback);
+
 router.post("/auth/register", authController.registerUser);
 
 //RECIPES RELATED ROUTES

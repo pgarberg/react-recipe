@@ -31,14 +31,16 @@ const Login = ({ alert }) => {
       {user !== null && <Redirect to="/" />}
       <div
         style={{
-          height: "80vh",
-          width: "100vw",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          style={{ marginBottom: "10px" }}
+        >
           <h2>Login</h2>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -64,6 +66,15 @@ const Login = ({ alert }) => {
           <button className="btn btn-danger" style={{ width: "100%" }}>
             LOGIN
           </button>
+        </form>
+        <form action="">
+          {" "}
+          <div class="form-group">
+            {" "}
+            <button className="btn btn-danger" style={{ width: "100%" }}>
+              LOGIN WITH GOOGLE
+            </button>
+          </div>
         </form>
       </div>
     </div>
