@@ -67,15 +67,15 @@ const Login = ({ alert }) => {
             LOGIN
           </button>
         </form>
-        <form action="">
+
+        <div class="form-group">
           {" "}
-          <div class="form-group">
-            {" "}
+          <a href="/auth/google">
             <button className="btn btn-danger" style={{ width: "100%" }}>
               LOGIN WITH GOOGLE
             </button>
-          </div>
-        </form>
+          </a>
+        </div>
       </div>
     </div>
   );

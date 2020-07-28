@@ -7,19 +7,15 @@ const TestUser = require("../models/TestUser");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-const GOOGLE_CLIENT_ID =
-  "389768619722-s02sbv3ug7e7mjbeglmeku9kt96sj0nl.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = "y2nZ9rwxurYkPXPrM8Bv8IeC";
-
 passport.use(
   new GoogleStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      TestUser.findOrCreate({ googleId: profile.id }, function (err, user) {
         return cb(err, user);
       });
     }

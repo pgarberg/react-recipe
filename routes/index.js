@@ -19,6 +19,11 @@ router.post("/auth/local", authController.localLogin);
 
 router.get("/auth/google", authController.googleLogin);
 
+router.get("/auth/peder", (req, res) => {
+  console.log("SOMEONE CALLING AUTH PEDER");
+  res.json({ msg: "HI" });
+});
+
 router.get("/auth/google/callback", authController.googleCallback);
 
 router.post("/auth/register", authController.registerUser);
