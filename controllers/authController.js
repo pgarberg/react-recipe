@@ -29,15 +29,14 @@ exports.localLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.googleLogin = async (req, res, next) => {
-  console.log("REQ BODY : ", req.body);
-  passport.authenticate("google", { scope: ["profile", "email"] });
-};
+exports.googleLogin = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
 
-exports.googleCallback = async (req, res, next) => {
+exports.googleCallback = () => {
   passport.authenticate("google"),
     (req, res) => {
-      res.redirect("/");
+      res.redirect("/surveys");
     };
 };
 

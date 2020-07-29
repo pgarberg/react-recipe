@@ -5,6 +5,7 @@ const unscrapeablesController = require("../controllers/unscrapeablesController"
 const scrapeController = require("../controllers/scrapeController");
 const mealplanController = require("../controllers/mealplanController");
 const authController = require("../controllers/authController");
+const passport = require("passport");
 
 router.get("/thepioneerwoman", async (req, res) => {
   const recipe = await thepioneerwoman(
@@ -24,7 +25,13 @@ router.get("/auth/peder", (req, res) => {
   res.json({ msg: "HI" });
 });
 
-router.get("/auth/google/callback", authController.googleCallback);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google"),
+  (req, res) => {
+    res.redirect("/register");
+  }
+);
 
 router.post("/auth/register", authController.registerUser);
 

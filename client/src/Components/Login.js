@@ -28,7 +28,7 @@ const Login = ({ alert }) => {
   };
   return (
     <div>
-      {user !== null && <Redirect to="/" />}
+      {/* {user !== null && <Redirect to="/" />} */}
       <div
         style={{
           display: "flex",

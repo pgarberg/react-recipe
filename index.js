@@ -12,9 +12,9 @@ const connectDB = require("./config/db");
 
 const passport = require("passport");
 
-require("./config/passport");
-
 dotenv.config();
+
+require("./config/passport");
 
 app.use(cors());
 app.use(bodyParser.json());
