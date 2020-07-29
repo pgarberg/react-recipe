@@ -77,10 +77,16 @@ exports.registerUser = async (req, res) => {
 
 exports.currentUser = (req, res) => {
   console.log("hello");
+  console.log(req.user);
   const user = req.user || null;
   if (user) {
     return res.json({ status: 200, msg: "Success", user });
   }
 
   return res.json({ status: 400, msg: "Error" });
+};
+
+exports.logout = (req, res) => {
+  req.logout();
+  res.redirect("/");
 };

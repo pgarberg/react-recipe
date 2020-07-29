@@ -5,6 +5,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import AuthState from "./Context/Auth/AuthState";
+import RecipesState from "./Context/Recipes/RecipesState";
+import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
 
 // optional configuration
 const options = {
@@ -17,9 +20,15 @@ const options = {
 };
 
 const Root = () => (
-  <AlertProvider template={AlertTemplate} {...options}>
-    <App />
-  </AlertProvider>
+  <AuthState>
+    <RecipesState>
+      <UnscrapeableState>
+        <AlertProvider template={AlertTemplate} {...options}>
+          <App />
+        </AlertProvider>
+      </UnscrapeableState>
+    </RecipesState>
+  </AuthState>
 );
 
 ReactDOM.render(<Root />, document.getElementById("root"));

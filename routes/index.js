@@ -37,6 +37,8 @@ router.post("/auth/register", authController.registerUser);
 
 router.get("/api/current-user", authController.currentUser);
 
+router.get("/api/logout", authController.logout);
+
 //RECIPES RELATED ROUTES
 router.get("/recipes", recipesController.getRecipes);
 

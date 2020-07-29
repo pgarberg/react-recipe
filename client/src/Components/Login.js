@@ -28,9 +28,10 @@ const Login = ({ alert }) => {
   };
   return (
     <div>
-      {/* {user !== null && <Redirect to="/" />} */}
+      {user !== null && <Redirect to="/" />}
       <div
         style={{
+          height: "80vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -68,14 +69,14 @@ const Login = ({ alert }) => {
           </button>
         </form>
 
-        <div class="form-group">
-          {" "}
-          <a href="/auth/google">
-            <button className="btn btn-danger" style={{ width: "100%" }}>
-              LOGIN WITH GOOGLE
-            </button>
-          </a>
-        </div>
+        <a href="/auth/google">
+          <button
+            className="btn btn-danger"
+            style={{ padding: ".375rem 2.155rem" }}
+          >
+            LOGIN WITH GOOGLE
+          </button>
+        </a>
       </div>
     </div>
   );

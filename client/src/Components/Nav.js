@@ -35,10 +35,11 @@ export const Nav = () => {
             </Link>
           </li>
           <li class="nav-item" onClick={() => removeUser()}>
-            <Link class="nav-link" to="/">
+            <a class="nav-link" href="/api/logout">
               Logout
-            </Link>
+            </a>
           </li>
+          <li class="nav-item nav-link">Current User : {user && user._id}</li>
         </ul>
       );
     } else {

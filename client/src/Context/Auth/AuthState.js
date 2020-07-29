@@ -21,7 +21,25 @@ const AuthState = (props) => {
     });
   };
 
+  const fetchUser = async () => {
+    console.log("CALLING FETCH USER");
+    const res = await axios.get("/api/current-user");
+
+    const { user } = res.data;
+    if (user) {
+      dispatch({
+        type: SET_USER,
+        payload: user,
+      });
+    }
+    return;
+  };
+
   const removeUser = async () => dispatch({ type: REMOVE_USER });
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -29,6 +47,7 @@ const AuthState = (props) => {
         user: state.user,
         setUser,
         removeUser,
+        fetchUser,
       }}
     >
       {props.children}
