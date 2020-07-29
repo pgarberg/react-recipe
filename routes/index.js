@@ -35,6 +35,8 @@ router.get(
 
 router.post("/auth/register", authController.registerUser);
 
+router.get("/api/current-user", authController.currentUser);
+
 //RECIPES RELATED ROUTES
 router.get("/recipes", recipesController.getRecipes);
 

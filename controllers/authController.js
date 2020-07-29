@@ -74,3 +74,13 @@ exports.registerUser = async (req, res) => {
     user: createdUser,
   });
 };
+
+exports.currentUser = (req, res) => {
+  console.log("hello");
+  const user = req.user || null;
+  if (user) {
+    return res.json({ status: 200, msg: "Success", user });
+  }
+
+  return res.json({ status: 400, msg: "Error" });
+};
