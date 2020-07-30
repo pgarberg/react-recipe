@@ -12,11 +12,12 @@ const connectDB = require("./config/db");
 
 const passport = require("passport");
 
+app.use(cors());
+
 dotenv.config();
 
 require("./config/passport");
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
