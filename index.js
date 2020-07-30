@@ -12,11 +12,12 @@ const connectDB = require("./config/db");
 
 const passport = require("passport");
 
+app.use(cors());
+
 dotenv.config();
 
 require("./config/passport");
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -35,8 +36,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const PORT = process.env.PORT || 4000;
-
 //Log error if mongoose encounters any errors after connecting
 mongoose.connection.on("error", (err) => {
   console.log("ON MONGO ERROR : ", err);
@@ -53,6 +52,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log("SERVER RUNNING ON 4000");
