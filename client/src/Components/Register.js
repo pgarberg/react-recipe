@@ -64,7 +64,7 @@ const Register = ({ alert }) => {
           />
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword2">Password</label>
+          <label for="exampleInputPassword2">Confirm Password</label>
           <input
             name="passwordConfirm"
             type="password"

@@ -8,7 +8,7 @@ export const Nav = () => {
   const renderLinks = () => {
     if (user !== null) {
       return (
-        <ul class="nav">
+        <ul class="nav mt-2">
           <li class="nav-item">
             <Link class="nav-link active" to="/">
               Recipes
