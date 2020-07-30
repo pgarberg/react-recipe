@@ -40,15 +40,15 @@ router.get("/api/current-user", authController.currentUser);
 router.get("/api/logout", authController.logout);
 
 //RECIPES RELATED ROUTES
-router.get("/recipes", recipesController.getRecipes);
+router.get("/api/recipes", recipesController.getRecipes);
 
-router.delete("/recipe/:id", recipesController.deleteRecipeByID);
+router.delete("/api/recipe/:id", recipesController.deleteRecipeByID);
 
-router.post("/recipe/create", recipesController.createRecipe);
+router.post("/api/recipe/create", recipesController.createRecipe);
 
-router.get("/recipe/:id", recipesController.getRecipeByID);
+router.get("/api/recipe/:id", recipesController.getRecipeByID);
 
-router.patch("/recipe/:id", recipesController.updateRecipeByID);
+router.patch("/api/recipe/:id", recipesController.updateRecipeByID);
 
 //PATCH ROUTE TO FIX RECIPES WHICH DID NOT HAVE RECIPENOTES ORIGINALLY - Potentially outdated. Fix with default value in future?
 //07-24-20
@@ -65,7 +65,7 @@ router.patch("/recipe/:id", recipesController.updateRecipeByID);
 //
 //UNSCRAPABLE SITE RELATED ROUTES
 //
-router.get("/unscrapeables", unscrapeablesController.getUnscrapeables);
+router.get("/api/unscrapeables", unscrapeablesController.getUnscrapeables);
 
 //
 //WEBSITE SCRAPING RELATED ROUTES
@@ -75,10 +75,10 @@ router.post("/scrape", scrapeController.scrape);
 //
 //MEAL PLAN RELATED ROUTES
 //
-router.get("/mealplan", mealplanController.getMealPlan);
+router.get("/api/mealplan", mealplanController.getMealPlan);
 
-router.patch("/mealplan", mealplanController.updateMealPlan);
+router.patch("/api/mealplan", mealplanController.updateMealPlan);
 
-router.post("/mealplan", mealplanController.createMealPlan);
+router.post("/api/mealplan", mealplanController.createMealPlan);
 
 module.exports = router;

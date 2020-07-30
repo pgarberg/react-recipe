@@ -31,7 +31,7 @@ export const Recipes = (props) => {
         />
       </div>
 
-      <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5">
+      <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 ">
         {recipes &&
           recipes.length > 0 &&
           recipes
@@ -39,7 +39,7 @@ export const Recipes = (props) => {
               recipe.name.toLowerCase().includes(filter.toLowerCase())
             )
             .map((recipe) => (
-              <div className="col mb-4">
+              <div className="col mb-4 d-flex justify-content-center">
                 <div class="card" style={{ width: "18rem" }}>
                   <div style={{ overflow: "hidden", maxHeight: "200px" }}>
                     <Link to={`/recipe/${recipe._id}`}>

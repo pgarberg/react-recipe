@@ -18,7 +18,7 @@ const UnscrapeableState = (props) => {
 
   //SET INITIAL STATE
   const setIntialState = async () => {
-    const { data } = await axios.get(`/unscrapeables`);
+    const { data } = await axios.get(`/api/unscrapeables`);
 
     dispatch({
       type: SET_UNSCRAPEABLES,

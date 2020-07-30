@@ -56,7 +56,7 @@ export const EditRecipe = () => {
     async function postData() {
       const res = await Axios({
         method: "patch",
-        url: `/recipe/${id}`,
+        url: `/api/recipe/${id}`,
         headers: {
           "Content-Type": "application/json",
         },

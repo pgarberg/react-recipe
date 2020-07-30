@@ -31,14 +31,14 @@ const RecipesState = (props) => {
   //SET INITIAL STATE
   const setIntialState = async () => {
     console.log("CALLING SET INTITIAL STATE!!");
-    const { data } = await axios.get(`/recipes`);
+    const { data } = await axios.get(`/api/recipes`);
 
     dispatch({
       type: SET_RECIPES,
       payload: data,
     });
 
-    const fetchData = await axios.get("/mealplan");
+    const fetchData = await axios.get("/api/mealplan");
     let { mealplan } = fetchData.data;
 
     dispatch({
@@ -64,7 +64,7 @@ const RecipesState = (props) => {
 
   const deleteRecipeByID = async (id) => {
     console.log("CALLING DELETE RECIPE");
-    await axios.delete(`/recipe/${id}`);
+    await axios.delete(`/api/recipe/${id}`);
     dispatch({
       type: DELETE_RECIPE,
       payload: id,
@@ -76,7 +76,7 @@ const RecipesState = (props) => {
 
     await axios({
       method: "patch",
-      url: "/mealplan",
+      url: "/api/mealplan",
       headers: {
         "Content-Type": "application/json",
       },
