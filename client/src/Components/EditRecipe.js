@@ -263,7 +263,7 @@ export const EditRecipe = () => {
           </button>
         </form>
 
-        <div>
+        <div className="tas">
           <h3>Recipe Preview</h3>
           <hr />
           <RecipePreview recipe={recipe} />
