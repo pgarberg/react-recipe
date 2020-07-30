@@ -37,7 +37,7 @@ export const EditRecipe = () => {
   });
   const { id } = useParams();
 
-  const { getRecipeByID } = useContext(recipeContext);
+  const { getRecipeByID, updateRecipeByID } = useContext(recipeContext);
 
   useEffect(() => {
     async function currentRecipe() {
@@ -63,19 +63,9 @@ export const EditRecipe = () => {
   //   fetchdata();
   // }, []);
 
-  const updateData = async () => {
-    async function postData() {
-      const res = await Axios({
-        method: "patch",
-        url: `/api/recipe/${id}`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify(recipe),
-      });
-    }
+  const updateRecipes = async () => {
+    await updateRecipeByID(id, recipe);
 
-    await postData(recipe);
     setRedirect(true);
   };
 
@@ -268,7 +258,7 @@ export const EditRecipe = () => {
           <button
             className="btn btn-info"
             type="submit"
-            onClick={() => updateData()}
+            onClick={() => updateRecipes()}
           >
             Confirm Edits
           </button>

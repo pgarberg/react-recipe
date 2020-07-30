@@ -21,3 +21,5 @@ export const UPDATE_MEAL_PLAN = "UPDATE_MEAL_PLAN";
 export const SET_USER = "SET_USER";
 
 export const REMOVE_USER = "REMOVE_USER";
+
+export const UPDATE_RECIPE = "UPDATE_RECIPE";

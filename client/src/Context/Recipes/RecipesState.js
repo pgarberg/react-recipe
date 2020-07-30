@@ -10,6 +10,7 @@ import {
   ADD_RECIPE_TO_DAY,
   SET_WEEKLY_MEAL_PLAN,
   UPDATE_MEAL_PLAN,
+  UPDATE_RECIPE,
 } from "../types";
 
 const RecipesState = (props) => {
@@ -112,6 +113,22 @@ const RecipesState = (props) => {
     return res.data.recipe;
   };
 
+  const updateRecipeByID = async (id, recipe) => {
+    const res = await axios({
+      method: "patch",
+      url: `/api/recipe/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(recipe),
+    });
+
+    dispatch({
+      type: UPDATE_RECIPE,
+      payload: res.data.recipe,
+    });
+  };
+
   //   Components
   //   const toggleTodoModal = () => {
   //     console.log("DISPATCH MODAL TOGGLE");
@@ -131,6 +148,7 @@ const RecipesState = (props) => {
         addRecipeToDay,
         updateMealPlan,
         getRecipeByID,
+        updateRecipeByID,
       }}
     >
       {props.children}

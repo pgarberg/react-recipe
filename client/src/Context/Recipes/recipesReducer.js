@@ -5,6 +5,7 @@ import {
   ADD_RECIPE_TO_DAY,
   SET_WEEKLY_MEAL_PLAN,
   UPDATE_MEAL_PLAN,
+  UPDATE_RECIPE,
 } from "../types";
 
 const recipeReducer = (state, action) => {
@@ -19,6 +20,12 @@ const recipeReducer = (state, action) => {
       const newRecipe = action.payload;
       console.log("recipessss: ", [...state.recipes, newRecipe]);
       return { ...state, recipes: [...state.recipes, newRecipe] };
+    case UPDATE_RECIPE:
+      let filteredRecipes = state.recipes.filter(
+        (recipe) => recipe._id !== action.payload._id
+      );
+      filteredRecipes = [...filteredRecipes, action.payload];
+      return { ...state, recipes: filteredRecipes };
     case DELETE_RECIPE:
       return {
         ...state,
