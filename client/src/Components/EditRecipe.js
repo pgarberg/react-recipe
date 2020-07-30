@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 
 import { RecipePreview } from "./RecipePreview";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
+import recipeContext from "../Context/Recipes/recipeContext";
 
 // TODO :
 //WE ARE ABLE TO SEND THE UPDATES TO OUR BACKEND, HOWEVER, WE NEED TO MAKE SURE TO UPDATE OUR LOCAL STATE
@@ -36,21 +37,31 @@ export const EditRecipe = () => {
   });
   const { id } = useParams();
 
-  useEffect(() => {
-    console.log("OUR PASSED ID : ", id);
-    async function fetchdata() {
-      const res = await Axios({
-        method: "get",
-        url: `/recipe/${id}`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setRecipe(res.data.recipe);
-    }
+  const { getRecipeByID } = useContext(recipeContext);
 
-    fetchdata();
+  useEffect(() => {
+    async function currentRecipe() {
+      const rec = await getRecipeByID(id);
+      setRecipe(rec);
+    }
+    currentRecipe();
   }, []);
+
+  // useEffect(() => {
+  //   console.log("OUR PASSED ID : ", id);
+  //   async function fetchdata() {
+  //     const res = await Axios({
+  //       method: "get",
+  //       url: `/api/recipe/${id}`,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     setRecipe(res.data.recipe);
+  //   }
+
+  //   fetchdata();
+  // }, []);
 
   const updateData = async () => {
     async function postData() {
@@ -95,6 +106,8 @@ export const EditRecipe = () => {
         );
 
         break;
+      case "recipeNotes":
+        updatedRecipe["recipeNotes"] = e.target.value.split(`\n`);
       case "recipeCategory":
         updatedRecipe["recipeCategory"] = e.target.value.split(`\n`);
         break;
@@ -238,21 +251,19 @@ export const EditRecipe = () => {
               onChange={(e) => handleChange(e)}
             />
           </div>
+
           <div class="form-group">
             <label for="exampleFormControlSelect1">Recipe Notes</label>
             <textarea
-              name="recipeString"
+              name="recipeNotes"
               type="text"
               class="form-control"
               placeholder={
                 "1 instruction, per line \n1 enter, to get to new line"
               }
+              value={recipe.recipeNotes.join("\n")}
               onChange={(e) => handleChange(e)}
-            >
-              {recipe.recipeNotes.length > 0
-                ? recipe.recipeNotes.join("\n")
-                : ""}
-            </textarea>
+            />
           </div>
           <button
             className="btn btn-info"
@@ -263,7 +274,7 @@ export const EditRecipe = () => {
           </button>
         </form>
 
-        <div>
+        <div className="tas">
           <h3>Recipe Preview</h3>
           <hr />
           <RecipePreview recipe={recipe} />

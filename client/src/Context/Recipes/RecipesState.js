@@ -100,6 +100,18 @@ const RecipesState = (props) => {
     });
   };
 
+  const getRecipeByID = async (id) => {
+    const res = await axios({
+      method: "get",
+      url: `/api/recipe/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res.data.recipe;
+  };
+
   //   Components
   //   const toggleTodoModal = () => {
   //     console.log("DISPATCH MODAL TOGGLE");
@@ -118,6 +130,7 @@ const RecipesState = (props) => {
         deleteRecipeByID,
         addRecipeToDay,
         updateMealPlan,
+        getRecipeByID,
       }}
     >
       {props.children}
