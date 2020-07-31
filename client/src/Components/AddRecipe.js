@@ -15,7 +15,7 @@ export const AddRecipe = () => {
   const sumbitCompleteRecipe = async (recipe) => {
     const res = await Axios({
       method: "post",
-      url: "/recipe/create",
+      url: "/api/recipe/create",
       headers: {
         "Content-Type": "application/json",
       },
@@ -42,7 +42,7 @@ export const AddRecipe = () => {
     setFetching(true);
     const { data } = await Axios({
       method: "post",
-      url: "/scrape",
+      url: "/api/scrape",
       headers: {
         "Content-Type": "application/json",
       },
@@ -167,19 +167,7 @@ export const AddRecipe = () => {
           Could not fetch recipe from URL provided!
         </div>
       )}
-      {/* name: String,
-  author: String,
-  datePublished: String,
-  image: [{ type: String }],
-  recipeYield: String,
-  prepTime: String,
-  cookTime: String,
-  totalTime: String,
-  recipeIngredient: [{ type: String }],
-  recipeInstructions: [{ "@type": String, text: String }],
-  recipeCategory: [String],
-  recipeCuisine: [String],
-  url: String */}
+
       <h1 className="tas">Add Recipe</h1>
       <hr />
 
@@ -279,19 +267,7 @@ export const AddRecipe = () => {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          {/* name: String,
-  author: String,
-  datePublished: String,
-  image: [{ type: String }],
-  recipeYield: String,
-  prepTime: String,
-  cookTime: String,
-  totalTime: String,
-  recipeIngredient: [{ type: String }],
-  recipeInstructions: [{ "@type": String, text: String }],
-  recipeCategory: [String],
-  recipeCuisine: [String],
-  url: String */}
+
           <div class="form-group">
             <label for="exampleFormControlSelect1">Prep Time</label>
             <input

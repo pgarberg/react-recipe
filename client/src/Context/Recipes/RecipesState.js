@@ -129,14 +129,6 @@ const RecipesState = (props) => {
     });
   };
 
-  //   Components
-  //   const toggleTodoModal = () => {
-  //     console.log("DISPATCH MODAL TOGGLE");
-  //     dispatch({ type: TOGGLE_TODO_MODAL });
-  //   };
-  //   const toggleInspectionModal = () => {
-  //     dispatch({ type: TOGGLE_INSPECTION_MODAL });
-  //   };
   return (
     <RecipeContext.Provider
       value={{

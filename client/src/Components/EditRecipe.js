@@ -3,18 +3,12 @@ import { useParams } from "react-router";
 
 import { RecipePreview } from "./RecipePreview";
 import { Redirect } from "react-router-dom";
-import Axios from "axios";
-import recipeContext from "../Context/Recipes/recipeContext";
 
-// TODO :
-//WE ARE ABLE TO SEND THE UPDATES TO OUR BACKEND, HOWEVER, WE NEED TO MAKE SURE TO UPDATE OUR LOCAL STATE
-//SO EDITS ARE VISIBLE ON REDIRECT
+import recipeContext from "../Context/Recipes/recipeContext";
 
 export const EditRecipe = () => {
   const [alert, setAlert] = useState(false);
   const [redirect, setRedirect] = useState(false);
-
-  console.log(useParams());
 
   const [recipe, setRecipe] = useState({
     name: "TEST",
@@ -46,22 +40,6 @@ export const EditRecipe = () => {
     }
     currentRecipe();
   }, []);
-
-  // useEffect(() => {
-  //   console.log("OUR PASSED ID : ", id);
-  //   async function fetchdata() {
-  //     const res = await Axios({
-  //       method: "get",
-  //       url: `/api/recipe/${id}`,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     setRecipe(res.data.recipe);
-  //   }
-
-  //   fetchdata();
-  // }, []);
 
   const updateRecipes = async () => {
     await updateRecipeByID(id, recipe);

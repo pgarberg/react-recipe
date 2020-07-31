@@ -50,18 +50,6 @@ router.get("/api/recipe/:id", recipesController.getRecipeByID);
 
 router.patch("/api/recipe/:id", recipesController.updateRecipeByID);
 
-//PATCH ROUTE TO FIX RECIPES WHICH DID NOT HAVE RECIPENOTES ORIGINALLY - Potentially outdated. Fix with default value in future?
-//07-24-20
-// router.get("/addNotes", async (req, res) => {
-//   const recipes = await Recipe.find();
-
-//   recipes.map(async (recipe) => {
-//     await Recipe.findByIdAndUpdate(recipe._id, { recipeNotes: [] });
-//   });
-
-//   res.send("Updated");
-// });
-
 //
 //UNSCRAPABLE SITE RELATED ROUTES
 //
@@ -70,7 +58,7 @@ router.get("/api/unscrapeables", unscrapeablesController.getUnscrapeables);
 //
 //WEBSITE SCRAPING RELATED ROUTES
 //
-router.post("/scrape", scrapeController.scrape);
+router.post("/api/scrape", scrapeController.scrape);
 
 //
 //MEAL PLAN RELATED ROUTES
