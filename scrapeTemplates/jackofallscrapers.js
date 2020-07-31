@@ -24,12 +24,33 @@ const jackofallscrapers = async (recipe_url) => {
   try {
     console.log("RECIPE URL: ", recipe_url);
 
-    const scrape = await axios.get(recipe_url);
+    try {
+      const scrape = await axios
+        .get(recipe_url)
+        .then((response) => {
+          return response;
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error.response.data.error);
+        });
+    } catch {
+      return {
+        status: 400,
+        msg: `Error Could Not Retrieve Recipe from ${recipe_url}`,
+        recipe: "",
+        url: recipe_url,
+      };
+    }
 
     const dom = new JSDOM(scrape.data);
 
     let jsDomURL = new URL(recipe_url);
+
     const originURL = jsDomURL.origin;
+
     console.log("ORIGIN URL:", jsDomURL.origin);
 
     try {
@@ -237,18 +258,16 @@ const jackofallscrapers = async (recipe_url) => {
       }
 
       if (Array.isArray(author)) {
-        console.log("AUTHROAY");
+        console.log("AUTH ARRAY");
         author = author.filter((c) => c["@type"] === "Person")[0].name;
-        console.log("AUTHROA222Y", author);
+        console.log("Author", author);
       }
 
       if (typeof author === "object") {
         author = author.name;
       }
 
-      console.log("LOOK AT ME RECIPE YIEEEEEEEEEEEEEELD : ", recipeYield);
-
-      console.log("RECIPY YIELDY  : ", recipeYield);
+      console.log("RECIPY YIELD : ", recipeYield);
 
       console.log("IS_ARRAY? : ", Array.isArray(recipeYield));
 
@@ -295,6 +314,8 @@ const jackofallscrapers = async (recipe_url) => {
     return {
       status: 400,
       msg: `Error Could Not Retrieve Recipe from ${recipe_url}`,
+      recipe: "",
+      url: recipe_url,
     };
   }
 };
