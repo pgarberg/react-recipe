@@ -24,26 +24,24 @@ const jackofallscrapers = async (recipe_url) => {
   try {
     console.log("RECIPE URL: ", recipe_url);
 
-    try {
-      const scrape = await axios
-        .get(recipe_url)
-        .then((response) => {
-          return response;
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error.response.data.error);
-        });
-    } catch {
-      return {
-        status: 400,
-        msg: `Error Could Not Retrieve Recipe from ${recipe_url}`,
-        recipe: "",
-        url: recipe_url,
-      };
-    }
+    const scrape = await axios.get(recipe_url);
+
+    // try {
+    //   const scrape = await axios.get(recipe_url);
+    //   // .then((response) => response)
+    //   // .catch((error) => {
+    //   //   console.log(error.response.data.error);
+    //   // });
+    // } catch (error) {
+    //   if (error) {
+    //     return {
+    //       status: 400,
+    //       msg: `Error Could Not Retrieve Recipe from ${recipe_url}`,
+    //       recipe: "",
+    //       url: recipe_url,
+    //     };
+    //   }
+    // }
 
     const dom = new JSDOM(scrape.data);
 

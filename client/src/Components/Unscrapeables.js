@@ -43,7 +43,7 @@ export const Unscrapeables = () => {
   //   }
   return (
     <div className="container">
-      <h2 className="tas">Unscrapeable Websites</h2>
+      <h1 className="tas">Unscrapeable Websites</h1>
       <hr />
       {sites && (
         <ul class="list-group list-group-flush">

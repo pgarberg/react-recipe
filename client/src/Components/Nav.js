@@ -25,8 +25,8 @@ export const Nav = () => {
             </Link>
           </li>
           <li class="nav-item">
-            <Link class="nav-link" to="/weeklyplanner">
-              Weekly Planner
+            <Link class="nav-link" to="/mealplanner">
+              Meal Planner
             </Link>
           </li>
           <li class="nav-item">

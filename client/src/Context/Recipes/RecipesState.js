@@ -30,15 +30,15 @@ const RecipesState = (props) => {
 
   const { user } = useContext(AuthContext);
 
-  const id = user ? user._id : null;
+  const userID = user ? user._id : null;
 
   const [state, dispatch] = useReducer(RecipeReducer, initialState);
 
   //SET INITIAL STATE
   const setIntialState = async () => {
     console.log("CALLING SET INTITIAL RECIPE STATE!!");
-    const { data } = await axios.get(`/api/${id}/recipes`);
-
+    const { data } = await axios.get(`/api/${userID}/recipes`);
+    console.log("data", data);
     if (data.status === 200) {
       dispatch({
         type: SET_RECIPES,
@@ -58,16 +58,32 @@ const RecipesState = (props) => {
   };
 
   useEffect(() => {
-    setIntialState(id);
+    setIntialState(userID);
   }, [user]);
 
   //   RECIPE BASED FUNCTIONS
   const addRecipe = async (recipe) => {
     console.log("RECIPEEEEEEEEEE", recipe);
-    dispatch({
-      type: ADD_RECIPE,
-      payload: recipe,
+    const res = await axios({
+      method: "post",
+      url: `/api/${userID}/recipe/create`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        recipe,
+      },
     });
+
+    if (res.data.status === 200) {
+      const createdRecipe = res.data.recipe;
+      dispatch({
+        type: ADD_RECIPE,
+        payload: createdRecipe,
+      });
+    }
+
+    return res.data.status;
   };
 
   const deleteRecipeByID = async (id) => {

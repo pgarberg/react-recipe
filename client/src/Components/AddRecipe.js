@@ -13,20 +13,10 @@ export const AddRecipe = () => {
   const { addRecipe } = useContext(RecipeContext);
 
   const sumbitCompleteRecipe = async (recipe) => {
-    const res = await Axios({
-      method: "post",
-      url: "/api/recipe/create",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        recipe,
-      },
-    });
-
-    const rpy = res.data.recipe;
-    addRecipe(rpy);
-    setRedirect(true);
+    const status = await addRecipe(recipe);
+    if (status === 200) {
+      setRedirect(true);
+    }
   };
 
   const handleSubmit = (e) => {

@@ -27,9 +27,9 @@ exports.seedData = async (req, res) => {
 
 exports.getRecipes = async (req, res) => {
   console.log("Receiving a get request for /recipes...");
-  const { id } = req.params;
+  const { userID } = req.params;
   try {
-    const user = await User.findById(id).populate("recipes");
+    const user = await User.findById(userID).populate("recipes");
     const { recipes } = user;
 
     res.json({ status: 200, msg: "Success", recipes });
@@ -68,19 +68,28 @@ exports.updateRecipeByID = async (req, res) => {
 };
 
 exports.deleteRecipeByID = async (req, res) => {
+  const { userID, id } = req.params;
   try {
     console.log("Receiving a request to delete recipe...");
-    const recipe = await Recipe.findByIdAndDelete(req.params.id);
-    if (recipe) {
-      res.json({
-        status: 200,
-        msg: "Recipe Successfully Deleted",
-        recipe,
-      });
+    const recipe = await Recipe.findById(id);
+    if (userID === recipe.user._id) {
+      const deleted = await Recipe.findByIdAndDelete(id);
+      if (deleted) {
+        res.json({
+          status: 200,
+          msg: "Recipe Successfully Deleted",
+          recipe: deleted,
+        });
+      } else {
+        res.json({
+          status: 400,
+          msg: "Recipe Not Deleted",
+        });
+      }
     } else {
       res.json({
         status: 400,
-        msg: "Recipe Not Deleted",
+        msg: "You do not have permission to delete this recipe.",
       });
     }
   } catch (error) {
@@ -92,15 +101,49 @@ exports.deleteRecipeByID = async (req, res) => {
 };
 
 exports.createRecipe = async (req, res) => {
-  const { recipe } = req.body;
   try {
-    console.log("Creating Recipe");
-    const rpy = new Recipe(recipe);
+    const { recipe } = req.body;
+    const { userID } = req.params;
 
-    console.log("Recipe Created");
-    rpy.save();
+    const user = await User.findById(userID);
 
-    res.json({ status: 200, msg: "Recipe Successfully Created", recipe: rpy });
+    if (user) {
+      console.log("Creating Recipe");
+      recipe.user = user;
+      const createdRecipe = await Recipe.create(recipe);
+
+      console.log("Recipe Created");
+
+      User.findByIdAndUpdate(
+        userID,
+        { $push: { recipes: createdRecipe } },
+        (error, success) => {
+          if (error) {
+            console.log("AN E-ROR");
+            res.json({
+              status: 400,
+              msg: "An Error Occurred When Creating Recipe",
+              error,
+              recipe,
+            });
+          } else {
+            console.log("NO E-rOR");
+            res.json({
+              status: 200,
+              msg: "Recipe Successfully Created",
+              recipe: createdRecipe,
+            });
+          }
+        }
+      );
+    } else {
+      console.log("hi from way down here");
+      res.json({
+        status: 400,
+        msg: "An Error Occurred When Creating Recipe",
+        recipe,
+      });
+    }
   } catch (error) {
     res.json({
       status: 400,

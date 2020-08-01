@@ -15,7 +15,7 @@ import { AddRecipe } from "./Components/AddRecipe";
 import { EditRecipe } from "./Components/EditRecipe";
 
 import { Unscrapeables } from "./Components/Unscrapeables";
-import WeekPlanner from "./Components/WeekPlanner";
+import MealPlanner from "./Components/MealPlanner";
 import { Collections } from "./Components/Collections";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
@@ -47,8 +47,8 @@ function App() {
           <Route exact path="/unscrapeables">
             <Unscrapeables />
           </Route>
-          <Route exact path="/weeklyplanner">
-            <WeekPlanner />
+          <Route exact path="/mealplanner">
+            <MealPlanner />
           </Route>
           <Route exact path="/collections">
             <Collections />

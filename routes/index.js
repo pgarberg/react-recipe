@@ -42,15 +42,15 @@ router.get("/api/logout", authController.logout);
 //RECIPES RELATED ROUTES
 router.get("/api/seed-data", recipesController.seedData);
 
-router.get("/api/:id/recipes", recipesController.getRecipes);
+router.get("/api/:userID/recipes", recipesController.getRecipes);
 
-router.delete("/api/recipe/:id", recipesController.deleteRecipeByID);
+router.delete("/api/:userID/recipe/:id", recipesController.deleteRecipeByID);
 
-router.post("/api/recipe/create", recipesController.createRecipe);
+router.post("/api/:userID/recipe/create", recipesController.createRecipe);
 
 router.get("/api/recipe/:id", recipesController.getRecipeByID);
 
-router.patch("/api/recipe/:id", recipesController.updateRecipeByID);
+router.patch("/api/:userID/recipe/:id", recipesController.updateRecipeByID);
 
 //
 //UNSCRAPABLE SITE RELATED ROUTES

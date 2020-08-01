@@ -78,16 +78,6 @@ const Login = ({ alert }) => {
           </button>
         </a>
       </div>
-      <button
-        className="btn btn-warning"
-        onClick={async () => {
-          fetch("http://example.com/movies.json")
-            .then((response) => response.json())
-            .then((data) => console.log(data));
-        }}
-      >
-        AXIOS
-      </button>
     </div>
   );
 };

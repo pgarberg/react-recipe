@@ -21,7 +21,7 @@ const Day = styled.div`
   grid-row-gap: 0px;
 `;
 
-const WeekPlanner = () => {
+const MealPlanner = () => {
   const { recipes, deleteRecipeByID, weekly } = useContext(RecipeContext);
   const id = "5e83cb47ff04a63980a56a31";
 
@@ -100,4 +100,4 @@ const WeekPlanner = () => {
   );
 };
 
-export default WeekPlanner;
+export default MealPlanner;
