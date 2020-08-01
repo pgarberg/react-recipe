@@ -54,14 +54,22 @@ exports.getRecipeByID = async (req, res) => {
 exports.updateRecipeByID = async (req, res) => {
   try {
     console.log("LETS UPDATE");
+    const { id, userID } = req.params;
+    const recipeUpdates = req.body;
 
-    const { id } = req.params;
-    console.log("ID", id);
-    console.log(req.body);
-    const recipe = req.body;
-    console.log("RECIPE", recipe);
-    await Recipe.findByIdAndUpdate(id, recipe);
-    res.json({ status: 200, msg: "Success", recipe });
+    const recipe = await Recipe.findById(id).populate("user");
+
+    if (userID.toString() === recipe.user._id.toString()) {
+      console.log("Were are same same");
+      const updatedRecipe = await Recipe.findByIdAndUpdate(id, recipeUpdates, {
+        new: true,
+      });
+      return res.json({ status: 200, msg: "Success", recipe: updatedRecipe });
+    }
+    res.json({
+      status: 400,
+      msg: "Recipe Not Updated",
+    });
   } catch (error) {
     res.json({ status: 500, msg: "Server Error", error });
   }

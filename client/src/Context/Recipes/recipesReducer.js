@@ -24,7 +24,9 @@ const recipeReducer = (state, action) => {
       let filteredRecipes = state.recipes.filter(
         (recipe) => recipe._id !== action.payload._id
       );
+      console.log("filteredRecipes :>> ", filteredRecipes);
       filteredRecipes = [...filteredRecipes, action.payload];
+      console.log("filteredRecipes :>> ", filteredRecipes);
       return { ...state, recipes: filteredRecipes };
     case DELETE_RECIPE:
       return {

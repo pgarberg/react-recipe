@@ -142,17 +142,20 @@ const RecipesState = (props) => {
   const updateRecipeByID = async (id, recipe) => {
     const res = await axios({
       method: "patch",
-      url: `/api/recipe/${id}`,
+      url: `/api/${userID}/recipe/${id}`,
       headers: {
         "Content-Type": "application/json",
       },
       data: JSON.stringify(recipe),
     });
-
-    dispatch({
-      type: UPDATE_RECIPE,
-      payload: res.data.recipe,
-    });
+    if (res.data.status === 200) {
+      console.log("DISPATCH RECIPE UPDATE");
+      dispatch({
+        type: UPDATE_RECIPE,
+        payload: res.data.recipe,
+      });
+    }
+    return res.data.status;
   };
 
   return (

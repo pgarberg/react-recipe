@@ -6,8 +6,9 @@ import { Redirect } from "react-router-dom";
 
 import recipeContext from "../Context/Recipes/recipeContext";
 
-export const EditRecipe = () => {
-  const [alert, setAlert] = useState(false);
+import { withAlert } from "react-alert";
+
+export const EditRecipe = ({ alert }) => {
   const [redirect, setRedirect] = useState(false);
 
   const [recipe, setRecipe] = useState({
@@ -42,19 +43,12 @@ export const EditRecipe = () => {
   }, []);
 
   const updateRecipes = async () => {
-    await updateRecipeByID(id, recipe);
-
-    setRedirect(true);
+    const res = await updateRecipeByID(id, recipe);
+    if (res === 200) {
+      return setRedirect(true);
+    }
+    alert.error(res.data.error);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      setAlert(false);
-    }, 3000);
-  }, [alert]);
 
   const handleChange = (e) => {
     const updatedRecipe = { ...recipe };
@@ -91,17 +85,12 @@ export const EditRecipe = () => {
   return (
     <div className="container">
       {redirect && <Redirect to={`/recipe/${id}`} />}
-      {alert && (
-        <div class="alert alert-danger" role="alert">
-          Could not fetch recipe from URL provided!
-        </div>
-      )}
 
       <h1>Edit Recipe</h1>
       <hr />
 
       <div className="grid-container">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <h3>Recipe Form</h3>
           <hr />
           <div class="form-group">
