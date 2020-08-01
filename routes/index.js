@@ -40,7 +40,9 @@ router.get("/api/current-user", authController.currentUser);
 router.get("/api/logout", authController.logout);
 
 //RECIPES RELATED ROUTES
-router.get("/api/recipes", recipesController.getRecipes);
+router.get("/api/seed-data", recipesController.seedData);
+
+router.get("/api/:id/recipes", recipesController.getRecipes);
 
 router.delete("/api/recipe/:id", recipesController.deleteRecipeByID);
 

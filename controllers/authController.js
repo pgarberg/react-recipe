@@ -1,4 +1,4 @@
-const TestUser = require("../models/TestUser");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
@@ -43,7 +43,7 @@ exports.googleCallback = () => {
 exports.registerUser = async (req, res) => {
   console.log("Attempting to Register User");
 
-  const userExists = await TestUser.findOne({ email: req.body.userData.email });
+  const userExists = await User.findOne({ email: req.body.userData.email });
 
   if (userExists) {
     return res.json({
@@ -67,7 +67,7 @@ exports.registerUser = async (req, res) => {
 
   user.password = hashedPassword;
 
-  const createdUser = await TestUser.create(user).select("-password");
+  const createdUser = await User.create(user).select("-password");
 
   res.json({
     status: 200,

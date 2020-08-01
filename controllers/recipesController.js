@@ -1,13 +1,41 @@
 const Recipe = require("../models/Recipe");
 
+const User = require("../models/User");
+
+const MealPlan = require("../models/MealPlan");
+
+const Collection = require("../models/Collection");
+
+const bcrypt = require("bcrypt");
+
+exports.seedData = async (req, res) => {
+  console.log("SEED DATA");
+
+  const hashedPassword = bcrypt.hashSync("dog", 10);
+
+  const user = await User.create({
+    email: "leon@gmail.com",
+    password: hashedPassword,
+  });
+
+  const recipes = await Recipe.find();
+
+  await User.findOneAndUpdate({ _id: user._id }, { favourites: recipes });
+
+  res.send("DATA SUCCESSFULLY SEEDED!");
+};
+
 exports.getRecipes = async (req, res) => {
   console.log("Receiving a get request for /recipes...");
+  const { id } = req.params;
   try {
-    const recipes = await Recipe.find();
+    const user = await User.findById(id).populate("recipes");
+    const { recipes } = user;
 
-    res.json(recipes);
+    res.json({ status: 200, msg: "Success", recipes });
   } catch (error) {
     res.json({
+      status: 400,
       msg: "Error Occurred",
       error,
     });

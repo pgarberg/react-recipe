@@ -1,6 +1,7 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useContext } from "react";
 import RecipeReducer from "./recipesReducer";
 import RecipeContext from "./recipeContext";
+import AuthContext from "../Auth/authContext";
 import axios from "axios";
 
 import {
@@ -27,17 +28,23 @@ const RecipesState = (props) => {
     },
   };
 
+  const { user } = useContext(AuthContext);
+
+  const id = user ? user._id : null;
+
   const [state, dispatch] = useReducer(RecipeReducer, initialState);
 
   //SET INITIAL STATE
   const setIntialState = async () => {
-    console.log("CALLING SET INTITIAL STATE!!");
-    const { data } = await axios.get(`/api/recipes`);
+    console.log("CALLING SET INTITIAL RECIPE STATE!!");
+    const { data } = await axios.get(`/api/${id}/recipes`);
 
-    dispatch({
-      type: SET_RECIPES,
-      payload: data,
-    });
+    if (data.status === 200) {
+      dispatch({
+        type: SET_RECIPES,
+        payload: data.recipes,
+      });
+    }
 
     const fetchData = await axios.get("/api/mealplan");
     let { mealplan } = fetchData.data;
@@ -51,8 +58,8 @@ const RecipesState = (props) => {
   };
 
   useEffect(() => {
-    setIntialState();
-  }, []);
+    setIntialState(id);
+  }, [user]);
 
   //   RECIPE BASED FUNCTIONS
   const addRecipe = async (recipe) => {

@@ -11,6 +11,60 @@ export const Recipes = (props) => {
   const handleChange = (e) => {
     setFilter(e.target.value);
   };
+
+  const renderRecipes = () =>
+    recipes.length > 0 ? (
+      <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 ">
+        {recipes
+          .filter((recipe) =>
+            recipe.name.toLowerCase().includes(filter.toLowerCase())
+          )
+          .map((recipe) => (
+            <div className="col mb-4 d-flex justify-content-center">
+              <div class="card" style={{ width: "18rem" }}>
+                <div style={{ overflow: "hidden", maxHeight: "200px" }}>
+                  <Link to={`/recipe/${recipe._id}`}>
+                    <img
+                      src={recipe.image[0]}
+                      className="card-img-top img-fluid"
+                      alt="..."
+                      style={{
+                        height: "auto",
+                        margin: "auto",
+                        overflow: "hidden",
+                        position: "relative",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                      }}
+                    />
+                  </Link>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{recipe.name}</h5>
+                  <p class="card-text">{recipe.author}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+    ) : (
+      <div
+        style={{
+          height: "80vh",
+          marginTop: "-10%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h2>
+          You currently do not have any recipes. Let's{" "}
+          <Link to="/addrecipe">ADD</Link> some!
+        </h2>
+      </div>
+    );
+
   return (
     <div>
       {user === null && <Redirect to="/login" />}
@@ -33,42 +87,7 @@ export const Recipes = (props) => {
           onChange={(e) => handleChange(e)}
         />
       </div>
-
-      <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 ">
-        {recipes &&
-          recipes.length > 0 &&
-          recipes
-            .filter((recipe) =>
-              recipe.name.toLowerCase().includes(filter.toLowerCase())
-            )
-            .map((recipe) => (
-              <div className="col mb-4 d-flex justify-content-center">
-                <div class="card" style={{ width: "18rem" }}>
-                  <div style={{ overflow: "hidden", maxHeight: "200px" }}>
-                    <Link to={`/recipe/${recipe._id}`}>
-                      <img
-                        src={recipe.image[0]}
-                        className="card-img-top img-fluid"
-                        alt="..."
-                        style={{
-                          height: "auto",
-                          margin: "auto",
-                          overflow: "hidden",
-                          position: "relative",
-                          top: "50%",
-                          transform: "translateY(-50%)",
-                        }}
-                      />
-                    </Link>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">{recipe.name}</h5>
-                    <p class="card-text">{recipe.author}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-      </div>
+      {renderRecipes()}
     </div>
   );
 };

@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 
 const passport = require("passport");
 
-const TestUser = require("../models/TestUser");
+const User = require("../models/User");
 
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -17,7 +17,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log("PROFILE : ", profile._json.email);
-      const emailLinked = await TestUser.findOne({
+      const emailLinked = await User.findOne({
         email: profile._json.email,
       });
       console.log("EMAIL LINKED : ", emailLinked);
@@ -28,7 +28,7 @@ passport.use(
           return done(null, emailLinked);
         }
         console.log("MUST UPDATE USER");
-        let updatedUser = await TestUser.findOneAndUpdate(
+        let updatedUser = await User.findOneAndUpdate(
           { email: profile._json.email },
           { googleID: profile.id }
         );
@@ -36,21 +36,21 @@ passport.use(
         return done(null, updatedUser);
       }
 
-      const googleUser = await TestUser.findOne({ googleID: profile.id });
+      const googleUser = await User.findOne({ googleID: profile.id });
 
       if (googleUser) {
         if (googleUser.email) {
           return done(null, googleUser);
         }
 
-        let updatedUser = await TestUser.findOneAndUpdate(
+        let updatedUser = await User.findOneAndUpdate(
           { googleID: profile.id },
           { email: profile._json.email }
         );
         return done(null, updatedUser);
       }
 
-      const user = await TestUser.create({ googleID: profile.id });
+      const user = await User.create({ googleID: profile.id });
       done(null, user);
     }
   )
@@ -62,7 +62,7 @@ passport.use(
       usernameField: "email",
     },
     function (username, password, cb) {
-      TestUser.findOne({ email: username }, function (err, user) {
+      User.findOne({ email: username }, function (err, user) {
         if (err) {
           return cb(err);
         }
@@ -86,7 +86,7 @@ passport.serializeUser(function (user, cb) {
 
 passport.deserializeUser(function (id, cb) {
   console.log("CALLING DU :", id);
-  TestUser.findById(id, function (err, user) {
+  User.findById(id, function (err, user) {
     if (err) {
       return cb(err);
     }
