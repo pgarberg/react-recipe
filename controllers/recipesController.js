@@ -68,11 +68,20 @@ exports.updateRecipeByID = async (req, res) => {
 };
 
 exports.deleteRecipeByID = async (req, res) => {
-  const { userID, id } = req.params;
   try {
-    console.log("Receiving a request to delete recipe...");
-    const recipe = await Recipe.findById(id);
-    if (userID === recipe.user._id) {
+    const { userID, id } = req.params;
+
+    const recipe = await Recipe.findById(id).populate("user");
+
+    if (userID.toString() === recipe.user._id.toString()) {
+      console.log("DELETE I GUESS?");
+
+      const tryDelete = await User.findOneAndUpdate(
+        { _id: userID },
+        { $pull: { recipes: { _id: id } } }
+      );
+
+      console.log("tryDelete :>> ", tryDelete);
       const deleted = await Recipe.findByIdAndDelete(id);
       if (deleted) {
         res.json({

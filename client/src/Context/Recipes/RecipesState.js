@@ -88,11 +88,14 @@ const RecipesState = (props) => {
 
   const deleteRecipeByID = async (id) => {
     console.log("CALLING DELETE RECIPE");
-    await axios.delete(`/api/recipe/${id}`);
-    dispatch({
-      type: DELETE_RECIPE,
-      payload: id,
-    });
+    const res = await axios.delete(`/api/${userID}/recipe/${id}`);
+    console.log(res);
+    if (res.data.status === 200) {
+      dispatch({
+        type: DELETE_RECIPE,
+        payload: id,
+      });
+    }
   };
 
   const updateMealPlan = async (mealplan) => {
