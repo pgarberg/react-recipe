@@ -66,6 +66,37 @@ exports.getRecipeByID = async (req, res) => {
   }
 };
 
+exports.toggleFavourite = async (req, res) => {
+  try {
+    const { id, userID } = req.params;
+
+    const recipe = await Recipe.findById(id).populate("user");
+
+    console.log("recipe", recipe);
+    console.log("id", id);
+    console.log("userID", userID);
+    if (userID.toString() === recipe.user._id.toString()) {
+      console.log("Made it to here");
+      const toggled = recipe.favourite === true ? false : true;
+
+      const updatedRecipe = await Recipe.findByIdAndUpdate(
+        id,
+        { favourite: toggled },
+        {
+          new: true,
+        }
+      );
+      return res.json({ status: 200, msg: "Success", recipe: updatedRecipe });
+    }
+    res.json({
+      status: 400,
+      msg: "Recipe Not Updated",
+    });
+  } catch (error) {
+    res.json({ status: 500, msg: "Server Error", error });
+  }
+};
+
 exports.updateRecipeByID = async (req, res) => {
   try {
     const { id, userID } = req.params;

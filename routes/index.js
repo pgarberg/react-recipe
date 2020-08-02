@@ -52,6 +52,11 @@ router.get("/api/:userID/recipes", recipesController.getRecipes);
 
 router.delete("/api/:userID/recipe/:id", recipesController.deleteRecipeByID);
 
+router.get(
+  "/api/:userID/recipe/:id/favourite",
+  recipesController.toggleFavourite
+);
+
 router.post("/api/:userID/recipe/create", recipesController.createRecipe);
 
 router.get("/api/recipe/:id", recipesController.getRecipeByID);

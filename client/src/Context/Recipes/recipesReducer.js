@@ -6,6 +6,8 @@ import {
   SET_WEEKLY_MEAL_PLAN,
   UPDATE_MEAL_PLAN,
   UPDATE_RECIPE,
+  SET_FAVOURITES,
+  UPDATE_FAVOURITE,
 } from "../types";
 
 const recipeReducer = (state, action) => {
@@ -14,6 +16,8 @@ const recipeReducer = (state, action) => {
     case SET_RECIPES:
       console.log("CALL SET RECIPES WITH...", action);
       return { ...state, recipes: [...action.payload] };
+    case SET_FAVOURITES:
+      return { ...state, favourites: action.payload };
     case ADD_RECIPE:
       console.log("CALLING ADD RECIPE!");
       console.log(action.payload);
@@ -53,6 +57,15 @@ const recipeReducer = (state, action) => {
         ...state,
         weekly: action.payload,
       };
+    case UPDATE_FAVOURITE: {
+      let filteredRecipes = state.recipes.filter(
+        (recipe) => recipe._id !== action.payload._id
+      );
+      console.log("filteredRecipes :>> ", filteredRecipes);
+      filteredRecipes = [...filteredRecipes, action.payload];
+      console.log("filteredRecipes :>> ", filteredRecipes);
+      return { ...state, recipes: filteredRecipes };
+    }
     default:
       return { ...state };
   }

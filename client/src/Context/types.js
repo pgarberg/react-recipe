@@ -23,3 +23,7 @@ export const SET_USER = "SET_USER";
 export const REMOVE_USER = "REMOVE_USER";
 
 export const UPDATE_RECIPE = "UPDATE_RECIPE";
+
+export const SET_FAVOURITES = "SET_FAVOURITES";
+
+export const UPDATE_FAVOURITE = "UPDATE_FAVOURITE";

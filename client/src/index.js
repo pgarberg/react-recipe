@@ -7,6 +7,7 @@ import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import AuthState from "./Context/Auth/AuthState";
 import RecipesState from "./Context/Recipes/RecipesState";
+import "./theme.css";
 import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
 
 // optional configuration

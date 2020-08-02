@@ -1,16 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import RecipeContext from "../Context/Recipes/recipeContext";
 import { Link, Redirect } from "react-router-dom";
 
 import { DeleteModal } from "./DeleteModal";
 import { AddModal } from "./AddModal";
+import UnStar from "../Icons/UnStar";
+import Star from "../Icons/Star";
 export const Recipe = (props) => {
   const {
     recipes,
     deleteRecipeByID,
     addRecipeToDay,
     updateMealPlan,
+    updateRecipeFavourite,
   } = useContext(RecipeContext);
   const { id } = useParams();
   const [editing, toggleEditing] = useState(false);
@@ -21,6 +24,43 @@ export const Recipe = (props) => {
   const [instructions, editInstructions] = useState();
   const [ingredients, editIngredients] = useState();
   const [redirect, setRedirect] = useState(false);
+
+  const [fave, setFave] = useState(false);
+
+  useEffect(() => {
+    if (recipe) {
+      setFave(recipe.favourite);
+    }
+  }, [recipe]);
+
+  const toggleFavourite = async () => {
+    const status = await updateRecipeFavourite(id, recipe);
+    console.log("status", status);
+    if (status === 200) {
+      setFave(!fave);
+    }
+  };
+
+  const renderFav = () =>
+    fave ? (
+      <button
+        style={{ minWidth: "160px", border: "1px solid black" }}
+        className="btn"
+        onClick={() => toggleFavourite()}
+      >
+        {" "}
+        <Star />
+      </button>
+    ) : (
+      <button
+        style={{ minWidth: "160px", border: "1px solid black" }}
+        className="btn"
+        onClick={() => toggleFavourite()}
+      >
+        {" "}
+        <UnStar />
+      </button>
+    );
 
   const handleEdits = (e) => {
     const { name, value } = e.target;
@@ -117,6 +157,7 @@ export const Recipe = (props) => {
                   <strong>Add To Meal Plan</strong>
                 </button>
               </div>
+              {renderFav()}
             </div>
           </div>
           <div className="my-5"></div>

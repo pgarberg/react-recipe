@@ -9,6 +9,45 @@ export const Collections = () => {
       <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 ">
         <div className="col mb-4 d-flex justify-content-center">
           <div class="card" style={{ width: "18rem" }}>
+            <Link to={`/collections/favourites`}>
+              <div
+                style={{
+                  overflow: "hidden",
+                  maxHeight: "200px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignContent: "center",
+                }}
+                className="d-flex"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg"
+                  className="card-img-top img-fluid"
+                  alt="..."
+                  style={{
+                    width: "auto",
+                    margin: "auto",
+                    maxHeight: "125px",
+                    overflow: "hidden",
+                  }}
+                />
+              </div>
+            </Link>
+            <div
+              class="card-body"
+              style={{
+                borderTop: "1px solid rgba(0,0,0,.125)",
+                borderRadius: ".25rem",
+              }}
+            >
+              <h5 class="card-title">Add Collection</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div className="col mb-4 d-flex justify-content-center">
+          <div class="card" style={{ width: "18rem" }}>
             <div style={{ overflow: "hidden", maxHeight: "200px" }}>
               <Link to={`/collections/favourites`}>
                 <img

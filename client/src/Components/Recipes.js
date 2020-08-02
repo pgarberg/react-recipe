@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import RecipeContext from "../Context/Recipes/recipeContext";
 import authContext from "../Context/Auth/authContext";
+import { RecipeCard } from "./RecipeCard";
 
 export const Recipes = (props) => {
   const { user } = useContext(authContext);
@@ -20,31 +21,7 @@ export const Recipes = (props) => {
             recipe.name.toLowerCase().includes(filter.toLowerCase())
           )
           .map((recipe) => (
-            <div className="col mb-4 d-flex justify-content-center">
-              <div class="card" style={{ width: "18rem" }}>
-                <div style={{ overflow: "hidden", maxHeight: "200px" }}>
-                  <Link to={`/recipe/${recipe._id}`}>
-                    <img
-                      src={recipe.image[0]}
-                      className="card-img-top img-fluid"
-                      alt="..."
-                      style={{
-                        height: "auto",
-                        margin: "auto",
-                        overflow: "hidden",
-                        position: "relative",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                      }}
-                    />
-                  </Link>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">{recipe.name}</h5>
-                  <p class="card-text">{recipe.author}</p>
-                </div>
-              </div>
-            </div>
+            <RecipeCard recipe={recipe} />
           ))}
       </div>
     ) : (

@@ -12,12 +12,14 @@ import {
   SET_WEEKLY_MEAL_PLAN,
   UPDATE_MEAL_PLAN,
   UPDATE_RECIPE,
+  SET_FAVOURITES,
+  UPDATE_FAVOURITE,
 } from "../types";
 
 const RecipesState = (props) => {
   const initialState = {
     recipes: [],
-    favourties: []
+    favourites: [],
     weekly: {
       monday: [],
       tuesday: [],
@@ -56,6 +58,13 @@ const RecipesState = (props) => {
     });
 
     console.log("FETCH DATA : ", fetchData);
+
+    const favourites = await axios.get(`/api/${userID}/recipes/favourites`);
+
+    dispatch({
+      type: SET_FAVOURITES,
+      payload: favourites.data.favourites,
+    });
   };
 
   useEffect(() => {
@@ -158,11 +167,27 @@ const RecipesState = (props) => {
     return res.data.status;
   };
 
+  const updateRecipeFavourite = async (id, recipe) => {
+    console.log("CALL UPDATE FAVE");
+    const res = await axios.get(`/api/${userID}/recipe/${id}/favourite`);
+
+    console.log("res", res);
+    if (res.data.status === 200) {
+      dispatch({
+        type: UPDATE_FAVOURITE,
+        payload: res.data.recipe,
+      });
+    }
+
+    return res.data.status;
+  };
+
   return (
     <RecipeContext.Provider
       value={{
         recipes: state.recipes,
         weekly: state.weekly,
+        favourites: state.favourites,
         addRecipe,
         setIntialState,
         deleteRecipeByID,
@@ -170,6 +195,7 @@ const RecipesState = (props) => {
         updateMealPlan,
         getRecipeByID,
         updateRecipeByID,
+        updateRecipeFavourite,
       }}
     >
       {props.children}
