@@ -6,6 +6,10 @@ const recipeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  favourite: {
+    type: Boolean,
+    default: false,
+  },
   name: String,
   author: String,
   datePublished: String,

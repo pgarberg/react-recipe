@@ -1,44 +1,27 @@
 import React, { useReducer, useEffect, useContext } from "react";
-import RecipeReducer from "./recipesReducer";
+import CollectionReducer from "./collectionReducer";
 import RecipeContext from "./recipeContext";
 import AuthContext from "../Auth/authContext";
 import axios from "axios";
 
-import {
-  SET_RECIPES,
-  ADD_RECIPE,
-  DELETE_RECIPE,
-  ADD_RECIPE_TO_DAY,
-  SET_WEEKLY_MEAL_PLAN,
-  UPDATE_MEAL_PLAN,
-  UPDATE_RECIPE,
-} from "../types";
+import {} from "../types";
 
 const RecipesState = (props) => {
   const initialState = {
-    recipes: [],
-    favourties: []
-    weekly: {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-      saturday: [],
-      sunday: [],
-    },
+    collections: [],
+    favourites: [],
   };
 
   const { user } = useContext(AuthContext);
 
   const userID = user ? user._id : null;
 
-  const [state, dispatch] = useReducer(RecipeReducer, initialState);
+  const [state, dispatch] = useReducer(CollectionReducer, initialState);
 
   //SET INITIAL STATE
   const setIntialState = async () => {
-    console.log("CALLING SET INTITIAL RECIPE STATE!!");
-    const { data } = await axios.get(`/api/${userID}/recipes`);
+    console.log("CALLING SET INTITIAL Collection STATE!!");
+    const { data } = await axios.get(`/api/${userID}/collections`);
     console.log("data", data);
     if (data.status === 200) {
       dispatch({

@@ -4,6 +4,7 @@ const recipesController = require("../controllers/recipesController");
 const unscrapeablesController = require("../controllers/unscrapeablesController");
 const scrapeController = require("../controllers/scrapeController");
 const mealplanController = require("../controllers/mealplanController");
+const collectionsController = require("../controllers/collectionsController");
 const authController = require("../controllers/authController");
 const passport = require("passport");
 
@@ -42,7 +43,10 @@ router.get("/api/logout", authController.logout);
 //
 //RECIPES RELATED ROUTES
 //
+
 router.get("/api/seed-data", recipesController.seedData);
+
+router.get("/api/:userID/recipes/favourites", recipesController.getFavourites);
 
 router.get("/api/:userID/recipes", recipesController.getRecipes);
 
@@ -53,6 +57,31 @@ router.post("/api/:userID/recipe/create", recipesController.createRecipe);
 router.get("/api/recipe/:id", recipesController.getRecipeByID);
 
 router.patch("/api/:userID/recipe/:id", recipesController.updateRecipeByID);
+
+//
+//RECIPE COLLECTIONS RELATED ROUTES
+//
+router.get("/api/:userID/collections", collectionsController.getCollections);
+
+router.delete(
+  "/api/:userID/collection/:id",
+  collectionsController.deleteCollectionByID
+);
+
+router.post(
+  "/api/:userID/collections/create",
+  collectionsController.createCollection
+);
+
+router.get(
+  "/api/:userID/collection/:id",
+  collectionsController.getCollectionByID
+);
+
+router.patch(
+  "/api/:userID/collection/:id",
+  collectionsController.updateCollectionByID
+);
 
 //
 //UNSCRAPABLE SITE RELATED ROUTES

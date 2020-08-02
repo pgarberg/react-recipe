@@ -21,8 +21,23 @@ exports.seedData = async (req, res) => {
   const recipes = await Recipe.find();
 
   await User.findOneAndUpdate({ _id: user._id }, { favourites: recipes });
+};
 
-  res.send("DATA SUCCESSFULLY SEEDED!");
+exports.getFavourites = async (req, res) => {
+  console.log("Receiving a get request for /recipes/favourites...");
+  const { userID } = req.params;
+  try {
+    const user = await User.findById(userID).populate("favourites");
+    const { favourites } = user;
+
+    res.json({ status: 200, msg: "Success", favourites });
+  } catch (error) {
+    res.json({
+      status: 400,
+      msg: "Error Occurred",
+      error,
+    });
+  }
 };
 
 exports.getRecipes = async (req, res) => {
@@ -53,14 +68,12 @@ exports.getRecipeByID = async (req, res) => {
 
 exports.updateRecipeByID = async (req, res) => {
   try {
-    console.log("LETS UPDATE");
     const { id, userID } = req.params;
     const recipeUpdates = req.body;
 
     const recipe = await Recipe.findById(id).populate("user");
 
     if (userID.toString() === recipe.user._id.toString()) {
-      console.log("Were are same same");
       const updatedRecipe = await Recipe.findByIdAndUpdate(id, recipeUpdates, {
         new: true,
       });
@@ -82,14 +95,11 @@ exports.deleteRecipeByID = async (req, res) => {
     const recipe = await Recipe.findById(id).populate("user");
 
     if (userID.toString() === recipe.user._id.toString()) {
-      console.log("DELETE I GUESS?");
-
       const tryDelete = await User.findOneAndUpdate(
         { _id: userID },
         { $pull: { recipes: { _id: id } } }
       );
 
-      console.log("tryDelete :>> ", tryDelete);
       const deleted = await Recipe.findByIdAndDelete(id);
       if (deleted) {
         res.json({
@@ -125,18 +135,14 @@ exports.createRecipe = async (req, res) => {
     const user = await User.findById(userID);
 
     if (user) {
-      console.log("Creating Recipe");
       recipe.user = user;
       const createdRecipe = await Recipe.create(recipe);
-
-      console.log("Recipe Created");
 
       User.findByIdAndUpdate(
         userID,
         { $push: { recipes: createdRecipe } },
         (error, success) => {
           if (error) {
-            console.log("AN E-ROR");
             res.json({
               status: 400,
               msg: "An Error Occurred When Creating Recipe",
@@ -144,7 +150,6 @@ exports.createRecipe = async (req, res) => {
               recipe,
             });
           } else {
-            console.log("NO E-rOR");
             res.json({
               status: 200,
               msg: "Recipe Successfully Created",
