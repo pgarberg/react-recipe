@@ -159,7 +159,7 @@ export const AddModal = ({
                 aria-label="Close"
                 onClick={() => handleClick()}
               >
-                <button className="btn btn-success">Confirm Selection</button>
+                <button className="btn btn-info">Confirm Selection</button>
               </button>
             </div>
           </div>

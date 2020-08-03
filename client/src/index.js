@@ -23,15 +23,15 @@ const options = {
 
 const Root = () => (
   <AuthState>
-    <RecipesState>
-      <CollectionState>
+    <CollectionState>
+      <RecipesState>
         <UnscrapeableState>
           <AlertProvider template={AlertTemplate} {...options}>
             <App />
           </AlertProvider>
         </UnscrapeableState>
-      </CollectionState>
-    </RecipesState>
+      </RecipesState>
+    </CollectionState>
   </AuthState>
 );
 

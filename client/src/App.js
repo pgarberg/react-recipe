@@ -21,6 +21,7 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import authContext from "./Context/Auth/authContext";
 import { Favourites } from "./Components/Favourites";
+import { Collection } from "./Components/Collection";
 
 function App() {
   const { fetchUser } = useContext(authContext);
@@ -59,6 +60,9 @@ function App() {
           </Route>
           <Route exact path="/collections/favourites">
             <Favourites />
+          </Route>
+          <Route exact path="/collections/:id">
+            <Collection />
           </Route>
           <Route exact path="/register">
             <Register />

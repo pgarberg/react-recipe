@@ -5,8 +5,14 @@ import { Link, Redirect } from "react-router-dom";
 
 import { DeleteModal } from "./DeleteModal";
 import { AddModal } from "./AddModal";
+import { AddOptionModal } from "./AddOptionModal";
 import UnStar from "../Icons/UnStar";
 import Star from "../Icons/Star";
+import Plus from "../Icons/Plus";
+import Delete from "../Icons/Delete";
+import Edit from "../Icons/Edit";
+import { AddToCollectionModal } from "./AddToCollectionModal";
+
 export const Recipe = (props) => {
   const {
     recipes,
@@ -45,7 +51,7 @@ export const Recipe = (props) => {
     fave ? (
       <button
         style={{ minWidth: "160px", border: "1px solid black" }}
-        className="btn"
+        className="btn btn-light"
         onClick={() => toggleFavourite()}
       >
         {" "}
@@ -54,7 +60,7 @@ export const Recipe = (props) => {
     ) : (
       <button
         style={{ minWidth: "160px", border: "1px solid black" }}
-        className="btn"
+        className="btn btn-light"
         onClick={() => toggleFavourite()}
       >
         {" "}
@@ -121,7 +127,7 @@ export const Recipe = (props) => {
 
           <hr />
           <div class="container">
-            <div class="row d-flex justify-content-around">
+            <div class="row d-flex justify-content-between w-75 m-auto">
               <Link to={`/recipe/${recipe._id}/edit`}>
                 <div
                   class="btn btn-primary a-btn-slide-text "
@@ -132,7 +138,7 @@ export const Recipe = (props) => {
                     aria-hidden="true"
                   ></span>
                   <span>
-                    <strong>Edit</strong>
+                    <Edit />
                   </span>
                 </div>
               </Link>
@@ -144,17 +150,17 @@ export const Recipe = (props) => {
                 data-target="#DeleteModal"
                 style={{ minWidth: "160px" }}
               >
-                <strong>Delete Recipe</strong>
+                <Delete />
               </button>
               <div>
                 <button
                   type="button"
                   class="btn btn-secondary"
                   data-toggle="modal"
-                  data-target="#AddModal"
+                  data-target="#AddOptionModal"
                   style={{ minWidth: "160px" }}
                 >
-                  <strong>Add To Meal Plan</strong>
+                  <Plus />
                 </button>
               </div>
               {renderFav()}
@@ -181,6 +187,8 @@ export const Recipe = (props) => {
               addRecipeToDay={addRecipeToDay}
               updateMealPlan={updateMealPlan}
             />
+            <AddToCollectionModal recipe={recipe} />
+            <AddOptionModal />
             <div class="row">
               <div class="col">
                 <h4

@@ -1,7 +1,26 @@
 import React, { useContext } from "react";
-import RecipeContext from "../Context/Recipes/recipeContext";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
+import collectionContext from "../Context/Collections/collectionContext";
 
 export const Collection = () => {
-  const { favourites } = useContext(RecipeContext);
-  return <div></div>;
+  const { collections } = useContext(collectionContext);
+  const { id } = useParams();
+
+  let collection = Array.isArray(collections)
+    ? collections.filter((collection) => collection._id === id)[0]
+    : "";
+
+  return (
+    <div className="container">
+      {collection && (
+        <div>
+          <h1 className="tas">{collection.title}</h1>
+          <hr className="mb-4" />
+          <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 "></div>
+        </div>
+      )}
+    </div>
+  );
 };
