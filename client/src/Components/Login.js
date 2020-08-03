@@ -64,7 +64,7 @@ const Login = ({ alert }) => {
               id="exampleInputPassword1"
             />
           </div>
-          <button className="btn btn-danger" style={{ width: "100%" }}>
+          <button className="btn btn-primary" style={{ width: "100%" }}>
             LOGIN
           </button>
         </form>

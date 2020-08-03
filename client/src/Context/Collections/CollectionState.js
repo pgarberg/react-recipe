@@ -1,15 +1,14 @@
 import React, { useReducer, useEffect, useContext } from "react";
 import CollectionReducer from "./collectionReducer";
-import RecipeContext from "./recipeContext";
+import CollectionContext from "./collectionContext";
 import AuthContext from "../Auth/authContext";
 import axios from "axios";
 
-import {} from "../types";
+import { SET_COLLECTIONS, ADD_COLLECTION } from "../types";
 
-const RecipesState = (props) => {
+const CollectionState = (props) => {
   const initialState = {
     collections: [],
-    favourites: [],
   };
 
   const { user } = useContext(AuthContext);
@@ -25,20 +24,10 @@ const RecipesState = (props) => {
     console.log("data", data);
     if (data.status === 200) {
       dispatch({
-        type: SET_RECIPES,
-        payload: data.recipes,
+        type: SET_COLLECTIONS,
+        payload: data.collections,
       });
     }
-
-    const fetchData = await axios.get("/api/mealplan");
-    let { mealplan } = fetchData.data;
-
-    dispatch({
-      type: SET_WEEKLY_MEAL_PLAN,
-      payload: mealplan,
-    });
-
-    console.log("FETCH DATA : ", fetchData);
   };
 
   useEffect(() => {
@@ -46,23 +35,22 @@ const RecipesState = (props) => {
   }, [user]);
 
   //   RECIPE BASED FUNCTIONS
-  const addRecipe = async (recipe) => {
-    console.log("RECIPEEEEEEEEEE", recipe);
+  const addCollection = async (collection) => {
+    console.log("Adding new collection");
+    console.log("collection", collection);
     const res = await axios({
       method: "post",
-      url: `/api/${userID}/recipe/create`,
+      url: `/api/${userID}/collections/create`,
       headers: {
         "Content-Type": "application/json",
       },
-      data: {
-        recipe,
-      },
+      data: { title: collection },
     });
 
     if (res.data.status === 200) {
-      const createdRecipe = res.data.recipe;
+      const createdRecipe = res.data.collection;
       dispatch({
-        type: ADD_RECIPE,
+        type: ADD_COLLECTION,
         payload: createdRecipe,
       });
     }
@@ -70,94 +58,87 @@ const RecipesState = (props) => {
     return res.data.status;
   };
 
-  const deleteRecipeByID = async (id) => {
-    console.log("CALLING DELETE RECIPE");
-    const res = await axios.delete(`/api/${userID}/recipe/${id}`);
-    console.log(res);
-    if (res.data.status === 200) {
-      dispatch({
-        type: DELETE_RECIPE,
-        payload: id,
-      });
-    }
-  };
+  // const deleteRecipeByID = async (id) => {
+  //   console.log("CALLING DELETE RECIPE");
+  //   const res = await axios.delete(`/api/${userID}/recipe/${id}`);
+  //   console.log(res);
+  //   if (res.data.status === 200) {
+  //     dispatch({
+  //       type: DELETE_RECIPE,
+  //       payload: id,
+  //     });
+  //   }
+  // };
 
-  const updateMealPlan = async (mealplan) => {
-    console.log("CALLING UPDATE MEAL PLAN", mealplan);
+  // const updateMealPlan = async (mealplan) => {
+  //   console.log("CALLING UPDATE MEAL PLAN", mealplan);
 
-    await axios({
-      method: "patch",
-      url: "/api/mealplan",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        mealplan,
-      },
-    });
-    dispatch({
-      type: UPDATE_MEAL_PLAN,
-      payload: mealplan,
-    });
-  };
+  //   await axios({
+  //     method: "patch",
+  //     url: "/api/mealplan",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: {
+  //       mealplan,
+  //     },
+  //   });
+  //   dispatch({
+  //     type: UPDATE_MEAL_PLAN,
+  //     payload: mealplan,
+  //   });
+  // };
 
-  const addRecipeToDay = async ({ recipe, day }) => {
-    console.log("CALLING ADD RECIPE TO DAY");
-    console.log(recipe);
-    console.log(day);
-    dispatch({
-      type: ADD_RECIPE_TO_DAY,
-      payload: { recipe, day },
-    });
-  };
+  // const addRecipeToDay = async ({ recipe, day }) => {
+  //   console.log("CALLING ADD RECIPE TO DAY");
+  //   console.log(recipe);
+  //   console.log(day);
+  //   dispatch({
+  //     type: ADD_RECIPE_TO_DAY,
+  //     payload: { recipe, day },
+  //   });
+  // };
 
-  const getRecipeByID = async (id) => {
-    const res = await axios({
-      method: "get",
-      url: `/api/recipe/${id}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  // const getRecipeByID = async (id) => {
+  //   const res = await axios({
+  //     method: "get",
+  //     url: `/api/recipe/${id}`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
 
-    return res.data.recipe;
-  };
+  //   return res.data.recipe;
+  // };
 
-  const updateRecipeByID = async (id, recipe) => {
-    const res = await axios({
-      method: "patch",
-      url: `/api/${userID}/recipe/${id}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: JSON.stringify(recipe),
-    });
-    if (res.data.status === 200) {
-      dispatch({
-        type: UPDATE_RECIPE,
-        payload: res.data.recipe,
-      });
-    }
-    return res.data.status;
-  };
+  // const updateRecipeByID = async (id, recipe) => {
+  //   const res = await axios({
+  //     method: "patch",
+  //     url: `/api/${userID}/recipe/${id}`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: JSON.stringify(recipe),
+  //   });
+  //   if (res.data.status === 200) {
+  //     dispatch({
+  //       type: UPDATE_RECIPE,
+  //       payload: res.data.recipe,
+  //     });
+  //   }
+  //   return res.data.status;
+  // };
 
   return (
-    <RecipeContext.Provider
+    <CollectionContext.Provider
       value={{
-        recipes: state.recipes,
-        weekly: state.weekly,
-        addRecipe,
-        setIntialState,
-        deleteRecipeByID,
-        addRecipeToDay,
-        updateMealPlan,
-        getRecipeByID,
-        updateRecipeByID,
+        collections: state.collections,
+        addCollection,
       }}
     >
       {props.children}
-    </RecipeContext.Provider>
+    </CollectionContext.Provider>
   );
 };
 
-export default RecipesState;
+export default CollectionState;

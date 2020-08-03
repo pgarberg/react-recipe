@@ -104,15 +104,24 @@ exports.deleteCollectionByID = async (req, res) => {
 };
 
 exports.createCollection = async (req, res) => {
+  const { title } = req.body;
   try {
-    const { collection } = req.body;
     const { userID } = req.params;
 
     const user = await User.findById(userID);
 
     if (user) {
-      collection.user = user;
+      console.log("Made it to part 1");
+      const collection = {
+        title,
+        user,
+      };
+
+      console.log("collection :>>", collection);
+
       const createdCollection = await Collection.create(collection);
+
+      console.log("createdCollection :>>", createdCollection);
 
       User.findByIdAndUpdate(
         userID,
@@ -123,7 +132,7 @@ exports.createCollection = async (req, res) => {
               status: 400,
               msg: "An Error Occurred When Creating Collection",
               error,
-              collection,
+              title,
             });
           } else {
             res.json({
@@ -135,18 +144,17 @@ exports.createCollection = async (req, res) => {
         }
       );
     } else {
-      console.log("hi from way down here");
       res.json({
         status: 400,
         msg: "An Error Occurred When Creating Collection",
-        collection,
+        title,
       });
     }
   } catch (error) {
     res.json({
       status: 400,
       msg: "An Error Occurred When Creating Collection",
-      collection,
+      title,
     });
   }
 };

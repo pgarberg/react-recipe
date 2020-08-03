@@ -7,6 +7,7 @@ import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import AuthState from "./Context/Auth/AuthState";
 import RecipesState from "./Context/Recipes/RecipesState";
+import CollectionState from "./Context/Collections/CollectionState";
 import "./theme.css";
 import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
 
@@ -23,11 +24,13 @@ const options = {
 const Root = () => (
   <AuthState>
     <RecipesState>
-      <UnscrapeableState>
-        <AlertProvider template={AlertTemplate} {...options}>
-          <App />
-        </AlertProvider>
-      </UnscrapeableState>
+      <CollectionState>
+        <UnscrapeableState>
+          <AlertProvider template={AlertTemplate} {...options}>
+            <App />
+          </AlertProvider>
+        </UnscrapeableState>
+      </CollectionState>
     </RecipesState>
   </AuthState>
 );
