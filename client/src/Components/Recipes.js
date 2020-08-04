@@ -45,26 +45,29 @@ export const Recipes = (props) => {
   return (
     <div>
       {user === null && <Redirect to="/login" />}
-      <div
-        class="input-group m-3 mr-5 w-50"
-        style={{ minWidth: "300px", maxWidth: "400px" }}
-      >
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">
-            Filter Recipes
-          </span>
+
+      <div className="container">
+        <div
+          class="input-group m-3 mr-5 w-50"
+          style={{ minWidth: "300px", maxWidth: "400px" }}
+        >
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              Filter Recipes
+            </span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Recipe Name"
+            aria-label="Recipe Name"
+            aria-describedby="basic-addon1"
+            value={filter}
+            onChange={(e) => handleChange(e)}
+          />
         </div>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Recipe Name"
-          aria-label="Recipe Name"
-          aria-describedby="basic-addon1"
-          value={filter}
-          onChange={(e) => handleChange(e)}
-        />
+        {renderRecipes()}
       </div>
-      {renderRecipes()}
     </div>
   );
 };

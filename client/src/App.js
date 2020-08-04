@@ -22,6 +22,7 @@ import Register from "./Components/Register";
 import authContext from "./Context/Auth/authContext";
 import { Favourites } from "./Components/Favourites";
 import { Collection } from "./Components/Collection";
+import { Nav2 } from "./Components/Nav2";
 
 function App() {
   const { fetchUser } = useContext(authContext);
@@ -30,8 +31,14 @@ function App() {
   }, []);
   return (
     <Router>
-      <div className="App">
-        <Nav />
+      <div
+        className="App"
+        style={{
+          paddingTop: "15vh",
+        }}
+      >
+        <Nav2 />
+        {/* <Nav /> */}
         <ScrollToTop />
         <Switch>
           <Route exact path="/recipe/:id">
