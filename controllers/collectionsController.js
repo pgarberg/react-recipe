@@ -6,13 +6,15 @@ const MealPlan = require("../models/MealPlan");
 
 const Collection = require("../models/Collection");
 
-const bcrypt = require("bcrypt");
-
 exports.getCollections = async (req, res) => {
   console.log("Receiving a get request for /collections...");
   const { userID } = req.params;
   try {
-    const user = await User.findById(userID).populate("collections");
+    const user = await User.findById(userID).populate({
+      path: "collections",
+
+      populate: { path: "recipes" },
+    });
     const { collections } = user;
 
     res.json({ status: 200, msg: "Success", collections });
@@ -34,25 +36,78 @@ exports.getCollectionByID = async (req, res) => {
   }
 };
 
-exports.updateCollectionByID = async (req, res) => {
+exports.addRecipeToCollection = async (req, res) => {
   try {
     const { id, userID } = req.params;
-    const collectionUpdates = req.body;
+    const { recipeID } = req.body;
 
     const collection = await Collection.findById(id).populate("user");
 
-    if (userID.toString() === user.user._id.toString()) {
+    const recipe = await Recipe.findById(recipeID);
+
+    if (userID.toString() === collection.user._id.toString()) {
+      const containsRecipe = collection.recipes.includes(recipeID);
+
+      console.log('LET"S ADD THAT RECIPE');
+
+      if (containsRecipe > 0) {
+        console.log(1);
+        return res.json({
+          status: 200,
+          msg: "Success. Recipe previously added to Collection.",
+          collection,
+        });
+      } else {
+        console.log(2);
+        const updatedCollection = await Collection.findByIdAndUpdate(
+          id,
+          {
+            $push: { recipes: recipe },
+          },
+          {
+            new: true,
+          }
+        );
+        return res.json({
+          status: 200,
+          msg: "Success. Added Recipe to Collection.",
+          collection: updatedCollection,
+        });
+      }
+    }
+    res.json({
+      status: 400,
+      msg: "Collection Not Updated",
+    });
+  } catch (error) {
+    res.json({ status: 500, msg: "Server Error", error });
+  }
+};
+
+exports.removeRecipeFromCollection = async (req, res) => {
+  try {
+    const { id, userID } = req.params;
+    const { recipeID } = req.body;
+
+    const collection = await Collection.findById(id).populate("user");
+
+    if (userID.toString() === collection.user._id.toString()) {
+      const updatedRecipes = collection.recipes.filter(
+        (recipe) => recipe._id.toString() !== recipeID.toString()
+      );
+
       const updatedCollection = await Collection.findByIdAndUpdate(
         id,
-        collectionUpdates,
+        { recipes: updatedRecipes },
         {
           new: true,
         }
       );
+
       return res.json({
         status: 200,
-        msg: "Success",
-        collection: updatedCollection,
+        msg: "Success. Removed Recipe from Collection.",
+        updatedCollection,
       });
     }
     res.json({

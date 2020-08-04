@@ -51,7 +51,7 @@ export const Recipe = (props) => {
     fave ? (
       <button
         style={{ minWidth: "160px", border: "1px solid black" }}
-        className="btn btn-light"
+        className="btn btn-info"
         onClick={() => toggleFavourite()}
       >
         {" "}
@@ -60,7 +60,7 @@ export const Recipe = (props) => {
     ) : (
       <button
         style={{ minWidth: "160px", border: "1px solid black" }}
-        className="btn btn-light"
+        className="btn btn-info"
         onClick={() => toggleFavourite()}
       >
         {" "}

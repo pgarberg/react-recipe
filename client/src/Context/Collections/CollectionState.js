@@ -4,7 +4,11 @@ import CollectionContext from "./collectionContext";
 import AuthContext from "../Auth/authContext";
 import axios from "axios";
 
-import { SET_COLLECTIONS, ADD_COLLECTION } from "../types";
+import {
+  SET_COLLECTIONS,
+  ADD_COLLECTION,
+  ADD_RECIPE_TO_COLLECTION,
+} from "../types";
 
 const CollectionState = (props) => {
   const initialState = {
@@ -52,6 +56,31 @@ const CollectionState = (props) => {
       dispatch({
         type: ADD_COLLECTION,
         payload: createdRecipe,
+      });
+    }
+
+    return res.data.status;
+  };
+
+  const addRecipeToCollection = async (recipe, collectionID) => {
+    console.log(
+      "Will attempt to send to",
+      `/api/${userID}/collection/${collectionID}`
+    );
+    const res = await axios({
+      method: "post",
+      url: `/api/${userID}/collection/${collectionID}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { recipeID: recipe._id },
+    });
+
+    if (res.data.status === 200) {
+      const updatedCollection = res.data.collection;
+      dispatch({
+        type: ADD_RECIPE_TO_COLLECTION,
+        payload: updatedCollection,
       });
     }
 
@@ -134,6 +163,7 @@ const CollectionState = (props) => {
       value={{
         collections: state.collections,
         addCollection,
+        addRecipeToCollection,
       }}
     >
       {props.children}

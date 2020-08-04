@@ -85,7 +85,12 @@ router.get(
 
 router.patch(
   "/api/:userID/collection/:id",
-  collectionsController.updateCollectionByID
+  collectionsController.removeRecipeFromCollection
+);
+
+router.post(
+  "/api/:userID/collection/:id",
+  collectionsController.addRecipeToCollection
 );
 
 //

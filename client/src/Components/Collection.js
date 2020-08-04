@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
+import { RecipeCard } from "./RecipeCard";
 import collectionContext from "../Context/Collections/collectionContext";
 
 export const Collection = () => {
@@ -18,7 +18,12 @@ export const Collection = () => {
         <div>
           <h1 className="tas">{collection.title}</h1>
           <hr className="mb-4" />
-          <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 "></div>
+          <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 ">
+            {collection.recipes &&
+              collection.recipes.map((recipe) => (
+                <RecipeCard recipe={recipe} />
+              ))}
+          </div>
         </div>
       )}
     </div>

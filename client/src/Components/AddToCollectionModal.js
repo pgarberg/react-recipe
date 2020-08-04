@@ -1,16 +1,23 @@
 import React, { useState, useContext } from "react";
 import recipeContext from "../Context/Recipes/recipeContext";
 import collectionContext from "../Context/Collections/collectionContext";
+import { Redirect } from "react-router-dom";
 
 export const AddToCollectionModal = ({ recipe }) => {
-  const [radio, setRadio] = useState({ selected: "monday" });
+  const [collectionID, setCollectionID] = useState("");
 
-  const { collections } = useContext(collectionContext);
+  const { collections, addRecipeToCollection } = useContext(collectionContext);
 
-  const handleClick = async () => {};
+  const handleClick = async () => {
+    const status = addRecipeToCollection(recipe, collectionID);
+
+    if (status === 200) {
+      return <Redirect to="/" />;
+    }
+  };
 
   const handleChange = (e) => {
-    setRadio({ selected: e.target.value });
+    setCollectionID(e.target.id);
   };
   return (
     <div>
@@ -26,7 +33,7 @@ export const AddToCollectionModal = ({ recipe }) => {
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" id="exampleModalCenterTitle">
-                Add To Meal Plan
+                Add Recipe To Collection
               </h4>
               <button
                 type="button"

@@ -16,6 +16,9 @@ const MealCard = ({ recipe }) => {
         </div>
         <div class="card-body">
           <h5>{recipe.name}</h5>
+          <p class="card-link" style={{ color: "red", cursor: "pointer" }}>
+            REMOVE
+          </p>
         </div>
       </div>
     </div>

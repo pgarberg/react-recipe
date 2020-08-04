@@ -2,6 +2,32 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const CollectionCard = ({ collection }) => {
+  const renderImage = () => {
+    if (collection.recipes.length === 0) {
+      return (
+        <h2
+          className="card-img-top img-fluid my-5 py-3"
+          style={{
+            height: "auto",
+            margin: "auto",
+            overflow: "hidden",
+            position: "relative",
+            top: "50",
+          }}
+        >
+          Empty
+        </h2>
+      );
+    } else {
+      return (
+        <img
+          src={collection.recipes[0].image[0]}
+          className="card-img-top img-fluid"
+          alt="..."
+        />
+      );
+    }
+  };
   return (
     <div className="col mb-4 d-flex justify-content-center">
       <div class="card" style={{ width: "18rem" }}>
@@ -15,20 +41,7 @@ export const CollectionCard = ({ collection }) => {
           }}
           className="d-flex"
         >
-          <Link to={`/collections/${collection._id}`}>
-            <h2
-              className="card-img-top img-fluid my-5 py-3"
-              style={{
-                height: "auto",
-                margin: "auto",
-                overflow: "hidden",
-                position: "relative",
-                top: "50",
-              }}
-            >
-              Empty
-            </h2>
-          </Link>
+          <Link to={`/collections/${collection._id}`}>{renderImage()}</Link>
         </div>
         <div
           class="card-body"
