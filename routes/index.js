@@ -8,6 +8,8 @@ const collectionsController = require("../controllers/collectionsController");
 const authController = require("../controllers/authController");
 const passport = require("passport");
 
+const User = require("../models/User");
+
 router.get("/thepioneerwoman", async (req, res) => {
   const recipe = await thepioneerwoman(
     "https://thepioneerwoman.com/cooking/rosemary-garlic-fried-potatoes/"

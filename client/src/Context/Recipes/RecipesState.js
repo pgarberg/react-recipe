@@ -53,11 +53,12 @@ const RecipesState = (props) => {
     let { mealPlan } = fetchData.data;
 
     console.log("fetchData.data", fetchData.data);
-
-    dispatch({
-      type: SET_WEEKLY_MEAL_PLAN,
-      payload: mealPlan,
-    });
+    if (mealPlan) {
+      dispatch({
+        type: SET_WEEKLY_MEAL_PLAN,
+        payload: mealPlan,
+      });
+    }
 
     console.log("FETCH DATA : ", fetchData);
 

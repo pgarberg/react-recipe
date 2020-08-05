@@ -23,6 +23,7 @@ import authContext from "./Context/Auth/authContext";
 import { Favourites } from "./Components/Favourites";
 import { Collection } from "./Components/Collection";
 import { Nav2 } from "./Components/Nav2";
+import { Nav3 } from "./Components/Nav3";
 
 function App() {
   const { fetchUser } = useContext(authContext);
@@ -37,7 +38,8 @@ function App() {
           paddingTop: "15vh",
         }}
       >
-        <Nav2 />
+        <Nav3 />
+        {/* <Nav2 /> */}
         {/* <Nav /> */}
         <ScrollToTop />
         <Switch>

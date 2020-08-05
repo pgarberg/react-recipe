@@ -4,6 +4,7 @@ import RecipeContext from "../Context/Recipes/recipeContext";
 import authContext from "../Context/Auth/authContext";
 import { RecipeCard } from "./RecipeCard";
 import Plus from "../Icons/Plus";
+import styled from "styled-components";
 
 export const Recipes = (props) => {
   const { user } = useContext(authContext);
@@ -43,46 +44,63 @@ export const Recipes = (props) => {
       </div>
     );
 
+  const FilterContainer = styled.div`
+    display: flex;
+    @media screen and (max-width: 990px) {
+      width: 100%;
+
+      margin-left: 1.5rem;
+    }
+    @media screen and (max-width: 780px) {
+      width: 100%;
+      justify-content: center;
+      margin-left: 1rem;
+    }
+  `;
+
   return (
     <div>
       {user === null && <Redirect to="/login" />}
 
       <div className="container">
-        <div
-          class="input-group m-3 mr-5 w-50"
-          style={{ minWidth: "300px", maxWidth: "400px" }}
-        >
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">
-              Filter Recipes
-            </span>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Recipe Name"
-            aria-label="Recipe Name"
-            aria-describedby="basic-addon1"
-            value={filter}
-            onChange={(e) => handleChange(e)}
-          />
-
+        <FilterContainer>
           <div
-            className="btn btn-primary"
-            style={{
-              padding: "0",
-              width: "50px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginLeft: "0.25rem",
-            }}
+            class="input-group m-3 mr-5 w-50"
+            style={{ minWidth: "300px", maxWidth: "400px" }}
           >
-            <Link to="/addrecipe">
-              <Plus />
-            </Link>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                Filter Recipes
+              </span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Recipe Name"
+              aria-label="Recipe Name"
+              aria-describedby="basic-addon1"
+              value={filter}
+              onChange={(e) => handleChange(e)}
+            />
+
+            <div
+              className="btn btn-primary"
+              style={{
+                padding: "0",
+                width: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "0.25rem",
+              }}
+            >
+              <Link to="/addrecipe">
+                <Plus />
+              </Link>
+            </div>
           </div>
-        </div>
+        </FilterContainer>
+
         {renderRecipes()}
         {renderRecipes()}
         {renderRecipes()}
