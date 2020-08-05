@@ -49,12 +49,14 @@ const RecipesState = (props) => {
       });
     }
 
-    const fetchData = await axios.get("/api/mealplan");
-    let { mealplan } = fetchData.data;
+    const fetchData = await axios.get(`/api/${userID}/mealplan`);
+    let { mealPlan } = fetchData.data;
+
+    console.log("fetchData.data", fetchData.data);
 
     dispatch({
       type: SET_WEEKLY_MEAL_PLAN,
-      payload: mealplan,
+      payload: mealPlan,
     });
 
     console.log("FETCH DATA : ", fetchData);

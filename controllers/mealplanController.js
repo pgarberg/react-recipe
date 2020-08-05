@@ -1,10 +1,22 @@
 const WeeklyMealPlan = require("../models/WeeklyMealPlan");
+const User = require("../models/User");
 
 exports.getMealPlan = async (req, res) => {
+  const { userID } = req.params;
+  console.log("userID", userID);
   try {
-    const mealplan = await WeeklyMealPlan.findById("5e922c6e8f91f14fd49d9fa1");
+    console.log("got to here");
+    const user = await User.findById(userID).populate({
+      path: "mealplan",
 
-    res.json({ status: 200, msg: "Successfully Fetched MealPlan", mealplan });
+      populate: { path: "recipes" },
+    });
+
+    console.log("user", user);
+
+    const { mealPlan } = user;
+
+    res.json({ status: 200, msg: "Successfully Fetched MealPlan", mealPlan });
   } catch (error) {
     res.json({ status: 500, msg: "Server Error", error });
   }
@@ -13,7 +25,6 @@ exports.getMealPlan = async (req, res) => {
 exports.createMealPlan = async (req, res) => {
   try {
     const { weekly } = req.body;
-    console.log("WEEEEEEEEKLY MEEEEEEEEEEAL PLAAAAAAAAN : ", weekly);
     console.log("Creating Meal Plan");
     const mealplan = new WeeklyMealPlan(weekly);
 

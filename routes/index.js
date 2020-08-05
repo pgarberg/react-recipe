@@ -106,10 +106,24 @@ router.post("/api/scrape", scrapeController.scrape);
 //
 //MEAL PLAN RELATED ROUTES
 //
-router.get("/api/mealplan", mealplanController.getMealPlan);
+router.get("/api/:userID/mealplan", mealplanController.getMealPlan);
 
-router.patch("/api/mealplan", mealplanController.updateMealPlan);
+router.patch("/api/:userID/mealplan", mealplanController.updateMealPlan);
 
-router.post("/api/mealplan", mealplanController.createMealPlan);
+router.post("/api/:userID/mealplan", mealplanController.createMealPlan);
+
+// router.get("/api/:userID/savedplans", mealplanController.getSavedPlans);
+
+// router.post("/api/:userID/savedplans", mealplanController.addSavedPlan);
+
+// router.patch(
+//   "/api/:userID/savedplans/:planID",
+//   mealplanController.updateSavedPlan
+// );
+
+// router.delete(
+//   "/api/:userID/savedplans/:planID",
+//   mealplanController.deleteSavedPlan
+// );
 
 module.exports = router;
