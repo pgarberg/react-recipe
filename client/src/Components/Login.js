@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import authContext from "../Context/Auth/authContext";
+import styled from "styled-components";
 
 import { withAlert } from "react-alert";
 
@@ -26,9 +27,16 @@ const Login = ({ alert }) => {
     }
     setUser(res.data.user);
   };
+  const HE = styled.h1`
+    color: brown;
+    @media (max-width: 1000px) {
+      display: none;
+    }
+  `;
   return (
     <div>
       {user !== null && <Redirect to="/" />}
+
       <div
         style={{
           height: "80vh",

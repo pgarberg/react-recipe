@@ -15,13 +15,8 @@ export const Nav2 = () => {
             </Link>
           </li>
           <li class="nav-item">
-            <Link class="nav-link" to="/addrecipe">
-              Add Recipe
-            </Link>
-          </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/unscrapeables">
-              Unscrapeable Sites
+            <Link class="nav-link" to="/collections">
+              Collections
             </Link>
           </li>
           <li class="nav-item">
@@ -30,16 +25,17 @@ export const Nav2 = () => {
             </Link>
           </li>
           <li class="nav-item">
-            <Link class="nav-link" to="/collections">
-              Collections
+            <Link class="nav-link" to="/unscrapeables">
+              Saved Plans
             </Link>
           </li>
+
           <li class="nav-item" onClick={() => removeUser()}>
             <a class="nav-link" href="/api/logout">
               Logout
             </a>
           </li>
-          <li class="nav-item nav-link">Current User : {user && user._id}</li>
+          {/* <li class="nav-item nav-link">Current User : {user && user._id}</li> */}
         </ul>
       );
     } else {
@@ -79,7 +75,7 @@ export const Nav2 = () => {
           justifyContent: "space-between",
         }}
       >
-        <h3>ReactRecipes</h3>
+        <h3>ReactiveRecipes</h3>
       </div>
       <div
         style={{
