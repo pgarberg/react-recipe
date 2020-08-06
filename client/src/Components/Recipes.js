@@ -102,10 +102,6 @@ export const Recipes = (props) => {
         </FilterContainer>
 
         {renderRecipes()}
-        {renderRecipes()}
-        {renderRecipes()}
-        {renderRecipes()}
-        {renderRecipes()}
       </div>
     </div>
   );

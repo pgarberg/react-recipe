@@ -22,7 +22,25 @@ export const Nav3 = () => {
     position: absolute;
 
     .logo {
-      color: #5f00db;
+      * {
+        color: #5f00db !important;
+        :link {
+          text-decoration: none;
+        }
+
+        :visited {
+          text-decoration: none;
+        }
+
+        :hover {
+          text-decoration: none;
+        }
+
+        :active {
+          text-decoration: none;
+        }
+      }
+
       font-size: 32px;
       font-weight: 600;
       margin-left: 50px;
@@ -77,68 +95,126 @@ export const Nav3 = () => {
         display: block;
       }
     }
+    .dropleft .dropdown-toggle::before {
+      display: none;
+    }
   `;
 
   const renderLinks = () => {
     if (user !== null) {
       return (
-        <ul class="nav links">
-          <li class="nav-item">
-            <Link class="nav-link active" to="/">
-              Recipes
-            </Link>
-          </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/collections">
-              Collections
-            </Link>
-          </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/mealplanner">
-              Meal Planner
-            </Link>
-          </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/unscrapeables">
-              Saved Plans
-            </Link>
-          </li>
+        <>
+          <ul class="nav links">
+            <li class="nav-item">
+              <Link class="nav-link active" to="/">
+                Recipes
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/collections">
+                Collections
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/mealplanner">
+                Meal Planner
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/unscrapeables">
+                Saved Plans
+              </Link>
+            </li>
 
-          <li class="nav-item" onClick={() => removeUser()}>
-            <a class="nav-link" href="/api/logout">
-              Logout
-            </a>
-          </li>
-          {/* <li class="nav-item nav-link">Current User : {user && user._id}</li> */}
-        </ul>
+            <li class="nav-item" onClick={() => removeUser()}>
+              <a class="nav-link" href="/api/logout">
+                Logout
+              </a>
+            </li>
+            {/* <li class="nav-item nav-link">Current User : {user && user._id}</li> */}
+          </ul>
+
+          <div className="dropbox">
+            <div class="dropleft">
+              <h2
+                class="dropdown-toggle"
+                id="dropdownMenu2"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <Hamburger fill={"black"} />
+              </h2>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button">
+                  <Link to="/">Recipes</Link>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <Link to="/collections">Collections</Link>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <Link to="/mealplanner">Meal Planner</Link>
+                </button>
+
+                <button class="dropdown-item" type="button">
+                  <Link to="/unscrapeables">Saved Plans</Link>
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       );
     } else {
       return (
-        <ul class="nav links">
-          <li class="nav-item">
-            <Link class="nav-link active" to="/login">
-              Login
-            </Link>
-          </li>
-          <li class="nav-item">
-            <Link class="nav-link" to="/register">
-              Register
-            </Link>
-          </li>
-        </ul>
+        <>
+          <ul class="nav links">
+            <li class="nav-item">
+              <Link class="nav-link active" to="/login">
+                Login
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/register">
+                Register
+              </Link>
+            </li>
+          </ul>
+          <div className="dropbox">
+            <div class="dropleft">
+              <h2
+                class="dropdown-toggle"
+                id="dropdownMenu2"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <Hamburger fill={"black"} />
+              </h2>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button">
+                  <Link to="/login">Login</Link>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <Link to="/register">Register</Link>
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       );
     }
   };
   return (
     <Nav>
       <div className="logo">
-        <h3>ReactiveRecipes</h3>
+        <Link to="/">
+          <h3>ReactiveRecipes</h3>
+        </Link>
       </div>
 
       {renderLinks()}
-      <div className="dropbox">
-        <Hamburger fill={"black"} />
-      </div>
     </Nav>
   );
 };

@@ -3,6 +3,7 @@ import {
   DELETE_RECIPE,
   SET_RECIPES,
   ADD_RECIPE_TO_DAY,
+  REMOVE_RECIPE_FROM_DAY,
   SET_WEEKLY_MEAL_PLAN,
   UPDATE_MEAL_PLAN,
   UPDATE_RECIPE,
@@ -41,11 +42,31 @@ const recipeReducer = (state, action) => {
       let { recipe, day } = action.payload;
       let weekly = state.weekly;
 
-      weekly[day] = [...weekly[day], recipe];
+      if (weekly[day].length === 5) {
+        weekly[day].shift();
+
+        weekly[day].push(recipe);
+      } else {
+        weekly[day] = [...weekly[day], recipe];
+      }
 
       return {
         ...state,
         weekly,
+      };
+    case REMOVE_RECIPE_FROM_DAY:
+      console.log("CALLING REMOVE RECIPE!");
+      let { recipeID } = action.payload;
+      let dayKey = action.payload.day;
+      let week = state.weekly;
+
+      week[dayKey] = week[dayKey].filter(
+        (recipe) => recipe._id.toString() !== recipeID.toString()
+      );
+
+      return {
+        ...state,
+        week,
       };
     case SET_WEEKLY_MEAL_PLAN:
       return {

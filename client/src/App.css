@@ -3,6 +3,11 @@
   padding-right: 10%;
 }
 
+.show > .dropdown-menu {
+  display: block;
+  position: absolute;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 0.75fr 2fr;

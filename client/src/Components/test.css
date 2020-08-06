@@ -1726,6 +1726,11 @@ a.card::after {
   }
 }
 
+.show > .dropdown-menu {
+  display: block;
+  position: absolute;
+}
+
 @media (min-width: 50em) {
   .grid-box--S--end1 {
     grid-column-end: span 1;

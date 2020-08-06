@@ -17,8 +17,7 @@ export const Recipe = (props) => {
   const {
     recipes,
     deleteRecipeByID,
-    addRecipeToDay,
-    updateMealPlan,
+    addRecipeToMealPlan,
     updateRecipeFavourite,
   } = useContext(RecipeContext);
   const { id } = useParams();
@@ -184,8 +183,7 @@ export const Recipe = (props) => {
               deleteRecipeByID={deleteRecipeByID}
               setRedirect={setRedirect}
               recipe={recipe}
-              addRecipeToDay={addRecipeToDay}
-              updateMealPlan={updateMealPlan}
+              addRecipeToMealPlan={addRecipeToMealPlan}
             />
             <AddToCollectionModal recipe={recipe} />
             <AddOptionModal />

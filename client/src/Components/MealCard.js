@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MealCard = ({ recipe }) => {
+const MealCard = ({ recipe, day, recipeID, removeRecipeFromMealPlan }) => {
   return (
     <div>
       <div class="card">
@@ -16,7 +16,11 @@ const MealCard = ({ recipe }) => {
         </div>
         <div class="card-body">
           <h5>{recipe.name}</h5>
-          <p class="card-link" style={{ color: "red", cursor: "pointer" }}>
+          <p
+            class="card-link"
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={() => removeRecipeFromMealPlan({ recipeID, day })}
+          >
             REMOVE
           </p>
         </div>

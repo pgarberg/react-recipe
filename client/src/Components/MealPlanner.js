@@ -22,7 +22,12 @@ const Day = styled.div`
 `;
 
 const MealPlanner = () => {
-  const { recipes, deleteRecipeByID, weekly } = useContext(RecipeContext);
+  const {
+    recipes,
+    deleteRecipeByID,
+    weekly,
+    removeRecipeFromMealPlan,
+  } = useContext(RecipeContext);
   const id = "5e83cb47ff04a63980a56a31";
 
   let recipe = Array.isArray(recipes)
@@ -40,7 +45,12 @@ const MealPlanner = () => {
           <h3>Monday</h3>
           <div>
             {weekly.monday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="monday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>
@@ -49,7 +59,12 @@ const MealPlanner = () => {
           <h3>Tuesday</h3>
           <div>
             {weekly.tuesday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="tuesday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>
@@ -58,7 +73,12 @@ const MealPlanner = () => {
           <h3>Wednesday</h3>
           <div>
             {weekly.wednesday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="wednesday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>
@@ -66,7 +86,12 @@ const MealPlanner = () => {
           <h3>Thursday</h3>
           <div>
             {weekly.thursday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="thursday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>
@@ -74,7 +99,12 @@ const MealPlanner = () => {
           <h3>Friday</h3>
           <div>
             {weekly.friday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="friday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>
@@ -82,7 +112,12 @@ const MealPlanner = () => {
           <h3>Saturday</h3>
           <div>
             {weekly.saturday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="saturday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>
@@ -91,7 +126,12 @@ const MealPlanner = () => {
           <h3>Sunday</h3>
           <div>
             {weekly.sunday.map((r) => (
-              <MealCard recipe={r} />
+              <MealCard
+                day="sunday"
+                recipe={r}
+                recipeID={r._id}
+                removeRecipeFromMealPlan={removeRecipeFromMealPlan}
+              />
             ))}
           </div>
         </Day>

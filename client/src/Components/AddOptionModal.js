@@ -7,7 +7,6 @@ export const AddOptionModal = ({
   addRecipeToDay,
   setRedirect,
   recipe,
-  updateMealPlan,
 }) => {
   const [radio, setRadio] = useState({ selected: "monday" });
 
@@ -17,8 +16,7 @@ export const AddOptionModal = ({
     console.log(recipe);
     console.log("Add to day : ", radio);
     await addRecipeToDay({ recipe, day: radio.selected });
-    console.log("SEND WEEKLY TO UPDATE : ", weekly);
-    await updateMealPlan(weekly);
+
     setRedirect(true);
   };
 

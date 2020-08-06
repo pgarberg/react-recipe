@@ -15,3 +15,8 @@ code {
 .modal {
   overflow-y: auto !important;
 }
+
+.show > .dropdown-menu {
+  display: block;
+  position: absolute;
+}

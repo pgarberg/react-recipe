@@ -114,7 +114,7 @@ router.patch("/api/:userID/mealplan", mealplanController.updateMealPlan);
 
 router.post("/api/:userID/mealplan", mealplanController.createMealPlan);
 
-// router.get("/api/:userID/savedplans", mealplanController.getSavedPlans);
+router.get("/api/:userID/savedplans", mealplanController.getSavedPlans);
 
 // router.post("/api/:userID/savedplans", mealplanController.addSavedPlan);
 

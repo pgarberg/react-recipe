@@ -14,6 +14,7 @@ import {
   UPDATE_RECIPE,
   SET_FAVOURITES,
   UPDATE_FAVOURITE,
+  REMOVE_RECIPE_FROM_DAY,
 } from "../types";
 
 const RecipesState = (props) => {
@@ -111,33 +112,55 @@ const RecipesState = (props) => {
     }
   };
 
-  const updateMealPlan = async (mealplan) => {
-    console.log("CALLING UPDATE MEAL PLAN", mealplan);
-
-    await axios({
+  const addRecipeToMealPlan = async ({ recipe, day }) => {
+    console.log("CALLING ADD RECIPE TO DAY");
+    console.log(recipe);
+    console.log(day);
+    console.log("`/api/${userID}/mealplan` :>> ", `/api/${userID}/mealplan`);
+    const res = await axios({
       method: "patch",
-      url: "/api/mealplan",
+      url: `/api/${userID}/mealplan`,
       headers: {
         "Content-Type": "application/json",
       },
       data: {
-        mealplan,
+        recipe,
+        dayKey: day,
       },
     });
-    dispatch({
-      type: UPDATE_MEAL_PLAN,
-      payload: mealplan,
-    });
+
+    if (res.data.status === 200) {
+      dispatch({
+        type: ADD_RECIPE_TO_DAY,
+        payload: { recipe, day },
+      });
+    }
   };
 
-  const addRecipeToDay = async ({ recipe, day }) => {
-    console.log("CALLING ADD RECIPE TO DAY");
-    console.log(recipe);
+  const removeRecipeFromMealPlan = async ({ recipeID, day }) => {
+    console.log("CALLING REMOVE RECIPE FROM DAY");
+    console.log(recipeID);
     console.log(day);
-    dispatch({
-      type: ADD_RECIPE_TO_DAY,
-      payload: { recipe, day },
+
+    const res = await axios({
+      method: "patch",
+      url: `/api/${userID}/mealplan`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        recipeID,
+        dayKey: day,
+        recipeID,
+      },
     });
+
+    if (res.data.status === 200) {
+      dispatch({
+        type: REMOVE_RECIPE_FROM_DAY,
+        payload: { recipeID, day },
+      });
+    }
   };
 
   const getRecipeByID = async (id) => {
@@ -194,8 +217,8 @@ const RecipesState = (props) => {
         addRecipe,
         setIntialState,
         deleteRecipeByID,
-        addRecipeToDay,
-        updateMealPlan,
+        addRecipeToMealPlan,
+        removeRecipeFromMealPlan,
         getRecipeByID,
         updateRecipeByID,
         updateRecipeFavourite,

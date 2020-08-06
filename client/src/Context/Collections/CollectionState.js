@@ -99,25 +99,6 @@ const CollectionState = (props) => {
   //   }
   // };
 
-  // const updateMealPlan = async (mealplan) => {
-  //   console.log("CALLING UPDATE MEAL PLAN", mealplan);
-
-  //   await axios({
-  //     method: "patch",
-  //     url: "/api/mealplan",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: {
-  //       mealplan,
-  //     },
-  //   });
-  //   dispatch({
-  //     type: UPDATE_MEAL_PLAN,
-  //     payload: mealplan,
-  //   });
-  // };
-
   // const addRecipeToDay = async ({ recipe, day }) => {
   //   console.log("CALLING ADD RECIPE TO DAY");
   //   console.log(recipe);

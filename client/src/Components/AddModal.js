@@ -4,10 +4,9 @@ import recipeContext from "../Context/Recipes/recipeContext";
 export const AddModal = ({
   name,
   id,
-  addRecipeToDay,
+  addRecipeToMealPlan,
   setRedirect,
   recipe,
-  updateMealPlan,
 }) => {
   const [radio, setRadio] = useState({ selected: "monday" });
 
@@ -16,9 +15,8 @@ export const AddModal = ({
   const handleClick = async () => {
     console.log(recipe);
     console.log("Add to day : ", radio);
-    await addRecipeToDay({ recipe, day: radio.selected });
-    console.log("SEND WEEKLY TO UPDATE : ", weekly);
-    await updateMealPlan(weekly);
+    await addRecipeToMealPlan({ recipe, day: radio.selected });
+
     setRedirect(true);
   };
 
