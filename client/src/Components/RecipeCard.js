@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const RecipeCard = ({ recipe }) => {
+export const RecipeCard = ({
+  recipe,
+  canDelete = false,
+  deleteFunction = () => {},
+}) => {
   return (
     <div className="col mb-4 d-flex justify-content-center">
       <div class="card" style={{ width: "18rem" }}>
@@ -25,6 +29,14 @@ export const RecipeCard = ({ recipe }) => {
         <div class="card-body">
           <h5 class="card-title">{recipe.name}</h5>
           <p class="card-text">{recipe.author}</p>
+          {canDelete && (
+            <p
+              style={{ color: "red", cursor: "pointer" }}
+              onClick={() => deleteFunction()}
+            >
+              REMOVE
+            </p>
+          )}
         </div>
       </div>
     </div>

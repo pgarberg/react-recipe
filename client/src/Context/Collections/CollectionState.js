@@ -8,6 +8,7 @@ import {
   SET_COLLECTIONS,
   ADD_COLLECTION,
   ADD_RECIPE_TO_COLLECTION,
+  REMOVE_RECIPE_FROM_COLLECTION,
 } from "../types";
 
 const CollectionState = (props) => {
@@ -77,10 +78,36 @@ const CollectionState = (props) => {
     });
 
     if (res.data.status === 200) {
-      const updatedCollection = res.data.collection;
+      const { collection } = res.data;
       dispatch({
         type: ADD_RECIPE_TO_COLLECTION,
-        payload: updatedCollection,
+        payload: collection,
+      });
+    }
+
+    return res.data.status;
+  };
+
+  const removeRecipeFromCollection = async (recipeID, collectionID) => {
+    console.log(
+      "Will attempt to send to",
+      `/api/${userID}/collection/${collectionID}`
+    );
+    const res = await axios({
+      method: "patch",
+      url: `/api/${userID}/collection/${collectionID}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { recipeID },
+    });
+
+    if (res.data.status === 200) {
+      console.log("res.data :>> ", res.data);
+      const { collection } = res.data;
+      dispatch({
+        type: REMOVE_RECIPE_FROM_COLLECTION,
+        payload: collection,
       });
     }
 
@@ -145,6 +172,7 @@ const CollectionState = (props) => {
         collections: state.collections,
         addCollection,
         addRecipeToCollection,
+        removeRecipeFromCollection,
       }}
     >
       {props.children}

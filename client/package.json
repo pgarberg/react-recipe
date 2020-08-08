@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.1",
     "bourbon": "^6.0.0",
+    "framer-motion": "^2.3.0",
     "http-proxy-middleware": "^1.0.5",
     "react": "^16.12.0",
     "react-alert": "^7.0.2",
@@ -15,6 +16,7 @@
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
+    "react-stripe-checkout": "^2.6.3",
     "styled-components": "^5.1.1"
   },
   "scripts": {

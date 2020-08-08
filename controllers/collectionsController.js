@@ -107,7 +107,7 @@ exports.removeRecipeFromCollection = async (req, res) => {
       return res.json({
         status: 200,
         msg: "Success. Removed Recipe from Collection.",
-        updatedCollection,
+        collection: updatedCollection,
       });
     }
     res.json({

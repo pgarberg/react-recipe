@@ -83,7 +83,7 @@ export const Nav3 = () => {
         font-size: 28px;
       }
     }
-    @media screen and (max-width: 780px) {
+    @media screen and (max-width: 865px) {
       .links {
         display: none;
       }
@@ -125,6 +125,11 @@ export const Nav3 = () => {
                 Saved Plans
               </Link>
             </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/profile">
+                Profile
+              </Link>
+            </li>
 
             <li class="nav-item" onClick={() => removeUser()}>
               <a class="nav-link" href="/api/logout">
@@ -159,6 +164,9 @@ export const Nav3 = () => {
 
                 <button class="dropdown-item" type="button">
                   <Link to="/unscrapeables">Saved Plans</Link>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <Link to="/profile">Profile</Link>
                 </button>
               </div>
             </div>

@@ -24,9 +24,10 @@ import { Favourites } from "./Components/Favourites";
 import { Collection } from "./Components/Collection";
 import { Nav2 } from "./Components/Nav2";
 import { Nav3 } from "./Components/Nav3";
+import { Profile } from "./Components/Profile";
 
 function App() {
-  const { fetchUser } = useContext(authContext);
+  const { fetchUser, user } = useContext(authContext);
   useEffect(() => {
     fetchUser();
   }, []);
@@ -38,6 +39,7 @@ function App() {
           paddingTop: "15vh",
         }}
       >
+        {user === null && <Redirect to="/login" />}
         <Nav3 />
         {/* <Nav2 /> */}
         {/* <Nav /> */}
@@ -72,6 +74,9 @@ function App() {
           </Route>
           <Route exact path="/collections/:id">
             <Collection />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
           </Route>
           <Route exact path="/register">
             <Register />
