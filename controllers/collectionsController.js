@@ -41,7 +41,10 @@ exports.addRecipeToCollection = async (req, res) => {
     const { id, userID } = req.params;
     const { recipeID } = req.body;
 
-    const collection = await Collection.findById(id).populate("user");
+    const collection = await Collection.findById(id).populate([
+      "user",
+      "recipes",
+    ]);
 
     const recipe = await Recipe.findById(recipeID);
 
@@ -67,7 +70,8 @@ exports.addRecipeToCollection = async (req, res) => {
           {
             new: true,
           }
-        );
+        ).populate("recipes");
+
         return res.json({
           status: 200,
           msg: "Success. Added Recipe to Collection.",
@@ -102,7 +106,7 @@ exports.removeRecipeFromCollection = async (req, res) => {
         {
           new: true,
         }
-      );
+      ).populate("recipes");
 
       return res.json({
         status: 200,

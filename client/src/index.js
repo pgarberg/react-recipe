@@ -8,10 +8,11 @@ import AlertTemplate from "react-alert-template-basic";
 import AuthState from "./Context/Auth/AuthState";
 import RecipesState from "./Context/Recipes/RecipesState";
 import CollectionState from "./Context/Collections/CollectionState";
+import MealPlanState from "./Context/MealPlans/MealPlanState";
 import "./theme.css";
 import UnscrapeableState from "./Context/Unscrapeables/UnscrapeableState";
 
-// optional configuration
+// optional configuration for react-alerts
 const options = {
   // you can also just use 'bottom center'
   position: positions.TOP_CENTER,
@@ -24,13 +25,15 @@ const options = {
 const Root = () => (
   <AuthState>
     <CollectionState>
-      <RecipesState>
-        <UnscrapeableState>
-          <AlertProvider template={AlertTemplate} {...options}>
-            <App />
-          </AlertProvider>
-        </UnscrapeableState>
-      </RecipesState>
+      <MealPlanState>
+        <RecipesState>
+          <UnscrapeableState>
+            <AlertProvider template={AlertTemplate} {...options}>
+              <App />
+            </AlertProvider>
+          </UnscrapeableState>
+        </RecipesState>
+      </MealPlanState>
     </CollectionState>
   </AuthState>
 );

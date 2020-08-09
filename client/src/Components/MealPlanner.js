@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import RecipeContext from "../Context/Recipes/recipeContext";
+import mealplanContext from "../Context/MealPlans/mealplanContext";
 
 import styled from "styled-components";
 import MealCard from "./MealCard";
@@ -22,12 +23,10 @@ const Day = styled.div`
 `;
 
 const MealPlanner = () => {
-  const {
-    recipes,
-    deleteRecipeByID,
-    weekly,
-    removeRecipeFromMealPlan,
-  } = useContext(RecipeContext);
+  const { recipes, deleteRecipeByID } = useContext(RecipeContext);
+
+  const { mealplan, removeRecipeFromMealPlan } = useContext(mealplanContext);
+
   const id = "5e83cb47ff04a63980a56a31";
 
   let recipe = Array.isArray(recipes)
@@ -44,7 +43,7 @@ const MealPlanner = () => {
           {" "}
           <h3>Monday</h3>
           <div>
-            {weekly.monday.map((r) => (
+            {mealplan.monday.map((r) => (
               <MealCard
                 day="monday"
                 recipe={r}
@@ -58,7 +57,7 @@ const MealPlanner = () => {
           {" "}
           <h3>Tuesday</h3>
           <div>
-            {weekly.tuesday.map((r) => (
+            {mealplan.tuesday.map((r) => (
               <MealCard
                 day="tuesday"
                 recipe={r}
@@ -72,7 +71,7 @@ const MealPlanner = () => {
           {" "}
           <h3>Wednesday</h3>
           <div>
-            {weekly.wednesday.map((r) => (
+            {mealplan.wednesday.map((r) => (
               <MealCard
                 day="wednesday"
                 recipe={r}
@@ -85,7 +84,7 @@ const MealPlanner = () => {
         <Day>
           <h3>Thursday</h3>
           <div>
-            {weekly.thursday.map((r) => (
+            {mealplan.thursday.map((r) => (
               <MealCard
                 day="thursday"
                 recipe={r}
@@ -98,7 +97,7 @@ const MealPlanner = () => {
         <Day>
           <h3>Friday</h3>
           <div>
-            {weekly.friday.map((r) => (
+            {mealplan.friday.map((r) => (
               <MealCard
                 day="friday"
                 recipe={r}
@@ -111,7 +110,7 @@ const MealPlanner = () => {
         <Day>
           <h3>Saturday</h3>
           <div>
-            {weekly.saturday.map((r) => (
+            {mealplan.saturday.map((r) => (
               <MealCard
                 day="saturday"
                 recipe={r}
@@ -125,7 +124,7 @@ const MealPlanner = () => {
         <Day>
           <h3>Sunday</h3>
           <div>
-            {weekly.sunday.map((r) => (
+            {mealplan.sunday.map((r) => (
               <MealCard
                 day="sunday"
                 recipe={r}

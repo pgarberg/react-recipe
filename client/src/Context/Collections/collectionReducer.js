@@ -18,20 +18,26 @@ const collectionReducer = (state, action) => {
       return {
         ...state,
         collections: [
-          ...state.collections.filter(
-            (collection) => collection._id !== action.payload._id
-          ),
-          action.payload,
+          ...state.collections.map((collection) => {
+            if (collection._id !== action.payload._id) {
+              return collection;
+            } else {
+              return action.payload;
+            }
+          }),
         ],
       };
     case REMOVE_RECIPE_FROM_COLLECTION:
       return {
         ...state,
         collections: [
-          ...state.collections.filter(
-            (collection) => collection._id !== action.payload._id
-          ),
-          action.payload,
+          ...state.collections.map((collection) => {
+            if (collection._id !== action.payload._id) {
+              return collection;
+            } else {
+              return action.payload;
+            }
+          }),
         ],
       };
     default:

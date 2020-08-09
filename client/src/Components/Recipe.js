@@ -12,14 +12,16 @@ import Plus from "../Icons/Plus";
 import Delete from "../Icons/Delete";
 import Edit from "../Icons/Edit";
 import { AddToCollectionModal } from "./AddToCollectionModal";
+import mealplanContext from "../Context/MealPlans/mealplanContext";
 
 export const Recipe = (props) => {
   const {
     recipes,
     deleteRecipeByID,
-    addRecipeToMealPlan,
+
     updateRecipeFavourite,
   } = useContext(RecipeContext);
+  const { addRecipeToMealPlan } = useContext(mealplanContext);
   const { id } = useParams();
   const [editing, toggleEditing] = useState(false);
   const [edits, updateEdits] = useState({});

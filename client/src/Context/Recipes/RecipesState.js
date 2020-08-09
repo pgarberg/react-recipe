@@ -8,28 +8,15 @@ import {
   SET_RECIPES,
   ADD_RECIPE,
   DELETE_RECIPE,
-  ADD_RECIPE_TO_DAY,
-  SET_WEEKLY_MEAL_PLAN,
-  UPDATE_MEAL_PLAN,
   UPDATE_RECIPE,
   SET_FAVOURITES,
   UPDATE_FAVOURITE,
-  REMOVE_RECIPE_FROM_DAY,
 } from "../types";
 
 const RecipesState = (props) => {
   const initialState = {
     recipes: [],
     favourites: [],
-    weekly: {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-      saturday: [],
-      sunday: [],
-    },
   };
 
   const { user } = useContext(AuthContext);
@@ -50,24 +37,11 @@ const RecipesState = (props) => {
       });
     }
 
-    const fetchData = await axios.get(`/api/${userID}/mealplan`);
-    let { mealPlan } = fetchData.data;
-
-    console.log("fetchData.data", fetchData.data);
-    if (mealPlan) {
-      dispatch({
-        type: SET_WEEKLY_MEAL_PLAN,
-        payload: mealPlan,
-      });
-    }
-
-    console.log("FETCH DATA : ", fetchData);
-
-    const favourites = await axios.get(`/api/${userID}/recipes/favourites`);
-
+    const res = await axios.get(`/api/${userID}/recipes/favourites`);
+    const { favourites } = res.data;
     dispatch({
       type: SET_FAVOURITES,
-      payload: favourites.data.favourites,
+      payload: favourites,
     });
   };
 
@@ -108,57 +82,6 @@ const RecipesState = (props) => {
       dispatch({
         type: DELETE_RECIPE,
         payload: id,
-      });
-    }
-  };
-
-  const addRecipeToMealPlan = async ({ recipe, day }) => {
-    console.log("CALLING ADD RECIPE TO DAY");
-    console.log(recipe);
-    console.log(day);
-    console.log("`/api/${userID}/mealplan` :>> ", `/api/${userID}/mealplan`);
-    const res = await axios({
-      method: "patch",
-      url: `/api/${userID}/mealplan`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        recipe,
-        dayKey: day,
-      },
-    });
-
-    if (res.data.status === 200) {
-      dispatch({
-        type: ADD_RECIPE_TO_DAY,
-        payload: { recipe, day },
-      });
-    }
-  };
-
-  const removeRecipeFromMealPlan = async ({ recipeID, day }) => {
-    console.log("CALLING REMOVE RECIPE FROM DAY");
-    console.log(recipeID);
-    console.log(day);
-
-    const res = await axios({
-      method: "patch",
-      url: `/api/${userID}/mealplan`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        recipeID,
-        dayKey: day,
-        recipeID,
-      },
-    });
-
-    if (res.data.status === 200) {
-      dispatch({
-        type: REMOVE_RECIPE_FROM_DAY,
-        payload: { recipeID, day },
       });
     }
   };
@@ -212,13 +135,11 @@ const RecipesState = (props) => {
     <RecipeContext.Provider
       value={{
         recipes: state.recipes,
-        weekly: state.weekly,
+
         favourites: state.favourites,
         addRecipe,
         setIntialState,
         deleteRecipeByID,
-        addRecipeToMealPlan,
-        removeRecipeFromMealPlan,
         getRecipeByID,
         updateRecipeByID,
         updateRecipeFavourite,

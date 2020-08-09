@@ -78,6 +78,7 @@ const CollectionState = (props) => {
     });
 
     if (res.data.status === 200) {
+      console.log(res.data);
       const { collection } = res.data;
       dispatch({
         type: ADD_RECIPE_TO_COLLECTION,
