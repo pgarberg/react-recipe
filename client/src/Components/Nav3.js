@@ -130,6 +130,11 @@ export const Nav3 = () => {
                 Profile
               </Link>
             </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/grocery-list">
+                grocery-list
+              </Link>
+            </li>
 
             <li class="nav-item" onClick={() => removeUser()}>
               <a class="nav-link" href="/api/logout">

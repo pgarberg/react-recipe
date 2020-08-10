@@ -25,6 +25,7 @@ import { Collection } from "./Components/Collection";
 import { Nav2 } from "./Components/Nav2";
 import { Nav3 } from "./Components/Nav3";
 import { Profile } from "./Components/Profile";
+import { GroceryList } from "./Components/GroceryList";
 
 function App() {
   const { fetchUser, user } = useContext(authContext);
@@ -80,6 +81,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <Register />
+          </Route>
+          <Route exact path="/grocery-list">
+            <GroceryList />
           </Route>
         </Switch>
       </div>
