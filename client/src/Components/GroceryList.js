@@ -18,8 +18,8 @@ export const GroceryList = () => {
 
   groceryList.map((item) => {
     let p = item;
-    const regex = /[0-9]+\/*[a-z]*|\u00BE|\u00BD|\u00BC |\*|\/|:|-|\.|,.*$|\([^)]+\)|\b(tin|fresh|ripe)\b|\b(cup|tsp|tablespoon|water|tbsp|trimmed|tablespoons|medium|large|small|clove|cloves|pound|pounds|oz|ounces|lb|lbs|teaspoons|teaspoon|cups|chopped|diced|minced|tblspn)\b/gim;
-    let newP = p.replace(regex, "").trim();
+    const regex = /[0-9]+\/*[a-z]*|\)|\u00BE|\u00BD|\u00BC |\*|\/|:|-|\.|,.*$|\([^)]+\)|\b(tin|fresh|ripe)\b|\b(cup|tsp|tablespoon|water|tbsp|trimmed|tablespoons|medium|large|small|clove|cloves|pound|pounds|oz|ounces|lb|lbs|teaspoons|teaspoon|cups|chopped|diced|minced|tblspn)\b/gim;
+    let newP = p.replace(regex, "").trim().toLowerCase();
     console.log("newP", newP);
     console.log("transformedGroceryList", transformedGroceryList);
     console.log(
