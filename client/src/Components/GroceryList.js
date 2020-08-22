@@ -18,8 +18,8 @@ export const GroceryList = () => {
 
   groceryList.map((item) => {
     let p = item;
-    const regex = /[0-9]+\/*[a-z]*|\)||\u00BE|\u00BD|\u00BC |\*|\/|:|-|\.|,.*$|\([^)]+\)|\b(tin|fresh|ripe)\b|\b(cup|tsp|tablespoon|water|tbsp|trimmed|tablespoons|medium|large|small|clove|cloves|pound|pounds|oz|ounces|lb|lbs|teaspoons|teaspoon|cups|chopped|diced|minced|tblspn)\b/gim;
-    let newP = p.replace(regex, "").trim().toLowerCase();
+    const regex = /[0-9]\s(g|kg|kgs|lbs|mL|L|grams|cps|cups|tblspns|tspn)\/|^(g|kg|kgs|lbs|mL|L|grams|cps|cups|tblspns|tspn)\s|\s(g|kg|kgs|lbs|mL|L|grams|cps|cups|tblspns|tspn)\s|[0-9]+\s+\w+\s+[0-9]+\s+|[0-9]+\/*[a-z]*|\u00BE|\u00BD|\u00BC |\[.+?\]\((.*)\)|\((.*)\((.*)\)(.*)\)|\*|\/|:|-|\.|,.*$|\([^)]+\)|\b(tin|fresh|ripe)\b|\b(cup|tsp|tablespoon|water|tbsp|trimmed|julienned|tablespoons|medium|large|small|clove|cloves|pound|pounds|oz|ounces|lb|lbs|teaspoons|fresh|freshly|cracked|fine|for|to|get|finely|of|chopped|shredded|teaspoon|cups|chopped|diced|minced|package|leaves|zest|big|handful|sliced|packages|few|many|pinch|tblspn)\b|or$|or\s$/gim;
+    let newP = p.replace(regex, "").trim();
     console.log("newP", newP);
     console.log("transformedGroceryList", transformedGroceryList);
     console.log(
@@ -28,7 +28,7 @@ export const GroceryList = () => {
     );
 
     if (!transformedGroceryList.includes(newP) && newP !== "") {
-      transformedGroceryList.push(newP);
+      transformedGroceryList.push(newP.toLowerCase());
     }
   });
 
