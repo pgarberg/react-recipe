@@ -12,11 +12,11 @@ export const SavedMealPlans = () => {
       {/* <CollectionModal /> */}
       <hr className="mb-4" />
       <div className="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 ml-1 mt-5 ">
-        <div className="col mb-4 d-flex justify-content-center">
-          {savedPlans &&
-            savedPlans.map((mealplan) => (
+        {savedPlans &&
+          savedPlans.map((mealplan) => (
+            <div className="col mb-4 d-flex justify-content-center">
               <div class="card" style={{ width: "18rem" }}>
-                <Link to="/">
+                <Link to={`/mealplans/${mealplan._id}`}>
                   <div
                     style={{
                       overflow: "hidden",
@@ -52,8 +52,8 @@ export const SavedMealPlans = () => {
                   </div>
                 </Link>
               </div>
-            ))}
-        </div>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ import { Nav3 } from "./Components/Nav3";
 import { Profile } from "./Components/Profile";
 import { GroceryList } from "./Components/GroceryList";
 import { SavedMealPlans } from "./Components/SavedMealPlans";
+import SavedMealPlan from "./Components/SavedMealPlan";
 
 function App() {
   const { fetchUser, user } = useContext(authContext);
@@ -62,6 +63,10 @@ function App() {
           <Route exact path="/savedmealplans">
             <SavedMealPlans />
           </Route>
+          <Route exact path="/mealplans/:id">
+            <SavedMealPlan />
+          </Route>
+
           <Route exact path="/unscrapeables">
             <Unscrapeables />
           </Route>
