@@ -2,7 +2,10 @@ import {
   ADD_RECIPE_TO_DAY,
   REMOVE_RECIPE_FROM_DAY,
   SET_WEEKLY_MEAL_PLAN,
+  SET_USER_SAVED_PLANS,
   UPDATE_MEAL_PLAN,
+  CLEAR_MEAL_PLAN,
+  CREATE_MEAL_PLAN,
 } from "../types";
 
 const mealplanReducer = (state, action) => {
@@ -12,6 +15,13 @@ const mealplanReducer = (state, action) => {
       return {
         ...state,
         mealplan: action.payload,
+      };
+    case SET_USER_SAVED_PLANS:
+      return { ...state, savedPlans: action.payload };
+    case CREATE_MEAL_PLAN:
+      return {
+        ...state,
+        savedPlans: [...state.savedPlans, action.payload],
       };
     case UPDATE_MEAL_PLAN:
       return {
@@ -48,6 +58,9 @@ const mealplanReducer = (state, action) => {
         ...state,
         week,
       };
+    case CLEAR_MEAL_PLAN:
+      console.log("CALLING CLEAR MEAL PLAN!");
+      return { ...state, mealplan: action.payload.mealplan };
     default:
       return { ...state };
   }

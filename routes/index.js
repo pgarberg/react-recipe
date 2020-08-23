@@ -116,6 +116,8 @@ router.post("/api/:userID/mealplan", mealplanController.createMealPlan);
 
 router.get("/api/:userID/savedplans", mealplanController.getSavedPlans);
 
+router.delete("/api/:userID/mealplan", mealplanController.clearMealPlan);
+
 // router.post("/api/:userID/savedplans", mealplanController.addSavedPlan);
 
 // router.patch(

@@ -6,8 +6,11 @@ import axios from "axios";
 
 import {
   SET_WEEKLY_MEAL_PLAN,
+  SET_USER_SAVED_PLANS,
   ADD_RECIPE_TO_DAY,
   REMOVE_RECIPE_FROM_DAY,
+  CLEAR_MEAL_PLAN,
+  CREATE_MEAL_PLAN,
 } from "../types";
 
 const MealPlanState = (props) => {
@@ -21,6 +24,7 @@ const MealPlanState = (props) => {
       saturday: [],
       sunday: [],
     },
+    savedPlans: [],
   };
 
   const { user } = useContext(AuthContext);
@@ -31,14 +35,29 @@ const MealPlanState = (props) => {
 
   //SET INITIAL STATE
   const setIntialState = async () => {
-    const { data } = await axios.get(`/api/${userID}/mealplan`);
-    const { mealPlan } = data;
-    if (data.status === 200) {
-      dispatch({
-        type: SET_WEEKLY_MEAL_PLAN,
-        payload: mealPlan,
-      });
-    }
+    const getInitialUserPlan = async () => {
+      const { data } = await axios.get(`/api/${userID}/mealplan`);
+      const { mealPlan, status } = data;
+      if (status === 200) {
+        dispatch({
+          type: SET_WEEKLY_MEAL_PLAN,
+          payload: mealPlan,
+        });
+      }
+    };
+
+    const getInitialUserSavedPlans = async () => {
+      const { data } = await axios.get(`/api/${userID}/savedplans`);
+      const { savedPlans, status } = data;
+      if (status === 200) {
+        dispatch({
+          type: SET_USER_SAVED_PLANS,
+          payload: savedPlans,
+        });
+      }
+    };
+    await getInitialUserPlan();
+    await getInitialUserSavedPlans();
   };
 
   useEffect(() => {
@@ -97,12 +116,54 @@ const MealPlanState = (props) => {
     }
   };
 
+  const clearMealPlan = async () => {
+    const res = await axios({
+      method: "delete",
+      url: `/api/${userID}/mealplan`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.status === 200) {
+      dispatch({
+        type: CLEAR_MEAL_PLAN,
+        payload: initialState,
+      });
+    }
+  };
+
+  const createMealPlan = async ({ title, mealplan }) => {
+    const res = await axios({
+      method: "post",
+      url: `/api/${userID}/mealplan`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        title,
+        mealplan,
+      },
+    });
+
+    const { savedPlans, status } = res.data;
+
+    if (status === 200) {
+      dispatch({
+        type: CREATE_MEAL_PLAN,
+        payload: savedPlans,
+      });
+    }
+  };
+
   return (
     <MealPlanContext.Provider
       value={{
         mealplan: state.mealplan,
+        savedPlans: state.savedPlans,
         addRecipeToMealPlan,
         removeRecipeFromMealPlan,
+        clearMealPlan,
+        createMealPlan,
       }}
     >
       {props.children}

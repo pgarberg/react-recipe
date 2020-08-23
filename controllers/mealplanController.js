@@ -1,5 +1,6 @@
 const WeeklyMealPlan = require("../models/WeeklyMealPlan");
 const User = require("../models/User");
+const MealPlan = require("../models/MealPlan");
 
 exports.getMealPlan = async (req, res) => {
   const { userID } = req.params;
@@ -25,25 +26,55 @@ exports.getMealPlan = async (req, res) => {
 };
 
 exports.createMealPlan = async (req, res) => {
+  console.log("CALLING CREATE MEAL PLAN");
   const { userID } = req.params;
-  const { mealplan } = req.body;
-  if (userID && mealplan) {
+  const { title, mealplan } = req.body;
+  if (userID && title && mealplan) {
     try {
-      const user = await User.findByIdAndUpdate(
-        userID,
-        {
-          $push: { savedPlans: mealplan },
-        },
-        {
-          new: true,
-        }
-      );
+      const user = await User.findById(userID);
+      console.log(1);
+      console.log("user :>> ", user);
+      if (user) {
+        console.log(2);
 
-      res.json({
-        status: 200,
-        msg: "Meal Plan Successfully Created",
-        savedPlans: user.savedPlans,
-      });
+        const mealPlan = await MealPlan.create({
+          user,
+          title,
+          mealplan,
+        });
+
+        const updatedUser = await User.findByIdAndUpdate(
+          userID,
+          {
+            $push: {
+              savedPlans: mealPlan,
+            },
+          },
+          {
+            new: true,
+          }
+        ).populate({
+          path: "savedPlans",
+          populate: [
+            "mealplan.monday",
+            "mealplan.tuesday",
+            "mealplan.wednesday",
+            "mealplan.thursday",
+            "mealplan.friday",
+            "mealplan.saturday",
+            "mealplan.sunday",
+          ],
+        });
+
+        console.log(3);
+        return res.json({
+          status: 200,
+          msg: "Meal Plan Successfully Created",
+          savedPlans: updatedUser.savedPlans,
+        });
+      }
+
+      res.json({ status: 500, msg: "Server Error" });
     } catch (error) {
       res.json({ status: 500, msg: "Server Error", error });
     }
@@ -137,19 +168,65 @@ exports.updateMealPlan = async (req, res) => {
 
 exports.getSavedPlans = async (req, res) => {
   try {
-    console.log("PATCHING MEAL PLAN");
+    console.log("GETTING SAVED MEAL PLANS");
 
-    let { mealplan } = req.body;
-    delete mealplan._id;
+    const { userID } = req.params;
 
-    const updated = await WeeklyMealPlan.findByIdAndUpdate(
-      "5e922c6e8f91f14fd49d9fa1",
-      mealplan
-    );
+    const user = await User.findById(userID).populate({
+      path: "savedPlans",
+      populate: [
+        "mealplan.monday",
+        "mealplan.tuesday",
+        "mealplan.wednesday",
+        "mealplan.thursday",
+        "mealplan.friday",
+        "mealplan.saturday",
+        "mealplan.sunday",
+      ],
+    });
 
-    updated.save();
-    res.json({ status: 200, msg: "Successfully Updated Meal Plan", updated });
+    if (user) {
+      res.json({
+        status: 200,
+        msg: "Successfully Fetched Saved Plans",
+        savedPlans: user.savedPlans,
+      });
+    }
+    res.json({ status: 500, msg: "Server Error" });
   } catch (error) {
     res.json({ status: 500, msg: "SERVER ERROR", error });
+  }
+};
+
+exports.clearMealPlan = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    const user = await User.findById(userID);
+    if (user) {
+      const updatedUser = await User.findByIdAndUpdate(userID, {
+        mealPlan: {
+          monday: [],
+          tuesday: [],
+          wednesday: [],
+          thursday: [],
+          friday: [],
+          saturday: [],
+          sunday: [],
+        },
+      });
+
+      console.log("updatedUser :>> ", updatedUser);
+      res.json({ status: 200, msg: "Successfully Cleared Meal Plan." });
+    }
+    return res.json({
+      status: 500,
+      msg: "SERVER ERROR",
+    });
+  } catch (error) {
+    res.json({
+      status: 500,
+      msg: "SERVER ERROR",
+      error,
+    });
   }
 };

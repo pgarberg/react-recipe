@@ -5,6 +5,7 @@ import mealplanContext from "../Context/MealPlans/mealplanContext";
 
 import styled from "styled-components";
 import MealCard from "./MealCard";
+import { SaveMealPlanModal } from "./SaveMealPlanModal";
 
 const Calendar = styled.div`
   display: grid;
@@ -22,10 +23,18 @@ const Day = styled.div`
   grid-row-gap: 0px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const MealPlanner = () => {
   const { recipes, deleteRecipeByID } = useContext(RecipeContext);
 
-  const { mealplan, removeRecipeFromMealPlan } = useContext(mealplanContext);
+  const { mealplan, removeRecipeFromMealPlan, clearMealPlan } = useContext(
+    mealplanContext
+  );
 
   const id = "5e83cb47ff04a63980a56a31";
 
@@ -37,6 +46,21 @@ const MealPlanner = () => {
   return (
     <div className="container tas">
       <h1 className="">Weekly Meal Planner</h1>
+      <SaveMealPlanModal />
+      <hr />
+      <ButtonContainer>
+        <button
+          className="btn btn-primary"
+          type="button"
+          data-toggle="modal"
+          data-target="#SaveMealPlanModal"
+        >
+          Save Plan
+        </button>
+        <button className="btn btn-danger" onClick={() => clearMealPlan()}>
+          Clear Plan
+        </button>
+      </ButtonContainer>
       <hr />
       <Calendar>
         <Day>
