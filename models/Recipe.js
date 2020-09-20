@@ -14,6 +14,7 @@ const recipeSchema = new Schema({
   author: String,
   datePublished: String,
   image: [{ type: String }],
+  cloudImage: [{ type: String }],
   recipeYield: String,
   prepTime: String,
   cookTime: String,

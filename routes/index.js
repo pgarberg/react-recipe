@@ -7,8 +7,16 @@ const mealplanController = require("../controllers/mealplanController");
 const collectionsController = require("../controllers/collectionsController");
 const authController = require("../controllers/authController");
 const passport = require("passport");
+const cloudinary = require("cloudinary").v2;
 
 const User = require("../models/User");
+const Recipe = require("../models/Recipe");
+
+cloudinary.config({
+  cloud_name: "dosuijqan",
+  api_key: "487745778112622",
+  api_secret: "edwvBHTLEMNINJr_BJ0O_URuYtk",
+});
 
 router.get("/thepioneerwoman", async (req, res) => {
   const recipe = await thepioneerwoman(
@@ -16,6 +24,82 @@ router.get("/thepioneerwoman", async (req, res) => {
   );
 
   res.json(recipe);
+});
+
+//SEED DATA ROUTES
+
+router.get("/api/seed/cloudimages/:id", async (req, res) => {
+  try {
+    const uploadCloudImages = async () => {
+      const recipe = await Recipe.findById(req.params.id);
+
+      const cloudArray = await Promise.all(
+        recipe.image.map(async (i) => {
+          const uploadedResponse = await cloudinary.uploader.upload(
+            i,
+            {
+              upload_preset: "reactive-recipes",
+            },
+            function (error, result) {
+              console.log(result, error);
+            }
+          );
+          console.log("uploadedResponse.public_id", uploadedResponse.public_id);
+          return uploadedResponse.public_id;
+        })
+      );
+      console.log("cloudArray", cloudArray);
+      return cloudArray;
+    };
+
+    const cloudImage = await uploadCloudImages();
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
+      cloudImage,
+    });
+
+    res.json({ status: 200, msg: "Success", updatedRecipe });
+  } catch (error) {
+    res.json({ status: 500, msg: "Server Error", error });
+  }
+});
+
+router.get("/api/seed/cloudimages", async (req, res) => {
+  try {
+    const recipes = await Recipe.find();
+
+    const uploadCloudImages = async (recipe) => {
+      const cloudArray = await Promise.all(
+        recipe.image.map(async (i) => {
+          const uploadedResponse = await cloudinary.uploader.upload(
+            i,
+            {
+              upload_preset: "reactive-recipes",
+            },
+            function (error, result) {
+              console.log(result, error);
+            }
+          );
+          console.log("uploadedResponse.public_id", uploadedResponse.public_id);
+          return uploadedResponse.public_id;
+        })
+      );
+      console.log("cloudArray", cloudArray);
+      return cloudArray;
+    };
+
+    recipes.map(async (recipe) => {
+      const cloudImage = await uploadCloudImages(recipe);
+
+      const updatedRecipe = await Recipe.findByIdAndUpdate(recipe._id, {
+        cloudImage,
+      });
+    });
+
+    res.json({ status: 200, msg: "Success" });
+  } catch (error) {
+    res.json({ status: 500, msg: "Server Error", error });
+  }
 });
 
 //AUTH RELATED ROUTES

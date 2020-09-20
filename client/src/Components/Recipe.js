@@ -11,6 +11,7 @@ import Star from "../Icons/Star";
 import Plus from "../Icons/Plus";
 import Delete from "../Icons/Delete";
 import Edit from "../Icons/Edit";
+import { Image } from "cloudinary-react";
 import { AddToCollectionModal } from "./AddToCollectionModal";
 import mealplanContext from "../Context/MealPlans/mealplanContext";
 
@@ -118,10 +119,16 @@ export const Recipe = (props) => {
                 overflow: "hidden",
               }}
             >
-              <img
+              {/* <img
                 src={recipe.image[0]}
                 style={{ maxWidth: "100%", height: "auto" }}
                 alt={`Image of recipe ${recipe.name}`}
+              /> */}
+              <Image
+                className="card-img-top img-fluid"
+                cloudName="dosuijqan"
+                publicId={recipe.cloudImage[0]}
+                crop="scale"
               />
             </div>
           </div>
