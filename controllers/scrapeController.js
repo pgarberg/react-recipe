@@ -4,6 +4,7 @@ const { JSDOM } = jsdom;
 const jackofallscrapers = require("../scrapeTemplates/jackofallscrapers");
 const allrecipes = require("../scrapeTemplates/allrecipes");
 const damndelicious = require("../scrapeTemplates/damndelicious");
+const delish = require('../scrapeTemplates/delish')
 const spruceeats = require("../scrapeTemplates/spruceeats");
 const nytimes = require("../scrapeTemplates/nytimes");
 const saveur = require("../scrapeTemplates/saveur");
@@ -23,7 +24,10 @@ exports.scrape = async (req, res) => {
   if (url.includes("damndelicious")) {
     console.log("CALL DAMN DELCIOUS!");
     recipe = await damndelicious(url);
-  } else if (url.includes("allrecipes")) {
+  } else if (url.includes("delish")) {
+    console.log("CALL DELISH!");
+    recipe = await delish(url);
+  }else if (url.includes("allrecipes")) {
     console.log("CALL ALL DELCIOUS!");
     recipe = await allrecipes(url);
   } else if (url.includes("thespruceeats")) {
